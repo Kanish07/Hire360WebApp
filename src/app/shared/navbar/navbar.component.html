@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/user/home"
+      style="color: #00C293; font-weight: bold; font-size: x-large;">HIRE360</a>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    <button class="navbar-toggler" type="button" icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span>
+        <fa-icon [icon]="menuss"></fa-icon>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarSupportedContent">
+      <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+      <ul class="nav navbar-nav justify-content-end" *ngFor="let item of items">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="item.routerLink"><i [class]="item.icon"></i>
+            {{item.label}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

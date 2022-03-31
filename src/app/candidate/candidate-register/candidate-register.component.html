@@ -1,0 +1,88 @@
+<app-navbar [items]="items"></app-navbar>
+<div>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center align-self-center top width">
+        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+            <div class="text-center mb-5">
+                <div class="text-900 text-3xl font-medium mb-3 text-color">Welcome To HIRE360</div>
+                <span class="text-600">New Candidate Registration</span>
+            </div>
+            <div>
+                <form [formGroup]="registerForm">
+                    <div class="row mb-4">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="email" class="block text-900 font-medium mb-2">Email</label>
+                            <input formControlName="candidateEmail" type="email" pInputText placeholder="Enter Your Email"
+                                [ngClass]="{ 'is-invalid': submitted && h['candidateEmail'].errors}"
+                                class="form-control w-full mb-3 input">
+                            <div *ngIf="h['candidateEmail'].touched && h['candidateEmail'].errors" class="text-danger">
+                                <div *ngIf="h['candidateEmail'].errors['required']">Email is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="phone" class="block text-900 font-medium mb-2">Phone Number</label>
+                            <input type="text" formControlName="candidatePhoneNumber"
+                                [ngClass]="{ 'is-invalid': submitted && h['candidatePhoneNumber'].errors }"
+                                placeholder="Enter Your Number" pInputText class="w-full mb-3 input form-control" pattern="^[0-9]{10}$">
+                            <div *ngIf="h['candidatePhoneNumber'].touched && h['candidatePhoneNumber'].errors" class="text-danger">
+                                <div *ngIf="h['candidatePhoneNumber'].errors['required']">Number is required</div>
+                                <div *ngIf="h['candidatePhoneNumber'].errors['pattern']">
+                                    Number must be 10 characters
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="name" class="block text-900 font-medium mb-2">Name</label>
+                            <input formControlName="candidateName" type="text" pInputText placeholder="Enter Your Name"
+                                [ngClass]="{ 'is-invalid': submitted && h['candidateName'].errors}"
+                                class="form-control w-full mb-3 input">
+                            <div *ngIf="h['candidateName'].touched && h['candidateName'].errors" class="text-danger">
+                                <div *ngIf="h['candidateName'].errors['required']">Name is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="password" class="block text-900 font-medium mb-2">Password</label>
+                            <input type="password" formControlName="candidatePassword"
+                                [ngClass]="{ 'is-invalid': submitted && h['candidatePassword'].errors }"
+                                placeholder="Enter Your Password" pInputText class="w-full mb-3 input form-control">
+                            <div *ngIf="h['candidatePassword'].touched && h['candidatePassword'].errors" class="text-danger">
+                                <div *ngIf="h['candidatePassword'].errors['required']">Password is required</div>
+                                <div *ngIf="h['candidatePassword'].errors['minlength']">
+                                    Password must be at least 6 characters
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="city" class="block text-900 font-medium mb-2">City</label>
+                            <p-dropdown formControlName="candidateCity" [ngClass]="{ 'is-invalid': submitted && h['candidateCity'].errors }"
+                            placeholder="Select your city from the list" [showClear]="true" [options]="cities" [(ngModel)]="selectedCity" class="w-full mb-3"></p-dropdown>
+                            <div *ngIf="h['candidateCity'].touched && h['candidateCity'].errors" class="text-danger">
+                                <div *ngIf="h['candidateCity'].errors['required']">City is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="candidateTotalExp" class="block text-900 font-medium mb-2">Total Experience</label>
+                            <p-dropdown formControlName="candidateTotalExp" [ngClass]="{ 'is-invalid': submitted && h['candidateTotalExp'].errors }"
+                            placeholder="Select your experience from the list" [showClear]="true" [options]="experience" [(ngModel)]="selectedExperience" class="w-full mb-3"></p-dropdown>
+                            <div *ngIf="h['candidateTotalExp'].touched && h['candidateTotalExp'].errors" class="text-danger">
+                                <div *ngIf="h['candidateTotalExp'].errors['required']">Experience is required</div>
+                            </div>
+                        </div>
+                        </div>
+                    <button pButton pRipple label="Signup" [disabled]="!registerForm.valid"
+                        (click)="onSubmit(registerForm.value)"
+                        class="p-button-raised p-button-text w-full color p-button-plain">
+                        <div *ngIf="!isLoading;else loader">
+                        </div>
+                        <ng-template #loader>
+                            <div class="spinner-border text-light" role="status">
+                            </div>
+                        </ng-template>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
