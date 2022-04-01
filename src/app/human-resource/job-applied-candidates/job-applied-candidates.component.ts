@@ -6,7 +6,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-applied-candidates.component.css']
 })
 export class JobAppliedCandidatesComponent implements OnInit {
+  public data: any[] = [
+    {
+      kind: "Sales",
+      share: 0.175,
+    },
+    {
+      kind: "Developer",
+      share: 0.238,
+    },
+    {
+      kind: "Support",
+      share: 0.118,
+    },
+    {
+      kind: "QA",
+      share: 0.052,
+    },
+    {
+      kind: "SEO",
+      share: 0.025,
+    },
+    {
+      kind: "Other",
+      share: 0.192,
+    },
+  ];
 
+  public labelContent(e: any): string {
+    return e.category;
+  }
   constructor() { }
 
   ngOnInit(): void {
