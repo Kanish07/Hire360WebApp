@@ -3,9 +3,14 @@
 @import "../node_modules/primeng/resources/primeng.min.css";
 @import "../node_modules/primeflex/primeflex.min.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Magra&family=Varela+Round&display=swap');
 
 p-dropdown, .p-dropdown{
     width: 100% !important;
     border-color: #00C293 !important;
     box-shadow: 0 0 0 0.02rem #00C293 !important;
+ }
+
+ body{
+    font-family: 'Varela Round', sans-serif;
  }
