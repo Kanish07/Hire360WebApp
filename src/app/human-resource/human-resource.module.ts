@@ -10,6 +10,9 @@ import { PrimeModule } from '../shared/prime.module';
 import { HumanResourceLoginComponent } from './human-resource-login/human-resource-login.component';
 import { HumanResourceRegisterComponent } from './human-resource-register/human-resource-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GridDataResult } from "@progress/kendo-angular-grid";
+import { GridModule } from "@progress/kendo-angular-grid";
+
 
 let humanResourceRoute: Routes = [
   { path: "dashboard", component: HumanResourceDashboardComponent },
@@ -34,7 +37,8 @@ let humanResourceRoute: Routes = [
     SharedModule,
     PrimeModule,
     FormsModule, 
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    GridModule
   ]
 })
 export class HumanResourceModule { }

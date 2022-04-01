@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HumanResource } from '../model/humanresource';
+import { JobPosted } from '../model/jobposted';
 import { Token } from '../model/token';
 
 @Injectable({
@@ -23,4 +24,8 @@ export class HumanResourceService {
     return this.httpClient.post<HumanResource>(hrRegisterUrl, humanresource);
   }
 
+  getJobAddedByHrId(hrid: string): Observable<JobPosted> {
+    let jobAddedByHrIdUrl= this.baseUrl+'GetJobAddedByHrId'+`${hrid}`;
+    return this.httpClient.get<JobPosted>(jobAddedByHrIdUrl);
+  }
 }
