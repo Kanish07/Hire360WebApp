@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-job-applied-candidates',
@@ -32,13 +33,16 @@ export class JobAppliedCandidatesComponent implements OnInit {
       share: 0.192,
     },
   ];
-
+  items: MenuItem[] = [];
   public labelContent(e: any): string {
     return e.category;
   }
   constructor() { }
 
   ngOnInit(): void {
+    this.items = [
+      { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: "/humanresource/humanresourcedashoard" }
+    ];
   }
 
 }
