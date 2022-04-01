@@ -1,15 +1,14 @@
 export class HumanResource {
 
-    public hrId!: string;
-    public hrName!: string;
-    public hrEmail!: string;
-    public hrPassword!: string;
-    public hrPhoneNumber!: string;
+    public hrid!: string;
+    public hrname!: string;
+    public hremail!: string;
+    public hrphoneNumber!: string;
     public companyName!: string;
     public city!: string;
-    public hrDescription!: string;
+    public hrdescription!: string;
     public userRole!: string;
-    public createdAt!: string;
+
     constructor() {
     }
 }
