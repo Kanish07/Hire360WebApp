@@ -1,1 +1,154 @@
 <app-navbar [items]="items"></app-navbar>
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container">
+
+            <div id="left" class="col-xl-6 col-md-12">
+                <div class="">
+                    <div class="card shadow user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-4 bg-c-lite-green user-profile">
+                                <div class="card-block text-center text-white">
+                                    <div class="m-b-25"> <img [src]="photoLink" class="img-radius" width="100px"
+                                            alt="User-Profile-Image"> </div>
+                                    <h6 class="f-w-600">{{ candidateDetails?.candidateName }}</h6>
+                                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">My Profile</h6>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p class="m-b-10 f-w-600">Email</p>
+                                            <h6 class="text-green m-b-20 f-w-400">{{ candidateDetails?.candidateEmail }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="m-b-10 f-w-600">Phone</p>
+                                            <h6 class="text-green m-b-20 f-w-400">{{
+                                                candidateDetails?.candidatePhoneNumber }}</h6>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="m-b-10 f-w-600">Total Years of Experience</p>
+                                            <h6 class="text-green m-b-20 f-w-400">{{ candidateDetails?.candidateTotalExp
+                                                }}</h6>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="m-b-10 f-w-600">City</p>
+                                            <h6 class="text-green m-b-20 f-w-400">{{ candidateDetails?.candidateCity }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p class="m-b-10 f-w-600">Description</p>
+                                            <h6 class="text-green f-w-400" style="text-align: justify;">{{
+                                                candidateDetails?.candidateDescription }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="right" class="col-xl-6 col-md-12 col-sm-12">
+                <div class="">
+                    <div class="card shadow user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-12">
+                                <div class="card-block">
+                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">My Qualification</h6>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div>
+                                                <p class="m-b-10 f-w-600">Degree</p>
+                                                <h6 class="text-green f-w-400">{{ candidateQualification[0]?.degreeName }}</h6>
+                                            </div>
+                                            <div style="margin-top: 20px;">
+                                                <p class="m-b-10 f-w-600">Year Of Graduation</p>
+                                                <h6 class="text-green f-w-400">{{ candidateQualification[0]?.yearOfGraduation }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p class="m-b-10 f-w-600">Percentage</p>
+                                            <p-knob [(ngModel)]="percentage" [readonly]="true"></p-knob>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="">
+                    <div class="card shadow user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-12">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <h6 class="col f-w-600">My Skills</h6>
+                                        <div class="col">
+                                            <button pButton style="float: right;" (click)="showResponsiveDialog()"
+                                                icon="pi pi-plus" label="Skill"></button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <button *ngFor="let item of candidateSkills" pButton type="button"
+                                        label="{{item.skillSet.skillSetName}}"
+                                        class="p-button-outlined p-button-rounded p-button-danger mr-2"
+                                        icon="pi pi-trash" iconPos="right"
+                                        (click)="onSkillDelete(item.skillId)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>
+<p-dialog header="Add New Skill" [modal]="true" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}"
+    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+    <form [formGroup]="addSkillForm">
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="skill" class="block text-900 font-medium mb-2">Skill</label>
+                <p-dropdown formControlName="skillSetId" [ngClass]="{ 'is-invalid': submitted && h['skillSetId'].errors }"
+                    placeholder="Select Skill" [showClear]="true" [options]="skillSets" optionLabel="skillSetName"
+                    class="w-full mb-3"></p-dropdown>
+                <div *ngIf="h['skillSetId'].touched && h['skillSetId'].errors" class="text-danger">
+                    <div *ngIf="h['skillSetId'].errors['required']">Skill is required</div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <label for="skillLevel" class="block text-900 font-medium mb-2">Skill Level</label>
+                <p-dropdown formControlName="skillLevel" [ngClass]="{ 'is-invalid': submitted && h['skillLevel'].errors }"
+                    placeholder="Select Skill Level" [showClear]="true" [options]="level"
+                    [(ngModel)]="selectedLevel" class="w-full mb-3"></p-dropdown>
+                <div *ngIf="h['skillLevel'].touched && h['skillLevel'].errors" class="text-danger">
+                    <div *ngIf="h['skillLevel'].errors['required']">Skill Level is required</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        
+        <button pButton pRipple label="Add" [disabled]="!addSkillForm.valid" (click)="onAdd(addSkillForm.value)"
+            class="p-button-raised p-button-text w-full color p-button-plain">
+            <div *ngIf="!isLoading;else loader">
+            </div>
+            <ng-template #loader>
+                <div class="spinner-border text-light" role="status">
+                </div>
+            </ng-template>
+        </button>
+        <br>
+    </form>
+</p-dialog>
