@@ -7,12 +7,13 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 import { SharedModule } from './shared/shared.module';
-
-
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 let appRoutes:Routes = [
-  {path: "humanresource", loadChildren: () => import("./human-resource/human-resource.module").then((h) => h.HumanResourceModule)}
+  {path: "humanresource", loadChildren: () => import("./human-resource/human-resource.module").then((h) => h.HumanResourceModule)},
+  {path: "candidate", loadChildren: () => import("./candidate/candidate.module").then((c) => c.CandidateModule)}
 ]
 
 @NgModule({
@@ -22,9 +23,12 @@ let appRoutes:Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
+    HttpClientModule,
     ChartsModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

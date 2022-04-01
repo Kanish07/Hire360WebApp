@@ -1,0 +1,26 @@
+.navbar{
+    background-color: #FAFAFA;
+    box-shadow: 1px 1px 4px #DBDBDB;
+}
+
+.nav a{
+    color: #03203C;
+}
+
+.nav a:hover{
+    color: #00C293;
+}
+
+.navbar-toggler{
+    color: #00C293;
+}
+
+.nav a{
+    font-weight: 500;
+    font-size: large;
+}
+
+.nav a.active{
+    color: #00C293;
+    border-radius: 5px;
+}
