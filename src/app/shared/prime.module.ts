@@ -6,6 +6,10 @@ import { ButtonModule } from "primeng/button"
 import { ToastModule } from "primeng/toast"
 import { DropdownModule } from "primeng/dropdown"
 import { ConfirmationService, MessageService } from "primeng/api"
+import { ChipModule } from 'primeng/chip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { KnobModule } from 'primeng/knob';
 
 @NgModule({
   declarations: [],
@@ -15,7 +19,11 @@ import { ConfirmationService, MessageService } from "primeng/api"
     MenuModule,
     ButtonModule,
     ToastModule,
-    DropdownModule
+    DropdownModule,
+    ChipModule,
+    ConfirmDialogModule,
+    DialogModule,
+    KnobModule
   ],
   providers: [ ConfirmationService, MessageService]
 })
