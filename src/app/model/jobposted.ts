@@ -1,6 +1,7 @@
 export class JobPosted {
 
     public jobId!: string;
+    public hrid!: string;
     public jobTitle!: string;
     public jobDescription!: string;
     public jobCity!: string;

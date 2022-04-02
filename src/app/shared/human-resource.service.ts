@@ -24,8 +24,13 @@ export class HumanResourceService {
     return this.httpClient.post<HumanResource>(hrRegisterUrl, humanresource);
   }
 
-  getJobAddedByHrId(hrid: string): Observable<JobPosted> {
-    let jobAddedByHrIdUrl= this.baseUrl+'GetJobAddedByHrId'+`${hrid}`;
-    return this.httpClient.get<JobPosted>(jobAddedByHrIdUrl);
+  // getJobAddedByHrId(hrid: string): Observable<JobPosted> {
+  //   let jobAddedByHrIdUrl = this.baseUrl + 'GetJobAddedByHrId' + `${hrid}`;
+  //   return this.httpClient.get<JobPosted>(jobAddedByHrIdUrl);
+  // }
+
+  postAddnewjob(jobposted: JobPosted): Observable<JobPosted> {
+    let jobPostedByHrUrl = this.baseUrl + 'AddNewJob';
+    return this.httpClient.post<JobPosted>(jobPostedByHrUrl, jobposted);
   }
 }
