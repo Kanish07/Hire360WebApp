@@ -7,12 +7,15 @@ import { CandidateLoginComponent } from './candidate-login/candidate-login.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CandidateRegisterComponent } from './candidate-register/candidate-register.component';
 import { CandidateJobViewComponent } from './candidate-job-view/candidate-job-view.component';
+import { NgxGaugeModule } from 'ngx-gauge';
+import { JobDetilsComponent } from './job-detils/job-detils.component';
 
 let candidateRoute: Routes = [
   {path: "login", component: CandidateLoginComponent},
   {path: "register", component: CandidateRegisterComponent},
   {path: "profile", component: CandidateDashboardComponent},
-  {path: "job-search", component: CandidateJobViewComponent}
+  {path: "job-search", component: CandidateJobViewComponent},
+  {path: "job-detail/:id", component: JobDetilsComponent}
 ]
 
 @NgModule({
@@ -20,13 +23,15 @@ let candidateRoute: Routes = [
     CandidateDashboardComponent,
     CandidateLoginComponent,
     CandidateRegisterComponent,
-    CandidateJobViewComponent
+    CandidateJobViewComponent,
+    JobDetilsComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild(candidateRoute),
-    FormsModule, 
+    FormsModule,
+    NgxGaugeModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ]
 })

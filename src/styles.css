@@ -13,4 +13,13 @@ p-dropdown, .p-dropdown{
 
  body{
     font-family: 'Varela Round', sans-serif;
+    background-color: #F1F4F5;
  }
+
+ p-progressbar .p-progressbar .p-progressbar-indeterminate-container .p-progressbar-value:before {
+   background-color: #00C293;
+}
+
+p-progressbar .p-progressbar .p-progressbar-indeterminate-container .p-progressbar-value:after {
+   background-color: #00C293;
+}

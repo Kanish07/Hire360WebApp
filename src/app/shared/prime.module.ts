@@ -10,6 +10,13 @@ import { ChipModule } from 'primeng/chip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { KnobModule } from 'primeng/knob';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FileUploadModule } from 'primeng/fileupload';
+import { AccordionModule } from 'primeng/accordion';
+import { DataViewModule } from 'primeng/dataview';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [],
@@ -23,7 +30,14 @@ import { KnobModule } from 'primeng/knob';
     ChipModule,
     ConfirmDialogModule,
     DialogModule,
-    KnobModule
+    KnobModule,
+    InputNumberModule,
+    TooltipModule,
+    FileUploadModule,
+    AccordionModule,
+    DataViewModule,
+    SkeletonModule,
+    ProgressBarModule
   ],
   providers: [ ConfirmationService, MessageService]
 })

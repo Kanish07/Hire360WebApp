@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { Candidate } from '../model/candidate';
 import { Token } from '../model/token';
 import { HttpClient } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Qualification } from '../model/qualification';
 import { Skill } from '../model/skill';
 import { SkillSet } from '../model/skillset';
+import { Job } from '../model/job';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class CandidateService {
 
   getQualificationByCandidateId(candidateId: string): Observable<Qualification>{
     let qualificationByCandidateId = this.baseUrl + 'GetQualificationByCandidateId/' + `${candidateId}`;
-    return this.httpClient.get<Qualification>(qualificationByCandidateId);
+    return this.httpClient.get<Qualification>(qualificationByCandidateId).pipe(delay(1000));;
   }
 
   getSkillsByCandidateId(candidateId: string): Observable<Skill>{
@@ -49,11 +50,31 @@ export class CandidateService {
 
   getAllSkillSets(): Observable<SkillSet>{
     let getAllSkillSets = this.baseUrl + 'GetAllSkillSets';
-    return this.httpClient.get<SkillSet>(getAllSkillSets);
+    return this.httpClient.get<SkillSet>(getAllSkillSets).pipe(delay(1000));;
   }
 
   AddNewSkill(skill: Skill): Observable<Skill>{
     let addNewSkill = this.baseUrl + 'AddNewSkill';
     return this.httpClient.post<Skill>(addNewSkill, skill);
+  }
+
+  AddNewQualification(qualification: Qualification): Observable<Qualification>{
+    let addNewQualification = this.baseUrl + 'AddNewQualification';
+    return this.httpClient.post<Qualification>(addNewQualification, qualification);
+  }
+
+  uploadFile(formData: FormData, candidateId: string){
+    let uploadFile = this.baseUrl + 'uploadresume/' + `${candidateId}`;
+    return this.httpClient.post(uploadFile ,formData);
+  }
+
+  getAllJob(): Observable<Job>{
+    let getAllJob = this.baseUrl + 'GetAllJobs';
+    return this.httpClient.get<Job>(getAllJob).pipe(delay(1000));
+  }
+
+  getJobDetailByJobId(jobId: string): Observable<Job>{
+    let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
+    return this.httpClient.get<Job>(getSpecificJob)
   }
 }

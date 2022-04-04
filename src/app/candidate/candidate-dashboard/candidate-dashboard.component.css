@@ -27,11 +27,10 @@
 }
 
 .bg-c-lite-green {
-    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
-    background: linear-gradient(to right, #00C293, #007bc2)
+    background: #00C293
 }
 
-.text-green{
+.text-green {
     color: #00C293;
 }
 
@@ -137,25 +136,41 @@ h6 {
     transition: all 0.3s ease-in-out
 }
 
-.width{
+.width {
     margin-left: 12vw;
     margin-right: 12vw;
 }
 
 .color {
-    background-color:  #00C293 !important;
+    background-color: #00C293 !important;
     color: white !important;
 }
 
-.input{
+.input {
     border-color: #00C293 !important;
     box-shadow: 0 0 0 0.02rem #00C293 !important;
 }
 
-.text-color{
+.text-color {
     color: #00C293 !important;
 }
 
-.p-progressBar-bar {
-    background-color: var(--blue-900);
+/* .parent {
+    position: relative;
+    top: 0;
+    left: 0;
 }
+
+.image1 {
+    position: relative;
+    top: 30px;
+    right: 5px;
+}
+
+.image2 {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+<div class="parent"><img class="image1"[src]="photoLink"width="100px"height="125px"/><img class="image2"[src]="photoLink"width="100px"height="125px"/></div> */

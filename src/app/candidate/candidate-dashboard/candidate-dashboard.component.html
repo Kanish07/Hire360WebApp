@@ -1,5 +1,5 @@
 <app-navbar [items]="items"></app-navbar>
-<div>
+<div *ngIf="(!isLoadingProfile && !isLoadingQualfication && !isLoadingSkills) ;else componentloader">
     <br>
     <br>
     <div class="container">
@@ -10,10 +10,25 @@
                         <div class="row m-l-0 m-r-0">
                             <div class="col-sm-4 bg-c-lite-green user-profile">
                                 <div class="card-block text-center text-white">
-                                    <div class="m-b-25"> <img [src]="photoLink" class="img-radius" width="100px"
-                                            alt="User-Profile-Image"> </div>
-                                    <h6 class="f-w-600">{{ candidateDetails?.candidateName }}</h6>
-                                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                    <div>
+                                        <div class="">
+                                            <img [src]="photoLink" class="img-radius profile-image" width="100px" height="125px">
+                                        </div>
+                                        <button *ngIf="candidatePhoto == null" style="margin-top: 5px;" pButton pRipple
+                                            type="button" icon="pi pi-plus" pTooltip="Add Profile Picture"
+                                            class="p-button-rounded p-button-danger">
+                                        </button>
+                                    </div>
+
+                                    <h6 class="f-w-600" style="margin-top: 10px;">{{ candidateDetails?.candidateName }}
+                                    </h6>
+                                    <div style="margin-top: 20vh">
+                                        <ngx-gauge type="full" [value]="incompleteProfilePercentage" [thick]="10"
+                                            append="%" backgroundColor="white" foregroundColor="#EDC126" [size]="100">
+                                        </ngx-gauge>
+                                        <p class="m-b-10 f-w-600" pTooltip="Recruiters notice you from 80%">Profile
+                                            Completed</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -56,26 +71,68 @@
 
 
             <div id="right" class="col-xl-6 col-md-12 col-sm-12">
+
                 <div class="">
                     <div class="card shadow-lg user-card-full">
                         <div class="row m-l-0 m-r-0">
                             <div class="col-sm-12">
                                 <div class="card-block">
-                                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">My Qualification</h6>
+                                    <div class="row">
+                                        <h6 class="col f-w-600">My Resume</h6>
+                                        <div class="col" *ngIf="candidateResume == null">
+                                            <input type="file" #file placeholder="Choose file"
+                                                (change)="uploadFile(file.files)" style="display:none;" accept="application/pdf,application/msword,
+                                            application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                            <button pButton type="button" class="" (click)="file.click()"
+                                                icon="pi pi-upload" label="Upload Resume" iconPos="left"
+                                                style="float: right;"></button>
+                                        </div>
+                                        <div class="col" *ngIf="candidateResume">
+                                            <button pButton type="button" label="Download Resume" class="mr-2"
+                                                icon="pi pi-download" style="float: right;" iconPos="right" (click)="downloadMyFile()">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="candidateResume == null">
+                                        Please upload your resume
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="card shadow-lg user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                            <div class="col-sm-12">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <h6 class="m-b-20 f-w-600 col">My Qualification</h6>
+                                        <div class="col" *ngIf="candidateQualification.length == 0">
+                                            <button pButton style="float: right;"
+                                                (click)="showResponsiveDialogQualification()" icon="pi pi-plus"
+                                                label="Degree"></button>
+                                        </div>
+                                        <hr>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div>
                                                 <p class="m-b-10 f-w-600">Degree</p>
-                                                <h6 class="text-green f-w-400">{{ candidateQualification[0]?.degreeName }}</h6>
+                                                <h6 class="text-green f-w-400">{{ candidateQualification[0]?.degreeName
+                                                    }}</h6>
                                             </div>
                                             <div style="margin-top: 20px;">
                                                 <p class="m-b-10 f-w-600">Year Of Graduation</p>
-                                                <h6 class="text-green f-w-400">{{ candidateQualification[0]?.yearOfGraduation }}</h6>
+                                                <h6 class="text-green f-w-400">{{
+                                                    candidateQualification[0]?.yearOfGraduation }}</h6>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="m-b-10 f-w-600">Percentage</p>
-                                            <p-knob [(ngModel)]="percentage" valueTemplate="{value}%" valueColor="#00C293" [readonly]="true"></p-knob>
+                                            <p-knob [(ngModel)]="percentage" valueTemplate="{value}%"
+                                                valueColor="#00C293" [readonly]="true"></p-knob>
                                         </div>
                                     </div>
                                 </div>
@@ -103,11 +160,15 @@
                                         class="p-button-outlined p-button-rounded p-button-danger mr-2"
                                         icon="pi pi-trash" iconPos="right"
                                         (click)="onSkillDelete(item.skillId)"></button>
+                                    <div *ngIf="candidateSkills.length == 0">
+                                        Please Add Your Skills
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -121,18 +182,19 @@
         <div class="row mb-4">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <label for="skill" class="block text-900 font-medium mb-2">Skill</label>
-                <p-dropdown formControlName="skillSetId" [ngClass]="{ 'is-invalid': submitted && h['skillSetId'].errors }"
-                    placeholder="Select Skill" [showClear]="true" [options]="skillSets" optionLabel="skillSetName"
-                    class="w-full mb-3"></p-dropdown>
+                <p-dropdown formControlName="skillSetId"
+                    [ngClass]="{ 'is-invalid': submitted && h['skillSetId'].errors }" placeholder="Select Skill"
+                    [showClear]="true" [options]="skillSets" optionLabel="skillSetName" class="w-full mb-3">
+                </p-dropdown>
                 <div *ngIf="h['skillSetId'].touched && h['skillSetId'].errors" class="text-danger">
                     <div *ngIf="h['skillSetId'].errors['required']">Skill is required</div>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
                 <label for="skillLevel" class="block text-900 font-medium mb-2">Skill Level</label>
-                <p-dropdown formControlName="skillLevel" [ngClass]="{ 'is-invalid': submitted && h['skillLevel'].errors }"
-                    placeholder="Select Skill Level" [showClear]="true" [options]="level"
-                    [(ngModel)]="selectedLevel" class="w-full mb-3"></p-dropdown>
+                <p-dropdown formControlName="skillLevel"
+                    [ngClass]="{ 'is-invalid': submitted && h['skillLevel'].errors }" placeholder="Select Skill Level"
+                    [showClear]="true" [options]="level" [(ngModel)]="selectedLevel" class="w-full mb-3"></p-dropdown>
                 <div *ngIf="h['skillLevel'].touched && h['skillLevel'].errors" class="text-danger">
                     <div *ngIf="h['skillLevel'].errors['required']">Skill Level is required</div>
                 </div>
@@ -140,7 +202,7 @@
         </div>
         <br>
         <br>
-        
+
         <button pButton pRipple label="Add" [disabled]="!addSkillForm.valid" (click)="onAdd(addSkillForm.value)"
             class="p-button-raised p-button-text w-full color p-button-plain">
             <div *ngIf="!isLoading;else loader">
@@ -153,3 +215,71 @@
         <br>
     </form>
 </p-dialog>
+
+<!-- ADD NEW Qualification -->
+<p-dialog header="Add New Qualification" [modal]="true" [(visible)]="displayResponsiveQualification"
+    [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+    <form [formGroup]="addQualificationForm">
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="skill" class="block text-900 font-medium mb-2">Degree</label>
+                <p-dropdown formControlName="degreeName"
+                    [ngClass]="{ 'is-invalid': submitted && h['degreeName'].errors }" placeholder="Select Degree"
+                    [showClear]="true" [options]="degree" class="w-full mb-3"></p-dropdown>
+                <div *ngIf="q['degreeName'].touched && q['degreeName'].errors" class="text-danger">
+                    <div *ngIf="q['degreeName'].errors['required']">Degree is required</div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <label for="yearOfGraduation" class="block text-900 font-medium mb-2">Graduation Year</label>
+                <p-dropdown formControlName="yearOfGraduation"
+                    [ngClass]="{ 'is-invalid': submitted && h['yearOfGraduation'].errors }"
+                    placeholder="Select Graduation Year" [showClear]="true" [options]="graduationYear"
+                    class="w-full mb-3"></p-dropdown>
+                <div *ngIf="q['yearOfGraduation'].touched && q['yearOfGraduation'].errors" class="text-danger">
+                    <div *ngIf="q['yearOfGraduation'].errors['required']">Graduation Year is required</div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <label for="qualificationPercentage" class="block text-900 font-medium mb-2">Percentage Scored</label>
+                <input type="number" formControlName="qualificationPercentage"
+                    [ngClass]="{ 'is-invalid': submitted && h['qualificationPercentage'].errors }"
+                    placeholder="Enter Percentage" pInputText class="w-full mb-3 input form-control">
+                <div *ngIf="q['qualificationPercentage'].touched && q['qualificationPercentage'].errors"
+                    class="text-danger">
+                    <div *ngIf="q['qualificationPercentage'].errors['required']">Percentage is required</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <button pButton pRipple label="Add" [disabled]="!addQualificationForm.valid"
+            (click)="onAddQualification(addQualificationForm.value)"
+            class="p-button-raised p-button-text w-full color p-button-plain">
+            <div *ngIf="!isLoading;else loader">
+            </div>
+            <ng-template #loader>
+                <div class="spinner-border text-light" role="status">
+                </div>
+            </ng-template>
+        </button>
+        <br>
+    </form>
+</p-dialog>
+
+
+<ng-template #componentloader>
+    <div class="container" style="margin-top: 30vh;">
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <h2 style="text-align: center; color: #00c293;">HIRE360</h2>
+                <p-progressBar mode="indeterminate" [style]="{'height': '16px'}"></p-progressBar>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+    </div>
+</ng-template>

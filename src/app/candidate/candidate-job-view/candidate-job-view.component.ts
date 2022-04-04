@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Job } from 'src/app/model/job';
+import { CandidateService } from 'src/app/shared/candidate.service';
 
 @Component({
   selector: 'app-candidate-job-view',
@@ -7,9 +11,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CandidateJobViewComponent implements OnInit {
 
-  constructor() { }
+  isLoading!: boolean;
+  items: MenuItem[] = [];
+  job: Job [] = [];
+
+  constructor(private candidateService: CandidateService, private router: Router) { }
 
   ngOnInit(): void {
+    this.items = [
+      { label: 'Search Job', icon: 'pi pi-search', routerLink: "/candidate/job-search" },
+      { label: 'Profile', icon: 'pi pi-user', routerLink: "/candidate/profile" },
+      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/candidate/login" }
+    ];
+
+    this.getAllJob();
+  }
+
+  //TODO: Handle Err
+  getAllJob(){
+    this.isLoading = true;
+    this.candidateService.getAllJob().subscribe({
+      next: (jobs) => {
+        this.isLoading = false;
+        this.job = jobs['data' as keyof Object] as unknown as Job[];
+        console.log(this.job[0].hr.companyName);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error(err);
+      }
+    });
+  }
+
+  openJobPage(jobId: string){
+    this.router.navigate([`candidate/job-detail/${jobId}`]);
   }
 
 }
