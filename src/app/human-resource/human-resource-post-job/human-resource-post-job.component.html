@@ -1,0 +1,82 @@
+<app-navbar [items]="items"></app-navbar>
+<div>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center align-self-center top width">
+        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-10">
+            <div class="text-center mb-5">
+                <div class="text-900 text-3xl font-medium mb-3 text-color">Welcome To HIRE360</div>
+                <span class="text-600">New Job Post Registration</span>
+            </div>
+            <div>
+                <form [formGroup]="registerForm">
+                    <div class="row mb-4">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="jobTitle" class="block text-900 font-medium mb-2">Job Title</label>
+                            <input formControlName="jobTitle" type="jobTitle" pInputText
+                                placeholder="Enter Your Job Title"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobTitle'].errors}"
+                                class="form-control w-full mb-3 input">
+                            <div *ngIf="h['jobTitle'].touched && h['jobTitle'].errors" class="text-danger">
+                                <div *ngIf="h['jobTitle'].errors['required']">Job Title is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="package" class="block text-900 font-medium mb-2">Package </label>
+                            <input type="text" formControlName="package"
+                                [ngClass]="{ 'is-invalid': submitted && h['package'].errors }"
+                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control"
+                                pattern="^[0-9]{1,6}$">
+                            <div *ngIf="h['package'].touched && h['package'].errors" class="text-danger">
+                                <div *ngIf="h['package'].errors['required']">Package is required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="noOfVacancy" class="block text-900 font-medium mb-2">Number Of Vacancy </label>
+                            <input type="text" formControlName="noOfVacancy"
+                                [ngClass]="{ 'is-invalid': submitted && h['noOfVacancy'].errors }"
+                                placeholder="Enter Your Number Of Vacancy" pInputText
+                                class="w-full mb-3 input form-control" pattern="^[0-9]{1,2}$">
+                            <div *ngIf="h['noOfVacancy'].touched && h['noOfVacancy'].errors" class="text-danger">
+                                <div *ngIf="h['noOfVacancy'].errors['required']">Vacancy is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="jobCity" class="block text-900 font-medium mb-2">Job City</label>
+                            <p-dropdown formControlName="jobCity"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobCity'].errors }"
+                                placeholder="Select your city from the list" [showClear]="true" [options]="cities"
+                                [(ngModel)]="selectedCity" class="w-full mb-3"></p-dropdown>
+                            <div *ngIf="h['jobCity'].touched && h['jobCity'].errors" class="text-danger">
+                                <div *ngIf="h['jobCity'].errors['required']">City is required</div>
+                            </div>
+                        </div>
+                        <div class="col col-md-12 col-sm-12">
+                            <label for="jobDescription" class="block text-900 font-medium mb-2">Job Description</label>
+                            <input formControlName="jobDescription" type="text" pInputText
+                                placeholder="Enter Your Job Description"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                class="form-control w-full mb-3 input">
+                            <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
+                                <div *ngIf="h['jobDescription'].errors['required']">Job Description is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button pButton pRipple label="Post" [disabled]="!registerForm.valid"
+                        (click)="onSubmit(registerForm.value)"
+                        class="p-button-raised p-button-text w-full color p-button-plain">
+                        <div *ngIf="!isLoading;else loader">
+                        </div>
+                        <ng-template #loader>
+                            <div class="spinner-border text-light" role="status">
+                            </div>
+                        </ng-template>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>

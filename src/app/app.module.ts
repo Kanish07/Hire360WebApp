@@ -10,6 +10,11 @@ import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { ExcelModule, GridModule, PDFModule } from '@progress/kendo-angular-grid';
+
+
+
+
 
 let appRoutes:Routes = [
   {path: "humanresource", loadChildren: () => import("./human-resource/human-resource.module").then((h) => h.HumanResourceModule)},
@@ -28,7 +33,10 @@ let appRoutes:Routes = [
     BrowserAnimationsModule,
     SharedModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    GridModule,
+    ExcelModule,
+    PDFModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,83 +1,57 @@
+<app-navbar [items]="items"></app-navbar>
+<!--  -->
 <div class="container-xl">
-    <div class="row mt-5">
+    <div class="row mt-3">
         <!-- <div class="row d-flex justify-content-between align-items-center "> -->
         <div class="col-lg-4">
-            <div class="card " style="width: 25vw;height: 20vh;">
+            <div class="card " style="width: 25vw;height: 20vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body">
                     <p class="card-text" style="font-weight: bolder;text-align: center;">No of Job Posted</p>
-                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">8</h1>
+                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">
+                        {{jobAddByHr?.length}}</h1>
                 </div>
             </div>
-            <div class="card mt-3" style="width: 25vw;height: auto">
+            <div class="card mt-3" style="width: 25vw;height: 65vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body">
-                    <h1 class="card-text" style="font-weight: bolder;text-align: center;">No of vacancies in Job Posted
-                    </h1>
+                    <p class="card-text" style="font-weight: bolder;text-align: center;">No of vacancies in Job Posted
+                    </p>
                     <div class="card-text">
+                        <!--  -->
                         <kendo-chart>
+                            <kendo-chart-tooltip>
+                                <ng-template kendoChartSeriesTooltipTemplate let-value="value">
+                                    {{ value }}
+                                </ng-template>
+                            </kendo-chart-tooltip>
                             <kendo-chart-series>
-                                <kendo-chart-series-item type="donut" [data]="data" categoryField="kind" field="share">
-                                    <kendo-chart-series-item-labels [content]="labelContent" color="#fff"
-                                        background="none">
+                                <kendo-chart-series-item [autoFit]="autofit" [startAngle]="150" type="donut"
+                                    [data]="kendodata" categoryField="kind" field="share">
+                                    <kendo-chart-series-item-labels position="outsideEnd" [content]="labelContent"
+                                        color="Black" background="none">
                                     </kendo-chart-series-item-labels>
                                 </kendo-chart-series-item>
                             </kendo-chart-series>
                             <kendo-chart-legend [visible]="false"></kendo-chart-legend>
                         </kendo-chart>
+                        <label>
+                            <input type="checkbox" [(ngModel)]="autofit" />
+                            <span>Toggle Autofit</span>
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-8">
-            <p-scrollPanel [style]="{width: '100%', height: '90vh'}">
-                <div class="card-deck">
-                    <div class="card mb-2">
+            <p-scrollPanel [style]="{width: '100%', height: '88vh'}" >
+                <div class="card-deck" *ngIf="jobAddByHr.length > 0 && jobAddByHr != null else nojob;">
+                    <div class="card mb-4" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;" *ngFor="let c of jobAddByHr">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <h5 class="card-title">{{c.jobTitle}}</h5><hr>
+                            <p class="card-text line-clamp">{{c.jobDescription}}</p>
+                            <!-- <p class="card-text"><small class="text-muted">Last updated {{c.createdAt}}</small></p> -->
+                            <button type="button" class="btn btn" (click)="viewJob(c.jobId)">View</button>
                         </div>
                     </div>
                 </div>
@@ -85,3 +59,6 @@
         </div>
     </div>
 </div>
+<ng-template #nojob>
+    <h3 style="color: #120e43;">No Job in your city at this moment we are working on it.</h3>
+</ng-template>
