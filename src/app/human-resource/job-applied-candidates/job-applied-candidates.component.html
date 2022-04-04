@@ -3,23 +3,23 @@
     <div class="row mt-3">
         <!-- <div class="row d-flex justify-content-between align-items-center "> -->
         <div class="col-lg-4">
-            <div class="card " style="width: 25vw;height: 20vh;">
+            <div class="card " style="width: 25vw;height: 20vh; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body">
                     <p class="card-title" style="font-weight: bolder;text-align: center;">No of Candidates Applied</p>
-                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">8</h1>
+                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">{{jobAppliedByJobId.length}}</h1>
                 </div>
             </div>
-            <div class="card mt-3" style="width: 25vw;height: auto">
+            <div class="card mt-3" style="width: 25vw;height: auto; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body">
                     <h5 class="card-title" style="font-weight: bolder;text-align: center;">No of vacancies in Job Posted
                     </h5>
-                    <div class="card-text">
+                    <div class="card-text" >
                         <kendo-chart>
                             <kendo-chart-series>
                                 <kendo-chart-series-item type="donut" [data]="data" categoryField="kind" field="share">
-                                    <kendo-chart-series-item-labels [content]="labelContent" color="#fff"
+                                    <kendo-chart-series-item-labels [content]="labelContent" color="black"
                                         background="none">
                                     </kendo-chart-series-item-labels>
                                 </kendo-chart-series-item>
@@ -30,8 +30,42 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 bg-dark">
+        <div class="col-lg-8" style=" box-shadow:rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+            <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [(selectedKeys)]="mySelection"
+                [pageSize]="6" [pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true"
+                [resizable]="true" [height]="650" [columnMenu]="{ filter: true }">
+                <ng-template kendoGridToolbarTemplate>
+                    <input [style.width.px]="165" placeholder="Search in all columns..." kendoTextBox
+                        (input)="onFilter($event)" />
+                    <kendo-grid-spacer></kendo-grid-spacer>
+                    <button kendoGridExcelCommand type="button" icon="file-excel">
+                        Export to Excel</button>
+                    <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
+                </ng-template>
+                <kendo-grid-column-group title="Job Applied Details" [columnMenu]="false">
 
+                    <kendo-grid-column field="candidate.candidateName" title="Candidate Name" [width]="100">
+                        
+                    </kendo-grid-column>
+
+                    <kendo-grid-column field="candidate.candidateEmail" title="Candidate Email" [width]="100">
+                        
+                    </kendo-grid-column>
+
+                    <kendo-grid-column field="candidate.candidatePhoneNumber" title="Candidate Phone Number" [width]="100" filter="numeric">
+                        
+                    </kendo-grid-column>
+<!-- 
+                    <kendo-grid-column field="candidateTotalExp" title="Candidate Total Exp" [width]="100">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <div class="candidateTotalExp">{{ dataItem.candidateTotalExp }}</div>
+                        </ng-template>
+                    </kendo-grid-column> -->
+
+                </kendo-grid-column-group>
+                <kendo-grid-pdf fileName="Candidate.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
+                <kendo-grid-excel fileName="Candidate.xlsx"></kendo-grid-excel>
+            </kendo-grid>
         </div>
     </div>
 </div>

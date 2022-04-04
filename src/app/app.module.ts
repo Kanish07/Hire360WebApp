@@ -10,7 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { GridModule } from '@progress/kendo-angular-grid';
+import { ExcelModule, GridModule, PDFModule } from '@progress/kendo-angular-grid';
+
 
 
 
@@ -33,7 +34,9 @@ let appRoutes:Routes = [
     SharedModule,
     FontAwesomeModule,
     NgbModule,
-    GridModule
+    GridModule,
+    ExcelModule,
+    PDFModule
   ],
   providers: [],
   bootstrap: [AppComponent]

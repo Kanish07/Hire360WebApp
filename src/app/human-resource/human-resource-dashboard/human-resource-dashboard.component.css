@@ -1,0 +1,17 @@
+.line-clamp {
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+
+}
+
+.btn {
+    background-color: #00c293;
+    color: #fff;
+}
+

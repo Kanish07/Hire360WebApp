@@ -10,14 +10,14 @@ import { PrimeModule } from '../shared/prime.module';
 import { HumanResourceLoginComponent } from './human-resource-login/human-resource-login.component';
 import { HumanResourceRegisterComponent } from './human-resource-register/human-resource-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GridDataResult } from "@progress/kendo-angular-grid";
+import { ExcelModule, GridDataResult, PDFModule } from "@progress/kendo-angular-grid";
 import { GridModule } from "@progress/kendo-angular-grid";
 import { HumanResourcePostJobComponent } from './human-resource-post-job/human-resource-post-job.component';
 
 
 let humanResourceRoute: Routes = [
   { path: "dashboard", component: HumanResourceDashboardComponent },
-  { path: "jobappliedcandidates", component: JobAppliedCandidatesComponent },
+  { path: "jobappliedcandidates/:id", component: JobAppliedCandidatesComponent },
   { path: "profile", component: HumanResourceProfileComponent },
   { path: "login", component: HumanResourceLoginComponent },
   { path: "register", component: HumanResourceRegisterComponent },
@@ -41,7 +41,9 @@ let humanResourceRoute: Routes = [
     PrimeModule,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
-    GridModule
+    GridModule,
+    ExcelModule,
+    PDFModule
   ]
 })
 export class HumanResourceModule { }
