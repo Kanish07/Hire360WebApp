@@ -1,0 +1,28 @@
+.detail {
+    padding-top: 10px;
+}
+
+.detail .media {
+    padding: 5px 0;
+}
+
+.detail label {
+    color: #20247b;
+    font-weight: 600;
+    width: 88px;
+    margin: 0;
+    position: relative;
+}
+
+.detail p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.detail h5 {
+    color: #00c293;
+}
+
+.count p {
+    color: #00c293;
+}

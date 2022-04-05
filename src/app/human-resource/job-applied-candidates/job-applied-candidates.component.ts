@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { process } from "@progress/kendo-data-query";
 import { MenuItem } from 'primeng/api';
+import { Job } from 'src/app/model/job';
+import { JobAddByHr } from 'src/app/model/jobaddbyhr';
 import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
+import { CandidateService } from 'src/app/shared/candidate.service';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
 
 @Component({
@@ -13,41 +16,17 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
 export class JobAppliedCandidatesComponent implements OnInit {
 
   public jobAppliedByJobId: JobAppliedByJobId[] = [];
+  public jobAddByHr: JobAddByHr[] = [];
+  public jobDetail!: Job;
   public gridView!: JobAppliedByJobId[];
   public jobId!: string;
   public hrid!: string;
   
-  public data: any[] = [
-    {
-      kind: "Sales",
-      share: 0.175,
-    },
-    {
-      kind: "Developer",
-      share: 0.238,
-    },
-    {
-      kind: "Support",
-      share: 0.118,
-    },
-    {
-      kind: "QA",
-      share: 0.052,
-    },
-    {
-      kind: "SEO",
-      share: 0.025,
-    },
-    {
-      kind: "Other",
-      share: 0.192,
-    },
-  ];
   items: MenuItem[] = [];
   public labelContent(e: any): string {
     return e.category;
   }
-  constructor(private humanresourceService: HumanResourceService, private route: Router) { }
+  constructor(private humanresourceService: HumanResourceService, private route: Router, private candidateService: CandidateService) { }
 
   public mySelection: string[] = [];
 
@@ -65,6 +44,17 @@ export class JobAppliedCandidatesComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+      }
+    })
+
+    this.candidateService.getJobDetailByJobId(this.jobId).subscribe({
+      next: (data) => {
+        this.jobDetail = data['data' as keyof Object] as unknown as Job;
+        console.log(this.jobDetail);
+        
+      },
+      error: (error) => {
+        console.error(error);
       }
     })
 
@@ -97,11 +87,6 @@ export class JobAppliedCandidatesComponent implements OnInit {
             operator: "contains",
             value: inputValue,
           },
-          // {
-          //   field: "candidateTotalExp",
-          //   operator: "contains",
-          //   value: inputValue,
-          // },
         ],
       },
     }).data;
