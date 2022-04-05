@@ -14,6 +14,7 @@ export class CandidateJobViewComponent implements OnInit {
   isLoading!: boolean;
   items: MenuItem[] = [];
   job: Job [] = [];
+  searchedKeyword!: string;
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -45,6 +46,20 @@ export class CandidateJobViewComponent implements OnInit {
 
   openJobPage(jobId: string){
     this.router.navigate([`candidate/job-detail/${jobId}`]);
+  }
+
+  sortDataByFreshness(){
+    if(this.job){
+      let sortedArr = this.job.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf())
+      this.job = sortedArr;
+    }
+  }
+
+  sortDataByPackage(){
+    if(this.job){
+      let sortedArr = this.job.sort((a, b) => b.package - a.package)
+      this.job = sortedArr
+    }
   }
 
 }

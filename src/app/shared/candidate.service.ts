@@ -73,8 +73,8 @@ export class CandidateService {
     return this.httpClient.get<Job>(getAllJob).pipe(delay(1000));
   }
 
-  getJobDetailByJobId(jobId: string): Observable<Job>{
-    let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
+  GetJobByIdCheckIfAlreadyApplied(jobId: string, candidateId: string): Observable<Job>{
+    let getSpecificJob = this.baseUrl + 'GetJobByIdCheckIfAlreadyApplied/' + `${jobId}` + '/' + `${candidateId}`;
     return this.httpClient.get<Job>(getSpecificJob)
   }
 }

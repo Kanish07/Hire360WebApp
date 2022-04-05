@@ -83,12 +83,12 @@
                                             <input type="file" #file placeholder="Choose file"
                                                 (change)="uploadFile(file.files)" style="display:none;" accept="application/pdf,application/msword,
                                             application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                                            <button pButton type="button" class="" (click)="file.click()"
+                                            <button pButton type="button" class="input color" (click)="file.click()"
                                                 icon="pi pi-upload" label="Upload Resume" iconPos="left"
                                                 style="float: right;"></button>
                                         </div>
                                         <div class="col" *ngIf="candidateResume">
-                                            <button pButton type="button" label="Download Resume" class="mr-2"
+                                            <button pButton type="button" label="Download Resume" class="mr-2 input color"
                                                 icon="pi pi-download" style="float: right;" iconPos="right" (click)="downloadMyFile()">
                                             </button>
                                         </div>
@@ -110,7 +110,7 @@
                                     <div class="row">
                                         <h6 class="m-b-20 f-w-600 col">My Qualification</h6>
                                         <div class="col" *ngIf="candidateQualification.length == 0">
-                                            <button pButton style="float: right;"
+                                            <button pButton class="input color" style="float: right;"
                                                 (click)="showResponsiveDialogQualification()" icon="pi pi-plus"
                                                 label="Degree"></button>
                                         </div>
@@ -150,7 +150,7 @@
                                     <div class="row">
                                         <h6 class="col f-w-600">My Skills</h6>
                                         <div class="col">
-                                            <button pButton style="float: right;" (click)="showResponsiveDialog()"
+                                            <button pButton style="float: right;" class="input color" (click)="showResponsiveDialog()"
                                                 icon="pi pi-plus" label="Skill"></button>
                                         </div>
                                     </div>

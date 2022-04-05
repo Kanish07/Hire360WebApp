@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Candidate } from 'src/app/model/candidate';
 import { CandidateService } from 'src/app/shared/candidate.service';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-candidate-login',
@@ -16,6 +17,14 @@ export class CandidateLoginComponent implements OnInit {
   submitted: boolean = false;
   isLoading: boolean = false;
   items: MenuItem[] = [];
+  notyf = new Notyf({
+    duration:3000,
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    dismissible: true
+  });
 
   constructor(private formBuilder: FormBuilder, private primengConfig: PrimeNGConfig, private messageService: MessageService, private router: Router, private candidateService:CandidateService) { }
 
@@ -44,6 +53,11 @@ export class CandidateLoginComponent implements OnInit {
     this.isLoading = true;
     this.candidateService.candidateLogin(candidate).subscribe({
       next: (candidateData) => {
+        this.notyf.success({
+          message: 'Login Successful',
+          duration: 5000,
+          background: "#00c293"
+        })
         this.isLoading = false;
         localStorage.setItem("id", candidateData.id)
         localStorage.setItem("token", candidateData.token)

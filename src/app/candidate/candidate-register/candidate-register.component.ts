@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { Candidate } from 'src/app/model/candidate';
 import { CandidateService } from 'src/app/shared/candidate.service';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-candidate-register',
@@ -21,6 +22,14 @@ export class CandidateRegisterComponent implements OnInit {
   selectedExperience!: string;
   items: MenuItem[] = [];
   logo!: string;
+  notyf = new Notyf({
+    duration:5000,
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    dismissible: true
+  });
 
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
@@ -60,8 +69,13 @@ export class CandidateRegisterComponent implements OnInit {
     this.candidateService.candidateRegistration(candidate).subscribe({
       next: () => {
         this.isLoading = false;
-        this.messageService.add({severity:'success', summary:'Registered Successfully', detail:""});
-        this.onReset()
+        this.notyf.success({
+          message: 'Registered Successfully',
+          duration: 5000,
+          background: "#00c293"
+        })
+        this.onReset();
+        this.route.navigate(['candidate/login'])
       },
       error: (error) => {
         this.messageService.add({severity:'error', summary:'Registration Failed', detail:error.error.message});

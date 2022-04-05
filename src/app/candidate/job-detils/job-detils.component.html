@@ -7,9 +7,14 @@
         </div>
         <div class="col-4">
         </div>
-        <div class="col-4">
+        <div class="col-4" *ngIf="!jobAlreadyApplied;else alreadyApplied">
             <button pButton class="p-button-raised p-button-text color p-button-plain" style="float: right;">Apply</button>
         </div>
+        <ng-template #alreadyApplied>
+            <div class="col-4">
+                <button pButton class="p-button-raised p-button-text color p-button-plain" [disabled]="true" style="float: right;">Already Applied</button>
+            </div>
+        </ng-template>
     </div>
     <div class="card mb-4"
         style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
@@ -30,7 +35,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-4" style="float: left; font-size: 13px;">Posted on: {{ jobDetail?.createdAt | date }}</div>
-                        <div class="col-4" style="float: left; font-size: 13px;">Total Applications: 8</div>
+                        <div class="col-4" style="float: left; font-size: 13px;">Total Applications: {{ totalApplications }}</div>
                         <div class="col-4" style="float: right; font-size: 13px;">Job Id: {{ jobDetail?.jobId }}</div>
                     </div>
                 </div>
