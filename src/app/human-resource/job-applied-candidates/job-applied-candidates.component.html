@@ -3,34 +3,41 @@
     <div class="row mt-3">
         <!-- <div class="row d-flex justify-content-between align-items-center "> -->
         <div class="col-lg-4">
-            <div class="card " style="width: 25vw;height: 20vh; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+            <div class="card "
+                style="width: 25vw;height: 20vh; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
+                <div class="count card-body">
                     <p class="card-title" style="font-weight: bolder;text-align: center;">No of Candidates Applied</p>
-                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">{{jobAppliedByJobId.length}}</h1>
+                    <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">
+                        {{jobAppliedByJobId.length}}</h1>
                 </div>
             </div>
-            <div class="card mt-3" style="width: 25vw;height: auto; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+            <div class="card mt-3"
+                style="width: 25vw;height: auto; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
-                    <h5 class="card-title" style="font-weight: bolder;text-align: center;">No of vacancies in Job Posted
+                <div class="detail card-body">
+                    <h5 class="card-title" style="font-weight: bolder;text-align: center;">Job Detail
                     </h5>
-                    <div class="card-text" >
-                        <kendo-chart>
-                            <kendo-chart-series>
-                                <kendo-chart-series-item type="donut" [data]="data" categoryField="kind" field="share">
-                                    <kendo-chart-series-item-labels [content]="labelContent" color="black"
-                                        background="none">
-                                    </kendo-chart-series-item-labels>
-                                </kendo-chart-series-item>
-                            </kendo-chart-series>
-                            <kendo-chart-legend [visible]="false"></kendo-chart-legend>
-                        </kendo-chart>
+                    <div class="card-text">
+                        <div class="media">
+                            <label>Job Title</label>
+                            <p>{{jobDetail?.jobTitle}}</p>
+                        </div>
+                        <div class="media">
+                            <label>Vacancies</label>
+                            <p>{{jobDetail?.noOfVacancy}}</p>
+                        </div>
+                        <div class="media line-clamp">
+                            <label>Description</label>
+                            <p>{{jobDetail?.jobDescription}}</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-8" style=" box-shadow:rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+        <div class="col-lg-8"
+            style=" box-shadow:rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
             <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [(selectedKeys)]="mySelection"
                 [pageSize]="6" [pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true"
                 [resizable]="true" [height]="650" [columnMenu]="{ filter: true }">
@@ -45,23 +52,22 @@
                 <kendo-grid-column-group title="Job Applied Details" [columnMenu]="false">
 
                     <kendo-grid-column field="candidate.candidateName" title="Candidate Name" [width]="100">
-                        
+
                     </kendo-grid-column>
 
                     <kendo-grid-column field="candidate.candidateEmail" title="Candidate Email" [width]="100">
-                        
+
                     </kendo-grid-column>
 
-                    <kendo-grid-column field="candidate.candidatePhoneNumber" title="Candidate Phone Number" [width]="100" filter="numeric">
-                        
+                    <kendo-grid-column field="candidate.candidatePhoneNumber" title="Candidate Phone Number"
+                        [width]="100" filter="numeric">
+
                     </kendo-grid-column>
-<!-- 
-                    <kendo-grid-column field="candidateTotalExp" title="Candidate Total Exp" [width]="100">
-                        <ng-template kendoGridCellTemplate let-dataItem>
-                            <div class="candidateTotalExp">{{ dataItem.candidateTotalExp }}</div>
+                    <!-- <kendo-grid-command-column title="command" [width]="220">
+                        <ng-template kendoGridCellTemplate let-isNew="isNew">
+                            <button kendoGridSaveCommand [disabled]="formGroup?.invalid"></button>
                         </ng-template>
-                    </kendo-grid-column> -->
-
+                    </kendo-grid-command-column> -->
                 </kendo-grid-column-group>
                 <kendo-grid-pdf fileName="Candidate.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
                 <kendo-grid-excel fileName="Candidate.xlsx"></kendo-grid-excel>

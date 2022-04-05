@@ -1,13 +1,8 @@
 .line-clamp {
-
     display: -webkit-box;
-
     -webkit-line-clamp: 2;
-
     overflow: hidden;
-
     -webkit-box-orient: vertical;
-
 }
 
 .btn {
@@ -15,3 +10,40 @@
     color: #fff;
 }
 
+.p-button-raised {
+    margin-right: 20px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+p-button {
+    margin-right: 20px;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.vacancies p {
+    color: #00c293;
+}
+
+.job p {
+    color: #00c293;
+}
+
+.p-button-raised {
+    background-color: #00c293 !important;
+    color: #fff !important;
+}
+
+.p-progressBar-bar {
+    background-color: var(--blue-900);
+}
+.color {
+    background-color:  #00C293 !important;
+    color: white !important;
+}
+
+.input{
+    border-color: #00C293 !important;
+    box-shadow: 0 0 0 0.02rem #00C293 !important;
+}
