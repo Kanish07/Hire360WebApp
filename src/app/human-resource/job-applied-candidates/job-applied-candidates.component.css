@@ -26,3 +26,16 @@
 .count p {
     color: #00c293;
 }
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 11;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+button{
+    background-color: #00c293;
+    color:#fff;
+    border: none;
+}

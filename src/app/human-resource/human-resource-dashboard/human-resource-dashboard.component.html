@@ -4,21 +4,22 @@
     <div class="row mt-3">
         <!-- <div class="row d-flex justify-content-between align-items-center "> -->
         <div class="col-lg-4">
-            <div class="card " style="width: 25vw;height: 20vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+            <div class="card "
+                style="width: 25vw;height: 20vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
+                <div class="job card-body">
                     <p class="card-text" style="font-weight: bolder;text-align: center;">No of Job Posted</p>
                     <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">
                         {{jobAddByHr?.length}}</h1>
                 </div>
             </div>
-            <div class="card mt-3" style="width: 25vw;height: 65vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
+            <div class="card mt-3"
+                style="width: 25vw;height: 65vh; box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
+                <div class="vacancies card-body">
                     <p class="card-text" style="font-weight: bolder;text-align: center;">No of vacancies in Job Posted
                     </p>
                     <div class="card-text">
-                        <!--  -->
                         <kendo-chart>
                             <kendo-chart-tooltip>
                                 <ng-template kendoChartSeriesTooltipTemplate let-value="value">
@@ -44,14 +45,94 @@
             </div>
         </div>
         <div class="col-lg-8">
-            <p-scrollPanel [style]="{width: '100%', height: '88vh'}" >
+            <button label="New Job" pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-raised p-button-text color p-button-plain">
+            </button>
+            <p-dialog header="New Job Post Registration" [(visible)]="display" [breakpoints]="{'960px': '75vw'}"
+                [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" class="New Job Post">
+                <form [formGroup]="registerForm">
+                    <div class="row mb-4">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="jobTitle" class="block text-900 font-medium mb-2">Job Title</label>
+                            <input formControlName="jobTitle" type="jobTitle" pInputText
+                                placeholder="Enter Your Job Title"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobTitle'].errors}"
+                                class="form-control w-full mb-3 input">
+                            <div *ngIf="h['jobTitle'].touched && h['jobTitle'].errors" class="text-danger">
+                                <div *ngIf="h['jobTitle'].errors['required']">Job Title is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="package" class="block text-900 font-medium mb-2">Package </label>
+                            <input type="text" formControlName="package"
+                                [ngClass]="{ 'is-invalid': submitted && h['package'].errors }"
+                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control"
+                                pattern="^[0-9]{1,6}$">
+                            <div *ngIf="h['package'].touched && h['package'].errors" class="text-danger">
+                                <div *ngIf="h['package'].errors['required']">Package is required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="noOfVacancy" class="block text-900 font-medium mb-2">Number Of Vacancy </label>
+                            <input type="text" formControlName="noOfVacancy"
+                                [ngClass]="{ 'is-invalid': submitted && h['noOfVacancy'].errors }"
+                                placeholder="Enter Your Number Of Vacancy" pInputText
+                                class="w-full mb-3 input form-control" pattern="^[0-9]{1,2}$">
+                            <div *ngIf="h['noOfVacancy'].touched && h['noOfVacancy'].errors" class="text-danger">
+                                <div *ngIf="h['noOfVacancy'].errors['required']">Vacancy is required</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <label for="jobCity" class="block text-900 font-medium mb-2">Job City</label>
+                            <p-dropdown formControlName="jobCity"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobCity'].errors }"
+                                placeholder="Select your city from the list" [showClear]="true" [options]="cities"
+                                [(ngModel)]="selectedCity" class="w-full mb-3"></p-dropdown>
+                            <div *ngIf="h['jobCity'].touched && h['jobCity'].errors" class="text-danger">
+                                <div *ngIf="h['jobCity'].errors['required']">City is required</div>
+                            </div>
+                        </div>
+                        <div class="col col-md-12 col-sm-12">
+                            <label for="jobDescription" class="block text-900 font-medium mb-2">Job Description</label>
+                            <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="jobDescription"
+                                placeholder="Enter Your Job Description" [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                class="form-control w-full mb-3 input"></textarea>
+
+                            <!-- <input formControlName="jobDescription" type="textarea" pInputTextarea
+                                placeholder="Enter Your Job Description"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                class="form-control w-full mb-3 input"> -->
+                            <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
+                                <div *ngIf="h['jobDescription'].errors['required']">Job Description is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button pButton pRipple label="Post" [disabled]="!registerForm.valid"
+                        (click)="onSubmit(registerForm.value)"
+                        class="p-button-raised p-button-text w-full color p-button-plain">
+                        <div *ngIf="!isLoading;else loader">
+                        </div>
+                        <ng-template #loader>
+                            <div class="spinner-border text-light" role="status">
+                            </div>
+                        </ng-template>
+                    </button>
+                </form>
+
+            </p-dialog>
+
+            <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
                 <div class="card-deck" *ngIf="jobAddByHr.length > 0 && jobAddByHr != null else nojob;">
-                    <div class="card mb-4" style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;" *ngFor="let c of jobAddByHr">
+                    <div class="card mb-4"
+                        style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;"
+                        *ngFor="let c of jobAddByHr">
                         <div class="card-body">
-                            <h5 class="card-title">{{c.jobTitle}}</h5><hr>
+                            <h5 class="card-title">{{c.jobTitle}}</h5>
+                            <hr>
                             <p class="card-text line-clamp">{{c.jobDescription}}</p>
                             <!-- <p class="card-text"><small class="text-muted">Last updated {{c.createdAt}}</small></p> -->
-                            <button type="button" class="btn btn" (click)="viewJob(c.jobId)">View</button>
+                            <button type="button" class=" btn btn" (click)="viewJob(c.jobId)">View</button>
                         </div>
                     </div>
                 </div>
