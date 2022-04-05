@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HumanResource } from '../model/humanresource';
 import { JobAppliedByJobId } from '../model/jobappliedbyjobid';
@@ -37,7 +37,7 @@ export class HumanResourceService {
 
   getJobAppliedByJobId(jobId: string): Observable<JobAppliedByJobId> {
     let jobAppliedByJobIdUrl = this.baseUrl + 'GetJobAppliedByJobId/' + `${jobId}`;
-    return this.httpClient.get<JobAppliedByJobId>(jobAppliedByJobIdUrl);
+    return this.httpClient.get<JobAppliedByJobId>(jobAppliedByJobIdUrl).pipe(delay(1000));
   }
 
   getHumanResourceById(hrid: string):Observable<HumanResource>{

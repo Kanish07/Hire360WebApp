@@ -75,6 +75,19 @@ export class CandidateService {
 
   GetJobByIdCheckIfAlreadyApplied(jobId: string, candidateId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobByIdCheckIfAlreadyApplied/' + `${jobId}` + '/' + `${candidateId}`;
-    return this.httpClient.get<Job>(getSpecificJob)
+    return this.httpClient.get<Job>(getSpecificJob).pipe(delay(1000))
+  }
+
+  applyJob(jobId: string, candidateId: string){
+    let job = {"jobId": jobId, "candidateId": candidateId}
+    let jobApply = this.baseUrl + 'AddNewJobApplied';
+    return this.httpClient.post(jobApply, job);
+  }
+
+  getFilteredJob(lowsal: number, highsal: number, city: string, role: string): Observable<Job>{
+    let filterJob = this.baseUrl + 'GetAllJobsBasedOnFilter' + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
+    return this.httpClient.get<Job>(filterJob).pipe(delay(2000));
   }
 }
+
+// https://localhost:5000/api/GetAllJobs?city=Coimbatore,Chennai&role=Software Engineer&salarylow=200000&salaryhigh=500000

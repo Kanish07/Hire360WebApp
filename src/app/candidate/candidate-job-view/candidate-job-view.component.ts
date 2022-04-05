@@ -16,6 +16,11 @@ export class CandidateJobViewComponent implements OnInit {
   job: Job [] = [];
   searchedKeyword!: string;
 
+  lowSalRange: number = 0;
+  highSalRange: number = 999999999;
+  city: string = "";
+  title: string = "";
+
   constructor(private candidateService: CandidateService, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,11 +33,13 @@ export class CandidateJobViewComponent implements OnInit {
     this.getAllJob();
   }
 
-  //TODO: Handle Err
+  //TODO: Handle Error
   getAllJob(){
     this.isLoading = true;
-    this.candidateService.getAllJob().subscribe({
+    this.candidateService.getFilteredJob(this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
+        console.log(jobs);
+        
         this.isLoading = false;
         this.job = jobs['data' as keyof Object] as unknown as Job[];
         console.log(this.job[0].hr.companyName);
@@ -62,4 +69,28 @@ export class CandidateJobViewComponent implements OnInit {
     }
   }
 
+  AddCity(city: string){
+    if(!this.city.includes(city)){
+      this.city += city + ','
+    } else {
+      this.city = this.city.replace(city+',',"")
+    }
+  }
+
+  AddSalary(lowSal: number, highSal: number){
+    this.lowSalRange = lowSal
+    this.highSalRange = highSal
+  }
+
+  AddRole(role: string){
+    if(!this.title.includes(role)){
+      this.title +=  role + ','
+    } else {
+      this.title = this.title.replace(role+',',"")
+    }
+  }
+
+  Filter(){
+    this.getAllJob()
+  }
 }
