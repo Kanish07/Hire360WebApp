@@ -28,9 +28,7 @@ export class CandidateJobViewComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       { label: 'Search Job', icon: 'pi pi-search', routerLink: "/candidate/job-search" },
-      { label: '|'},
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/candidate/profile" },
-      { label: '|'},
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/candidate/login" }
     ];
 
