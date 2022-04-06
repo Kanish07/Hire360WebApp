@@ -103,6 +103,11 @@ export class CandidateService {
     let GetCandidateAppliedJobsById = this.baseUrl + 'GetJobAppliedByCandidateId/' + `${candidateId}`;
     return this.httpClient.get<Job>(GetCandidateAppliedJobsById);
   }
+
+  updateCandidateDescriptionByCandidateId(candidateId: string, description: string) {
+    let updateDescription = this.baseUrl + 'UpdateCandidateDescriptionById/' + `${candidateId}?description=` + `${description}`;
+    return this.httpClient.get(updateDescription).pipe(delay(2000));
+  }
 }
 
 // https://localhost:5000/api/GetAllJobs?city=Coimbatore,Chennai&role=Software Engineer&salarylow=200000&salaryhigh=500000

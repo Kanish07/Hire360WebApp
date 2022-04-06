@@ -36,6 +36,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   graduationYear!: string[];
   degree!: string[];
   displayResponsiveQualification!: boolean;
+  displayResponsiveDescription!: boolean;
   candidateResume!: string;
   candidatePhoto!: string;
   uploadedFiles: any[] = [];
@@ -44,6 +45,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   isLoadingProfile: boolean = true;
   isLoadingQualfication: boolean = true;
   jobAppliedByCandidate: JobAppliedByJobId[] = []
+  candidateDescription!: string;
 
   //Chart
   gaugeType:string = "full";
@@ -101,6 +103,10 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
 
   showResponsiveDialogQualification() {
     this.displayResponsiveQualification = true;
+  }
+
+  showResponsiveDialogDescription() {
+    this.displayResponsiveDescription = true;
   }
 
   //TODO: Hanlde Error
@@ -322,7 +328,24 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     });
   }
 
-  
+  onAddDescription(){
+    this.isLoading = true
+    this.candidateService.updateCandidateDescriptionByCandidateId(this.candidateId, this.candidateDescription).subscribe({
+      next: (data) => {
+        this.isLoading = false;
+        this.messageService.add({ severity: 'success', summary: 'Description updated', detail: '' })
+        this.candidateDescription = "";
+        this.displayResponsiveDescription = false;
+        this.getCandidateById()
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.candidateDescription = "";
+        this.displayResponsiveDescription = false;
+        this.messageService.add({ severity: 'error', summary: 'Description update failed', detail: '' })
+      }
+    })
+  }
 
   get h() {
     return this.addSkillForm.controls;
