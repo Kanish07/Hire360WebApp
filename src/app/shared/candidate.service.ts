@@ -88,6 +88,11 @@ export class CandidateService {
     let filterJob = this.baseUrl + 'GetAllJobsBasedOnFilter' + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
     return this.httpClient.get<Job>(filterJob).pipe(delay(2000));
   }
+
+  getJobDetailByJobId(jobId: string): Observable<Job>{
+    let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
+    return this.httpClient.get<Job>(getSpecificJob)
+  }
 }
 
 // https://localhost:5000/api/GetAllJobs?city=Coimbatore,Chennai&role=Software Engineer&salarylow=200000&salaryhigh=500000
