@@ -1,0 +1,99 @@
+<app-navbar [items]="items"></app-navbar>
+<section class="section about-section" id="about">
+    <div class="container">
+        <div class="row align-items-center flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="counter">
+                    <h3 class="dark-color">{{candidate?.candidateName}}</h3>
+                    <p style="text-align: justify;">{{candidate?.candidateDescription}}</p>
+                    <div class="row about-list">
+                        <div class="col-md-6">
+                            <div class="media">
+                                <label>Phone</label>
+                                <p>{{candidate?.candidatePhoneNumber}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="media">
+                                <label>E-mail</label>
+                                <p>{{candidate?.candidateEmail}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <!-- <div class="counter"> -->
+                <div class="about-avatar row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <img [src]="photoLink" width="150px" height="200px">
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <div class="row align-items-center flex-row-reverse">
+            <div class="col-lg-8">
+                <div class="counter" style="height: 30vh;">
+                    <div class="row qualification-list">
+                        <h4 class="dark-color">Qualification</h4>
+                        <div class="count-data ">
+                            <div class="row">
+                                <div class="media col-lg-12">
+                                    <label>Degree</label>
+                                    <p>{{ candidateQualification[0]?.degreeName}}</p>
+                                </div>
+                                <div class="media col-lg-6 mt-2">
+                                    <label>Year Of Graduation</label>
+                                    <p>{{ candidateQualification[0]?.yearOfGraduation}}</p>
+                                </div>
+                                <div class="media col-lg-6 mt-2">
+                                    <label>Percentage</label>
+                                    <p>{{ candidateQualification[0]?.qualificationPercentage}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="counter" style="height: 30vh;">
+                    <div class="row qualification-list">
+                        <h4 class="dark-color">Skills</h4>
+                        <div class="count-data" *ngFor="let item of candidateSkills">
+                            <div class="media">
+                                <p> {{item.skillSet.skillSetName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="counter">
+            <div class="row">
+                <div class="col-6 col-lg-4">
+                    <div class="count-data text-center">
+                        <h6 class="count h2">{{candidate?.candidateCity}}</h6>
+                        <p class="m-0px font-w-600">Location</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <div class="count-data text-center">
+                        <h6 class="count h2">{{candidate?.candidateTotalExp}} Years</h6>
+                        <p class="m-0px font-w-600">Total Experience</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <div class="count-data text-center">
+                        <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color"
+                                icon="pi pi-download" iconPos="right" (click)="downloadMyFile()">
+                            </button></h6>
+                        <p class="m-0px font-w-600">Download Resume</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
