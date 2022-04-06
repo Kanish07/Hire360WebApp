@@ -2,6 +2,7 @@ import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { Candidate } from 'src/app/model/candidate';
+import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
 import { Qualification } from 'src/app/model/qualification';
 import { Skill } from 'src/app/model/skill';
 import { SkillSet } from 'src/app/model/skillset';
@@ -42,6 +43,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   isLoadingSkills: boolean = true;
   isLoadingProfile: boolean = true;
   isLoadingQualfication: boolean = true;
+  jobAppliedByCandidate: JobAppliedByJobId[] = []
 
   //Chart
   gaugeType:string = "full";
@@ -74,6 +76,8 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     this.getSkillsByCandidateId();
 
     this.getAllSkillSets();
+
+    this.getAppliedJobsByCandidateId();
 
     this.addSkillForm = this.formBuilder.group({
       candidateId: [""],
@@ -140,6 +144,20 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
       },
       error: (error) => {
         this.isLoadingProfile = false;
+        console.error(error);
+      }
+    });
+  }
+
+  getAppliedJobsByCandidateId(){
+    //TODO: Hanlde Error
+    this.candidateService.getAppliedJobsByCandidateId(this.candidateId).subscribe({
+      next: (data) => {
+        this.isLoading = false;
+        this.jobAppliedByCandidate = data['data' as keyof Object] as unknown as JobAppliedByJobId[]
+      },
+      error: (error) => {
+        this.isLoading = false;
         console.error(error);
       }
     });
@@ -265,6 +283,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   }
 
   uploadFile = (files: any) => {
+    this.isLoading = true;
     let fileToUpload = <File>files[0];
     let fileName:string = this.candidateId //get name from form for example
     let fileExtension:string = fileToUpload.name.split('?')[0].split('.').pop() || '';
@@ -273,11 +292,34 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     console.log(formData);
     this.candidateService.uploadFile(formData, this.candidateId).subscribe({
       next: (data) => {
+        this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: 'Resume Uploaded', detail: '' })
         this.getCandidateById()
       },
       error: (error) => {
+        this.isLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Resume upload failed', detail: '' })
+      }
+    });
+  }
+
+  uploadProfilePicture = (files: any) => {
+    this.isLoading = true;
+    let fileToUpload = <File>files[0];
+    let fileName:string = this.candidateId //get name from form for example
+    let fileExtension:string = fileToUpload.name.split('?')[0].split('.').pop() || '';
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileName + '.' + fileExtension);
+    console.log(formData);
+    this.candidateService.uploadProfilePicture(formData, this.candidateId).subscribe({
+      next: (data) => {
+        this.isLoading = false;
+        this.messageService.add({ severity: 'success', summary: 'Profile picture uploaded', detail: '' })
+        this.getCandidateById()
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.messageService.add({ severity: 'error', summary: 'Profile picture upload failed', detail: '' })
       }
     });
   }

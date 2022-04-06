@@ -68,6 +68,11 @@ export class CandidateService {
     return this.httpClient.post(uploadFile ,formData);
   }
 
+  uploadProfilePicture(formData: FormData, candidateId: string){
+    let uploadPic = this.baseUrl + 'UploadProfilePicture/' + `${candidateId}`;
+    return this.httpClient.post(uploadPic, formData);
+  }
+
   getAllJob(): Observable<Job>{
     let getAllJob = this.baseUrl + 'GetAllJobs';
     return this.httpClient.get<Job>(getAllJob).pipe(delay(1000));
@@ -92,6 +97,11 @@ export class CandidateService {
   getJobDetailByJobId(jobId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
     return this.httpClient.get<Job>(getSpecificJob)
+  }
+
+  getAppliedJobsByCandidateId(candidateId: string): Observable<Job>{
+    let GetCandidateAppliedJobsById = this.baseUrl + 'GetJobAppliedByCandidateId/' + `${candidateId}`;
+    return this.httpClient.get<Job>(GetCandidateAppliedJobsById);
   }
 }
 

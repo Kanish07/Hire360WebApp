@@ -4,7 +4,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <div id="left" class="col-xl-6 col-md-12">
+            <div id="left" class="col-xl-6 col-md-12" >
                 <div class="">
                     <div class="card shadow-lg user-card-full">
                         <div class="row m-l-0 m-r-0">
@@ -15,8 +15,10 @@
                                             <img [src]="photoLink" class="img-radius profile-image" width="100px"
                                                 height="125px">
                                         </div>
+                                        <input type="file" #picture placeholder="Choose file"
+                                                (change)="uploadProfilePicture(picture.files)" style="display:none;" accept="image/*">
                                         <button *ngIf="candidatePhoto == null" style="margin-top: 5px;" pButton pRipple
-                                            type="button" icon="pi pi-plus" pTooltip="Add Profile Picture"
+                                            type="button" icon="pi pi-plus" (click)="picture.click()" pTooltip="Add Profile Picture"
                                             class="p-button-rounded p-button-danger">
                                         </button>
                                     </div>
@@ -87,7 +89,14 @@
                                             application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                             <button pButton type="button" class="input color" (click)="file.click()"
                                                 icon="pi pi-upload" label="Upload Resume" iconPos="left"
-                                                style="float: right;"></button>
+                                                style="float: right;">
+                                            </button>
+                                            <div *ngIf="!isLoading;else loader">
+                                            </div>
+                                            <ng-template #loader>
+                                                <div class="" role="status">
+                                                </div>
+                                            </ng-template>
                                         </div>
                                         <div class="col" *ngIf="candidateResume">
                                             <button pButton type="button" label="Download Resume"
@@ -173,6 +182,48 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="">
+                <div class="card shadow-lg user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-12">
+                            <div class="card-block">
+                                <div class="row">
+                                    <h6 class="col f-w-600">My Applications</h6>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-5" style="color: #1D2564; font-size: 20px;">
+                                        Job Title
+                                    </div>
+                                    <div class="col-4" style="color: #1D2564; font-size: 20px;">
+                                        Applied On
+                                    </div>
+                                    <div class="col-2" style="color: #1D2564; font-size: 20px;">
+                                        Status
+                                    </div>
+                                </div>
+                                <hr>
+                                <div *ngFor="let item of jobAppliedByCandidate">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            {{item.job.jobTitle}}
+                                        </div>
+                                        <div class="col-4">
+                                            {{item.appliedOn | date}}
+                                        </div>
+                                        <div class="col-2">
+                                            {{item.active}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="jobAppliedByCandidate.length == 0">
+                                    Start Applying today
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
