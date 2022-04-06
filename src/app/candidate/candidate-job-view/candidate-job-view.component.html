@@ -98,6 +98,12 @@
             </div>
             <div *ngIf="!isLoading;else skeleton">
             </div>
+            <ng-template #noJobFound>
+                <div class="card-body">
+                    No Jobs Found
+                </div>
+            </ng-template>
+            <div *ngIf="job.length != 0;else noJobFound">
             <div class="card mb-4"
                 style="box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;"
                 *ngFor="let job of job | filter:searchedKeyword">
@@ -137,6 +143,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+
             <p-paginator class="shadow" [rows]="10" [totalRecords]="count" (onPageChange)="paginate($event)">
             </p-paginator>
             <br>
