@@ -9,7 +9,7 @@ import { CandidateRegisterComponent } from './candidate-register/candidate-regis
 import { CandidateJobViewComponent } from './candidate-job-view/candidate-job-view.component';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { JobDetilsComponent } from './job-detils/job-detils.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 let candidateRoute: Routes = [
   {path: "login", component: CandidateLoginComponent},

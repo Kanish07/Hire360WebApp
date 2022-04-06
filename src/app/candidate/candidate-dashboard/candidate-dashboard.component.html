@@ -12,7 +12,8 @@
                                 <div class="card-block text-center text-white">
                                     <div>
                                         <div class="">
-                                            <img [src]="photoLink" class="img-radius profile-image" width="100px" height="125px">
+                                            <img [src]="photoLink" class="img-radius profile-image" width="100px"
+                                                height="125px">
                                         </div>
                                         <button *ngIf="candidatePhoto == null" style="margin-top: 5px;" pButton pRipple
                                             type="button" icon="pi pi-plus" pTooltip="Add Profile Picture"
@@ -20,11 +21,12 @@
                                         </button>
                                     </div>
 
-                                    <h6 class="f-w-600" style="margin-top: 10px;">{{ candidateDetails?.candidateName }}
+                                    <h6 class="f-w-600" style="margin-top: 10px; font-size: 15px;">{{
+                                        candidateDetails?.candidateName }}
                                     </h6>
                                     <div style="margin-top: 20vh">
                                         <ngx-gauge type="full" [value]="incompleteProfilePercentage" [thick]="10"
-                                            append="%" backgroundColor="white" foregroundColor="#EDC126" [size]="100">
+                                            append="%" backgroundColor="white" foregroundColor="#1D2564" [size]="100">
                                         </ngx-gauge>
                                         <p class="m-b-10 f-w-600" pTooltip="Recruiters notice you from 80%">Profile
                                             Completed</p>
@@ -88,8 +90,9 @@
                                                 style="float: right;"></button>
                                         </div>
                                         <div class="col" *ngIf="candidateResume">
-                                            <button pButton type="button" label="Download Resume" class="mr-2 input color"
-                                                icon="pi pi-download" style="float: right;" iconPos="right" (click)="downloadMyFile()">
+                                            <button pButton type="button" label="Download Resume"
+                                                class="mr-2 input color" icon="pi pi-download" style="float: right;"
+                                                iconPos="right" (click)="downloadMyFile()">
                                             </button>
                                         </div>
                                     </div>
@@ -132,7 +135,7 @@
                                         <div class="col-sm-4">
                                             <p class="m-b-10 f-w-600">Percentage</p>
                                             <p-knob [(ngModel)]="percentage" valueTemplate="{value}%"
-                                                valueColor="#00C293" [readonly]="true"></p-knob>
+                                                valueColor="#1D2564" [readonly]="true"></p-knob>
                                         </div>
                                     </div>
                                 </div>
@@ -150,8 +153,9 @@
                                     <div class="row">
                                         <h6 class="col f-w-600">My Skills</h6>
                                         <div class="col">
-                                            <button pButton style="float: right;" class="input color" (click)="showResponsiveDialog()"
-                                                icon="pi pi-plus" label="Skill"></button>
+                                            <button pButton style="float: right;" class="input color"
+                                                (click)="showResponsiveDialog()" icon="pi pi-plus"
+                                                label="Skill"></button>
                                         </div>
                                     </div>
                                     <hr>
@@ -275,7 +279,7 @@
             <div class="col-4">
             </div>
             <div class="col-4">
-                <h2 style="text-align: center; color: #00c293;">HIRE360</h2>
+                <h2 style="text-align: center; color: #1D2564;">HIRE360</h2>
                 <p-progressBar mode="indeterminate" [style]="{'height': '16px'}"></p-progressBar>
             </div>
             <div class="col-4">

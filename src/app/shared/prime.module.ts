@@ -18,6 +18,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TableModule } from 'primeng/table'; 
 
 @NgModule({
   declarations: [],
@@ -39,7 +40,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DataViewModule,
     SkeletonModule,
     ProgressBarModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TableModule
   ],
   providers: [ ConfirmationService, MessageService]
 })
