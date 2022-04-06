@@ -7,73 +7,70 @@
             <p-accordion [multiple]="true">
                 <h5 class="col-9">Job Filter</h5>
                 <form>
-                <p-accordionTab header="Job Location" [selected]="true">
+                    <p-accordionTab header="Job Location" [selected]="true">
                         <label class="form-check">
-                            <input class="form-check-input" type="checkbox" (click)="AddCity('Coimbatore')" value="Coimbatore">
+                            <input class="form-check-input" type="checkbox" (click)="AddCity('Coimbatore')"
+                                value="Coimbatore">
                             <span class="form-check-label">
                                 Coimbatore
                             </span>
                         </label> <!-- form-check.// -->
                         <label class="form-check">
-                            <input class="form-check-input" (click)="AddCity('Chennai')" type="checkbox" value="Chennai">
+                            <input class="form-check-input" (click)="AddCity('Chennai')" type="checkbox"
+                                value="Chennai">
                             <span class="form-check-label">
                                 Chennai
                             </span>
                         </label> <!-- form-check.// -->
                         <label class="form-check">
-                            <input class="form-check-input" (click)="AddCity('Bengaluru')" type="checkbox" value="Bengaluru">
+                            <input class="form-check-input" (click)="AddCity('Bengaluru')" type="checkbox"
+                                value="Bengaluru">
                             <span class="form-check-label">
                                 Bangalore/Bengaluru
                             </span>
                         </label>
-                </p-accordionTab>
-                <p-accordionTab header="Salary (INR)" [selected]="true">
+                    </p-accordionTab>
+                    <p-accordionTab header="Salary (INR)" [selected]="true">
                         <label class="form-check">
-                            <input class="form-check-input" type="radio" (click)="AddSalary(200000, 500000)" name="salary" value="">
+                            <input class="form-check-input" type="radio" (click)="AddSalary(200000, 500000)"
+                                name="salary" value="">
                             <span class="form-check-label">
                                 2 Lakhs - 5 Lakhs
                             </span>
                         </label> <!-- form-check.// -->
                         <label class="form-check">
-                            <input class="form-check-input" type="radio" (click)="AddSalary(500001, 1000000)" name="salary" value="">
+                            <input class="form-check-input" type="radio" (click)="AddSalary(500001, 1000000)"
+                                name="salary" value="">
                             <span class="form-check-label">
                                 6 Lakhs - 10 Lakhs
                             </span>
                         </label> <!-- form-check.// -->
                         <label class="form-check">
-                            <input class="form-check-input" type="radio" (click)="AddSalary(1000001, 999999999)" name="salary" value="">
+                            <input class="form-check-input" type="radio" (click)="AddSalary(1000001, 999999999)"
+                                name="salary" value="">
                             <span class="form-check-label">
                                 10 Lakhs +
                             </span>
                         </label>
                         <label class="form-check">
-                            <input class="form-check-input" type="radio" (click)="AddSalary(0, 0)" name="salary" value="">
+                            <input class="form-check-input" type="radio" (click)="AddSalary(0, 0)" name="salary"
+                                value="">
                             <span class="form-check-label">
                                 Not Specified
                             </span>
                         </label>
-                </p-accordionTab>
-                <p-accordionTab header="Job Type" [selected]="true">
-                        <label class="form-check">
-                            <input class="form-check-input" (click)="AddRole('Software Engineer')" type="checkbox" value="Software Engineer">
+                    </p-accordionTab>
+                    <p-accordionTab header="Job Type" [selected]="true">
+                        <label class="form-check" *ngFor="let role of roleType">
+                            <input class="form-check-input" (click)="AddRole(role)" type="checkbox"
+                                value="Software Engineer">
                             <span class="form-check-label">
-                                Software Engineer
-                            </span>
-                        </label> <!-- form-check.// -->
-                        <label class="form-check">
-                            <input class="form-check-input" (click)="AddRole('Software Architect')" type="checkbox" value="Software Architect">
-                            <span class="form-check-label">
-                                Software Architect
-                            </span>
-                        </label> <!-- form-check.// -->
-                        <label class="form-check">
-                            <input class="form-check-input" (click)="AddRole('Quality Analyst')" type="checkbox" value="">
-                            <span class="form-check-label">
-                                Quality Analyst
+                                {{role}}
                             </span>
                         </label>
                     </p-accordionTab>
-                    <button pButton label="Apply Filter" (click)="Filter()" class="p-button-raised p-button-text color p-button-plain w-full"></button>
+                    <button pButton label="Apply Filter" (click)="Filter()"
+                        class="p-button-raised p-button-text color p-button-plain w-full"></button>
                 </form>
             </p-accordion>
         </div>
@@ -83,8 +80,8 @@
                 <div class="form-group col-xl-6 col-md-6 col-sm-6">
                     <div class="p-inputgroup">
                         <button type="button" class="input color" icon="pi pi-search" pButton pRipple></button>
-                        <input pInputText pTooltip="Search By Company, Job Title, Package or City" type="text" class="form-control input"  placeholder="Search Job"
-                            [(ngModel)]="searchedKeyword">
+                        <input pInputText pTooltip="Search By Company, Job Title, Package or City" type="text"
+                            class="form-control input" placeholder="Search Job" [(ngModel)]="searchedKeyword">
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6 col-sm-6">
@@ -140,7 +137,8 @@
                     </div>
                 </div>
             </div>
-            <p-paginator class="shadow" [rows]="5" [totalRecords]="count" (onPageChange)="paginate($event)"></p-paginator>
+            <p-paginator class="shadow" [rows]="10" [totalRecords]="count" (onPageChange)="paginate($event)">
+            </p-paginator>
             <br>
             <br>
         </div>

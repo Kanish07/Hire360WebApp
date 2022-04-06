@@ -22,6 +22,9 @@ export class CandidateJobViewComponent implements OnInit {
   title: string = "";
   page: number = 1;
   count!: number;
+  roleTypeDuplicate: string[] = [];
+  roleType: string[] = [];
+  allJob: Job[] = [];
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -32,11 +35,28 @@ export class CandidateJobViewComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/candidate/login" }
     ];
 
+    this.getFilteredJob();
+
     this.getAllJob();
   }
 
-  //TODO: Handle Error
   getAllJob(){
+    this.candidateService.getAllJob().subscribe({
+      next: (jobs) => {
+        this.allJob = jobs['data' as keyof Object] as unknown as Job[];
+        this.allJob.forEach((j) => {
+          this.roleTypeDuplicate.push(j.jobTitle)
+        })
+        this.roleType = [...new Set(this.roleTypeDuplicate)]
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  //TODO: Handle Error
+  getFilteredJob(){
     this.isLoading = true;
     this.candidateService.getFilteredJob(this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
@@ -91,12 +111,12 @@ export class CandidateJobViewComponent implements OnInit {
   }
 
   Filter(){
-    this.getAllJob()
+    this.getFilteredJob()
   }
 
   paginate(event: any) {
     this.page = event.page + 1
     this.job = []
-    this.getAllJob();
+    this.getFilteredJob();
   }
 }
