@@ -20,6 +20,8 @@ export class CandidateJobViewComponent implements OnInit {
   highSalRange: number = 999999999;
   city: string = "";
   title: string = "";
+  page: number = 1;
+  count!: number;
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -38,13 +40,11 @@ export class CandidateJobViewComponent implements OnInit {
   //TODO: Handle Error
   getAllJob(){
     this.isLoading = true;
-    this.candidateService.getFilteredJob(this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
+    this.candidateService.getFilteredJob(this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
-        console.log(jobs);
-        
         this.isLoading = false;
         this.job = jobs['data' as keyof Object] as unknown as Job[];
-        console.log(this.job[0].hr.companyName);
+        this.count = jobs['count' as keyof Object] as unknown as number;
       },
       error: (err) => {
         this.isLoading = false;
@@ -94,5 +94,11 @@ export class CandidateJobViewComponent implements OnInit {
 
   Filter(){
     this.getAllJob()
+  }
+
+  paginate(event: any) {
+    this.page = event.page + 1
+    this.job = []
+    this.getAllJob();
   }
 }

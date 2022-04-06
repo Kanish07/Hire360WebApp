@@ -84,8 +84,8 @@ export class CandidateService {
     return this.httpClient.post(jobApply, job);
   }
 
-  getFilteredJob(lowsal: number, highsal: number, city: string, role: string): Observable<Job>{
-    let filterJob = this.baseUrl + 'GetAllJobsBasedOnFilter' + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
+  getFilteredJob(page: number, lowsal: number, highsal: number, city: string, role: string): Observable<Job>{
+    let filterJob = this.baseUrl + `GetAllJobsBasedOnFilter/${page}` + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
     return this.httpClient.get<Job>(filterJob).pipe(delay(2000));
   }
 
