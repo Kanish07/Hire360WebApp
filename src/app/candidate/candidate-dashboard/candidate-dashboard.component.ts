@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { Candidate } from 'src/app/model/candidate';
 import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
@@ -54,7 +55,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   gaugeAppendText = "%";
 
 
-  constructor(private candidateService: CandidateService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService) {
+  constructor(private candidateService: CandidateService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
     this.level = ["Beginner", "Intermediate", "Pro"];
     this.graduationYear = ["Before 2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
     this.degree = ["B.E CSE", "B.E ECE", "B.E EEE", "M.E CSE", "MCA", "OTHER DEGREE"];
@@ -345,6 +346,10 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.messageService.add({ severity: 'error', summary: 'Description update failed', detail: '' })
       }
     })
+  }
+
+  openJobPage(jobId: string){
+    this.router.navigate([`candidate/job-detail/${jobId}`]);
   }
 
   get h() {

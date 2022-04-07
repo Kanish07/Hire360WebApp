@@ -25,6 +25,7 @@ export class CandidateJobViewComponent implements OnInit {
   roleTypeDuplicate: string[] = [];
   roleType: string[] = [];
   allJob: Job[] = [];
+  candidateId!: string;
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -34,6 +35,8 @@ export class CandidateJobViewComponent implements OnInit {
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/candidate/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/candidate/login" }
     ];
+
+    this.candidateId = localStorage.getItem('id') as string;
 
     this.getFilteredJob();
 
@@ -58,7 +61,7 @@ export class CandidateJobViewComponent implements OnInit {
   //TODO: Handle Error
   getFilteredJob(){
     this.isLoading = true;
-    this.candidateService.getFilteredJob(this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
+    this.candidateService.getFilteredJob(this.candidateId ,this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
         this.isLoading = false;
         this.job = jobs['data' as keyof Object] as unknown as Job[];

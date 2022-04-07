@@ -4,7 +4,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <div id="left" class="col-xl-6 col-md-12" >
+            <div id="left" class="col-xl-6 col-md-12">
                 <div class="">
                     <div class="card shadow-lg user-card-full">
                         <div class="row m-l-0 m-r-0">
@@ -16,10 +16,11 @@
                                                 height="125px">
                                         </div>
                                         <input type="file" #picture placeholder="Choose file"
-                                                (change)="uploadProfilePicture(picture.files)" style="display:none;" accept="image/*">
+                                            (change)="uploadProfilePicture(picture.files)" style="display:none;"
+                                            accept="image/*">
                                         <button *ngIf="candidatePhoto == null" style="margin-top: 5px;" pButton pRipple
-                                            type="button" icon="pi pi-plus" (click)="picture.click()" pTooltip="Add Profile Picture"
-                                            class="p-button-rounded p-button-danger">
+                                            type="button" icon="pi pi-plus" (click)="picture.click()"
+                                            pTooltip="Add Profile Picture" class="p-button-rounded p-button-danger">
                                         </button>
                                     </div>
 
@@ -61,7 +62,8 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col">
-                                                <button pButton style="float: right;" class="input color p-button-rounded"
+                                                <button pButton style="float: right;"
+                                                    class="input color p-button-rounded"
                                                     (click)="showResponsiveDialogDescription()" icon="pi pi-pencil"
                                                     label=""></button>
                                             </div>
@@ -205,7 +207,7 @@
                                         Applied On
                                     </div>
                                     <div class="col-2" style="color: #1D2564; font-size: 20px;">
-                                        Status
+
                                     </div>
                                 </div>
                                 <hr>
@@ -218,7 +220,8 @@
                                             {{item.appliedOn | date}}
                                         </div>
                                         <div class="col-2">
-                                            {{item.active}}
+                                            <button pButton class="p-button-raised p-button-text color p-button-plain"
+                                                (click)="openJobPage(item.jobId)">View</button>
                                         </div>
                                     </div>
                                 </div>
@@ -328,15 +331,16 @@
     </form>
 </p-dialog>
 
-<p-dialog header="Edit Description" [modal]="true" [(visible)]="displayResponsiveDescription" [breakpoints]="{'960px': '75vw'}"
-    [style]="{width: '20vw'}" [draggable]="false" [resizable]="false">
+<p-dialog header="Edit Description" [modal]="true" [(visible)]="displayResponsiveDescription"
+    [breakpoints]="{'960px': '75vw'}" [style]="{width: '20vw'}" [draggable]="false" [resizable]="false">
     <form>
         <div class="row mb-4">
             <div class="col-lg-12 col-md-12 col-sm-12">
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
                 <label for="skillLevel" class="block text-900 font-medium mb-2">Description</label>
-                <textarea [rows]="5" [cols]="" pInputTextarea [(ngModel)]="candidateDescription" [ngModelOptions]="{standalone: true}"></textarea>
+                <textarea [rows]="5" [cols]="" pInputTextarea [(ngModel)]="candidateDescription"
+                    [ngModelOptions]="{standalone: true}"></textarea>
             </div>
         </div>
         <br>
