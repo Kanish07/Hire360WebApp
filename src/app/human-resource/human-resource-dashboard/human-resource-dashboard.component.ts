@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Notyf } from 'notyf';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { JobAddByHr } from 'src/app/model/jobaddbyhr';
 import { JobPosted } from 'src/app/model/jobposted';
@@ -23,6 +24,14 @@ export class HumanResourceDashboardComponent implements OnInit {
   items: MenuItem[] = [];
   hrid!: string;
   public autofit = true;
+  notyf = new Notyf({
+    duration:5000,
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    dismissible: true
+  });
 
 
   public labelContent(e: any): string {
@@ -41,8 +50,8 @@ export class HumanResourceDashboardComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       hrid: [this.hrid],
       jobTitle: ["", [Validators.required]],
-      noOfVacancy: ["", [Validators.required, Validators.pattern("^[0-9]{1,2}$")]],
-      package: ["", [Validators.required, Validators.pattern("^[0-9]{1,6}$")]],
+      noOfVacancy: ["", [Validators.required]],
+      package: ["", [Validators.required]],
       jobDescription: ["", [Validators.required]],
       jobCity: [this.selectedCity, [Validators.required]]
     })
@@ -76,11 +85,16 @@ export class HumanResourceDashboardComponent implements OnInit {
     this.humanresourceService.postAddnewjob(jobposted).subscribe({
       next: () => {
         this.isLoading = false;
-        this.messageService.add({ severity: 'success', summary: 'Registered Successfully', detail: "" });
+        this.notyf.success({
+          message: 'New Post Added Successfully',
+          duration: 5000,
+          background: "#00c293"
+        })
+        this.messageService.add({ severity: 'success', summary: 'New Post added Successfully', detail: "" });
         this.onReset()
       },
       error: (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Registration Failed', detail: error.error.message });
+        this.messageService.add({ severity: 'error', summary: 'Post Job Failed', detail: error.error.message });
         this.isLoading = false;
         this.onReset()
       }

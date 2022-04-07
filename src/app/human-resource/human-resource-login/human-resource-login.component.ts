@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Notyf } from 'notyf';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { HumanResource } from 'src/app/model/humanresource';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
@@ -16,6 +17,15 @@ export class HumanResourceLoginComponent implements OnInit {
   submitted: boolean = false;
   isLoading: boolean = false;
   items: MenuItem[] = [];
+  notyf = new Notyf({
+    duration:3000,
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    dismissible: true
+  });
+  
   constructor(private formBuilder: FormBuilder, private primengConfig: PrimeNGConfig, private messageService: MessageService, private router: Router, private humanresourceService: HumanResourceService) { }
 
   ngOnInit(): void {
@@ -41,6 +51,11 @@ export class HumanResourceLoginComponent implements OnInit {
     this.isLoading = true;
     this.humanresourceService.hrLogin(humanresource).subscribe({
       next: (humanresourceData) => {
+        this.notyf.success({
+          message: 'Login Successful',
+          duration: 5000,
+          background: "#00c293"
+        })
         this.isLoading = false;
         localStorage.setItem("id", humanresourceData.id)
         localStorage.setItem("token", humanresourceData.token)

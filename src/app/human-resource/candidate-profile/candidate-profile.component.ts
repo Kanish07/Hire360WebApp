@@ -50,7 +50,6 @@ export class CandidateProfileComponent implements OnInit {
       next: (data) => {
         this.isLoadingCandidate = false;
         this.candidate = data['data' as keyof object] as unknown as Candidate;
-        console.log(this.candidate);
         this.candidatePhoto = this.candidate.candidatePhotoUrl;
         if (this.candidate.candidatePhotoUrl == null) {
           this.photoLink = "../../../assets/blank-profile.webp"
@@ -70,7 +69,6 @@ export class CandidateProfileComponent implements OnInit {
       next: (data) => {
         this.isLoadingQualification = false;
         this.candidateQualification = data['data' as keyof Object] as unknown as Qualification[];
-        console.log(this.candidateQualification)
       },
       error: (error) => {
         this.isLoadingQualification = false;
@@ -84,8 +82,6 @@ export class CandidateProfileComponent implements OnInit {
       next: (data) => {
         this.isLoadingSkills = false;
         this.candidateSkills = data['data' as keyof Object] as unknown as Skill[];
-        console.log(this.candidateSkills[0].skillSet.skillSetName);
-
       },
       error: (error) => {
         this.isLoadingSkills = false;

@@ -67,8 +67,7 @@
                             <label for="package" class="block text-900 font-medium mb-2">Package </label>
                             <input type="text" formControlName="package"
                                 [ngClass]="{ 'is-invalid': submitted && h['package'].errors }"
-                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control"
-                                pattern="^[0-9]{1,6}$">
+                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control">
                             <div *ngIf="h['package'].touched && h['package'].errors" class="text-danger">
                                 <div *ngIf="h['package'].errors['required']">Package is required</div>
                             </div>

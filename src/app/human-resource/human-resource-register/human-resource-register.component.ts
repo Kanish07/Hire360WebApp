@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Notyf } from 'notyf';
 import { MenuItem, MessageService, PrimeNGConfig } from 'primeng/api';
 import { HumanResource } from 'src/app/model/humanresource';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
@@ -21,6 +22,14 @@ export class HumanResourceRegisterComponent implements OnInit {
   selectedExperience!: string;
   items: MenuItem[] = [];
   logo!: string;
+  notyf = new Notyf({
+    duration:5000,
+    position: {
+      x: 'right',
+      y: 'top',
+    },
+    dismissible: true
+  });
 
   constructor(private primengConfig: PrimeNGConfig, private formBuilder: FormBuilder,
     private humanresourceService: HumanResourceService, private messageService: MessageService,
@@ -57,6 +66,11 @@ export class HumanResourceRegisterComponent implements OnInit {
     this.humanresourceService.hrRegistration(humanresource).subscribe({
       next: () => {
         this.isLoading = false;
+        this.notyf.success({
+          message: 'Registered Successfully',
+          duration: 5000,
+          background: "#00c293"
+        })
         this.messageService.add({ severity: 'success', summary: 'Registered Successfully', detail: "" });
         this.onReset()
       },
