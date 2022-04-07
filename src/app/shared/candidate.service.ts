@@ -96,7 +96,7 @@ export class CandidateService {
 
   getJobDetailByJobId(jobId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
-    return this.httpClient.get<Job>(getSpecificJob)
+    return this.httpClient.get<Job>(getSpecificJob).pipe(delay(2000))
   }
 
   getAppliedJobsByCandidateId(candidateId: string): Observable<Job>{

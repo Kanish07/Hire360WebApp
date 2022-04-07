@@ -7,11 +7,11 @@ import { CandidateService } from 'src/app/shared/candidate.service';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
 
 @Component({
-  selector: 'app-job-detils',
-  templateUrl: './job-detils.component.html',
-  styleUrls: ['./job-detils.component.css']
+  selector: 'app-job-details',
+  templateUrl: './job-details.component.html',
+  styleUrls: ['./job-details.component.css']
 })
-export class JobDetilsComponent implements OnInit {
+export class JobDetailsComponent implements OnInit {
 
   items: MenuItem[] = [];
   jobId!: string;
@@ -20,8 +20,11 @@ export class JobDetilsComponent implements OnInit {
   totalApplications!: number;
   jobAlreadyApplied!: string;
   isLoading: boolean = true;
+  isLoadingComp: boolean = true;
+  isLoadingJobApply: boolean = false;
+  count!: number;
   notyf = new Notyf({
-    duration:3000,
+    duration: 3000,
     position: {
       x: 'right',
       y: 'top',
@@ -46,23 +49,44 @@ export class JobDetilsComponent implements OnInit {
 
     this.getJobAppliedByJobId()
 
+    this.getAppliedJobsByCandidateIdCount()
+
   }
 
-  getJobDetail(){
+
+  //Trial for pro membership
+  getAppliedJobsByCandidateIdCount() {
+    //TODO: Hanlde Error
+    this.candidateService.getAppliedJobsByCandidateId(this.candidateId).subscribe({
+      next: (data) => {
+        this.isLoading = false;
+        this.count = data['data' as keyof Object].length
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error(error);
+      }
+    });
+  }
+
+  getJobDetail() {
+    this.isLoadingComp = true
     this.candidateService.GetJobByIdCheckIfAlreadyApplied(this.jobId, this.candidateId).subscribe({
       next: (data) => {
+        this.isLoadingComp = false
         this.jobDetail = data['data' as keyof Object]['job' as keyof Object] as unknown as Job;
         this.jobAlreadyApplied = data['data' as keyof Object]['isApplied' as keyof Object] as unknown as string;
         console.log(this.jobDetail);
         console.log(this.jobAlreadyApplied);
       },
       error: (error) => {
+        this.isLoadingComp = false
         console.error(error);
       }
     });
   }
 
-  getJobAppliedByJobId(){
+  getJobAppliedByJobId() {
     this.humanresourceService.getJobAppliedByJobId(this.jobId).subscribe({
       next: (data) => {
         this.isLoading = false
@@ -76,26 +100,34 @@ export class JobDetilsComponent implements OnInit {
     })
   }
 
-  ApplyJob(){
-    this.candidateService.applyJob(this.jobId, this.candidateId).subscribe({
-      next: (data) => {
-        this.isLoading = false
-        this.notyf.success({
-          message: 'Job Applied',
-          duration: 5000,
-          background: "#00c293"
-        })
-        this.getJobDetail()
-      },
-      error: (error) => {
-        this.isLoading = false
-        console.error(error);
-        this.notyf.error({
-          message: 'Job Apply Failed',
-          duration: 5000
-        })
-      }
-    });
+  ApplyJob() {
+    this.isLoadingJobApply = true;
+    if (this.count >= 5) {
+      this.notyf.error({
+        message: 'Job limit reached please Upgrade you plan!',
+        duration: 5000
+      })
+    } else {
+      this.candidateService.applyJob(this.jobId, this.candidateId).subscribe({
+        next: (data) => {
+          this.isLoadingJobApply = false
+          this.notyf.success({
+            message: 'Job Applied',
+            duration: 5000,
+            background: "#00c293"
+          })
+          this.getJobDetail()
+        },
+        error: (error) => {
+          this.isLoadingJobApply = false
+          console.error(error);
+          this.notyf.error({
+            message: 'Job Apply Failed',
+            duration: 5000
+          })
+        }
+      });
+    }
   }
 
 }

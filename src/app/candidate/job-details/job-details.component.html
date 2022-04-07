@@ -1,5 +1,5 @@
 <app-navbar [items]="items"></app-navbar>
-<div *ngIf="!isLoading ;else componentloader">
+<div *ngIf="!isLoadingComp ;else componentloader">
     <br><br>
     <div class="container">
         <div class="row">
@@ -10,7 +10,15 @@
             </div>
             <div class="col-4" *ngIf="!jobAlreadyApplied;else alreadyApplied">
                 <button pButton class="p-button-raised p-button-text color p-button-plain" (click)="ApplyJob()"
-                    style="float: right;">Apply</button>
+                    style="float: right;">
+                    <div *ngIf="!isLoadingJobApply;else loader">
+                    </div>
+                    <ng-template #loader>
+                        <div class="spinner-border text-light" role="status">
+                        </div>
+                    </ng-template>
+                    Apply
+                </button>
             </div>
             <ng-template #alreadyApplied>
                 <div class="col-4">
