@@ -3,7 +3,7 @@
 }
 
 .user-card-full {
-    overflow: hidden
+    overflow: hidden;
 }
 
 .card {
@@ -23,7 +23,9 @@
 }
 
 .user-card-full .user-profile {
-    border-radius: 5px 0 0 5px
+    border-radius: 5px 0 0 5px;
+    /* CHANGE HEIGHT BASED ON SCREEN SIZE */
+    height: 85vh;
 }
 
 .bg-c-lite-green {

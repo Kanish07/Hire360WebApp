@@ -14,6 +14,17 @@ export class CandidateJobViewComponent implements OnInit {
   isLoading!: boolean;
   items: MenuItem[] = [];
   job: Job [] = [];
+  searchedKeyword!: string;
+
+  lowSalRange: number = 0;
+  highSalRange: number = 999999999;
+  city: string = "";
+  title: string = "";
+  page: number = 1;
+  count!: number;
+  roleTypeDuplicate: string[] = [];
+  roleType: string[] = [];
+  allJob: Job[] = [];
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -24,17 +35,34 @@ export class CandidateJobViewComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/candidate/login" }
     ];
 
+    this.getFilteredJob();
+
     this.getAllJob();
   }
 
-  //TODO: Handle Err
   getAllJob(){
-    this.isLoading = true;
     this.candidateService.getAllJob().subscribe({
+      next: (jobs) => {
+        this.allJob = jobs['data' as keyof Object] as unknown as Job[];
+        this.allJob.forEach((j) => {
+          this.roleTypeDuplicate.push(j.jobTitle)
+        })
+        this.roleType = [...new Set(this.roleTypeDuplicate)]
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  //TODO: Handle Error
+  getFilteredJob(){
+    this.isLoading = true;
+    this.candidateService.getFilteredJob(this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
         this.isLoading = false;
         this.job = jobs['data' as keyof Object] as unknown as Job[];
-        console.log(this.job[0].hr.companyName);
+        this.count = jobs['count' as keyof Object] as unknown as number;
       },
       error: (err) => {
         this.isLoading = false;
@@ -47,4 +75,48 @@ export class CandidateJobViewComponent implements OnInit {
     this.router.navigate([`candidate/job-detail/${jobId}`]);
   }
 
+  sortDataByFreshness(){
+    if(this.job){
+      let sortedArr = this.job.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf())
+      this.job = sortedArr;
+    }
+  }
+
+  sortDataByPackage(){
+    if(this.job){
+      let sortedArr = this.job.sort((a, b) => b.package - a.package)
+      this.job = sortedArr
+    }
+  }
+
+  AddCity(city: string){
+    if(!this.city.includes(city)){
+      this.city += city + ','
+    } else {
+      this.city = this.city.replace(city+',',"")
+    }
+  }
+
+  AddSalary(lowSal: number, highSal: number){
+    this.lowSalRange = lowSal
+    this.highSalRange = highSal
+  }
+
+  AddRole(role: string){
+    if(!this.title.includes(role)){
+      this.title +=  role + ','
+    } else {
+      this.title = this.title.replace(role+',',"")
+    }
+  }
+
+  Filter(){
+    this.getFilteredJob()
+  }
+
+  paginate(event: any) {
+    this.page = event.page + 1
+    this.job = []
+    this.getFilteredJob();
+  }
 }

@@ -9,3 +9,12 @@
     background-color:  #00C293 !important;
     color: white !important;
 }
+
+.input{
+    border-color: #00C293 !important;
+    box-shadow: 0 0 0 0.02rem #00C293 !important;
+}
+
+.text-color{
+    color: #00C293 !important;
+}

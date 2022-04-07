@@ -1,4 +1,5 @@
 import { Candidate } from "./candidate";
+import { Job } from "./job";
 
 export class JobAppliedByJobId {
 
@@ -7,5 +8,8 @@ export class JobAppliedByJobId {
     public candidateId! : string;
     public appliedOn! : string;
     public candidate! : Candidate;
+    public job!: Job;
+    public active!: string;
+    
     constructor() {}
 }

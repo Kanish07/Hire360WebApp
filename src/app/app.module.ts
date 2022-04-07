@@ -14,8 +14,6 @@ import { ExcelModule, GridModule, PDFModule } from '@progress/kendo-angular-grid
 
 
 
-
-
 let appRoutes:Routes = [
   {path: "humanresource", loadChildren: () => import("./human-resource/human-resource.module").then((h) => h.HumanResourceModule)},
   {path: "candidate", loadChildren: () => import("./candidate/candidate.module").then((c) => c.CandidateModule)}

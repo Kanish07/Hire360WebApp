@@ -68,13 +68,46 @@ export class CandidateService {
     return this.httpClient.post(uploadFile ,formData);
   }
 
+  uploadProfilePicture(formData: FormData, candidateId: string){
+    let uploadPic = this.baseUrl + 'UploadProfilePicture/' + `${candidateId}`;
+    return this.httpClient.post(uploadPic, formData);
+  }
+
   getAllJob(): Observable<Job>{
     let getAllJob = this.baseUrl + 'GetAllJobs';
     return this.httpClient.get<Job>(getAllJob).pipe(delay(1000));
   }
 
+  GetJobByIdCheckIfAlreadyApplied(jobId: string, candidateId: string): Observable<Job>{
+    let getSpecificJob = this.baseUrl + 'GetJobByIdCheckIfAlreadyApplied/' + `${jobId}` + '/' + `${candidateId}`;
+    return this.httpClient.get<Job>(getSpecificJob).pipe(delay(1000))
+  }
+
+  applyJob(jobId: string, candidateId: string){
+    let job = {"jobId": jobId, "candidateId": candidateId}
+    let jobApply = this.baseUrl + 'AddNewJobApplied';
+    return this.httpClient.post(jobApply, job);
+  }
+
+  getFilteredJob(page: number, lowsal: number, highsal: number, city: string, role: string): Observable<Job>{
+    let filterJob = this.baseUrl + `GetAllJobsBasedOnFilter/${page}` + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
+    return this.httpClient.get<Job>(filterJob).pipe(delay(2000));
+  }
+
   getJobDetailByJobId(jobId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
-    return this.httpClient.get<Job>(getSpecificJob)
+    return this.httpClient.get<Job>(getSpecificJob).pipe(delay(2000))
+  }
+
+  getAppliedJobsByCandidateId(candidateId: string): Observable<Job>{
+    let GetCandidateAppliedJobsById = this.baseUrl + 'GetJobAppliedByCandidateId/' + `${candidateId}`;
+    return this.httpClient.get<Job>(GetCandidateAppliedJobsById);
+  }
+
+  updateCandidateDescriptionByCandidateId(candidateId: string, description: string) {
+    let updateDescription = this.baseUrl + 'UpdateCandidateDescriptionById/' + `${candidateId}?description=` + `${description}`;
+    return this.httpClient.get(updateDescription).pipe(delay(2000));
   }
 }
+
+// https://localhost:5000/api/GetAllJobs?city=Coimbatore,Chennai&role=Software Engineer&salarylow=200000&salaryhigh=500000
