@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { process } from "@progress/kendo-data-query";
 import { MenuItem } from 'primeng/api';
+import { Candidate } from 'src/app/model/candidate';
 import { Job } from 'src/app/model/job';
 import { JobAddByHr } from 'src/app/model/jobaddbyhr';
 import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
@@ -18,6 +19,8 @@ export class JobAppliedCandidatesComponent implements OnInit {
   public jobAppliedByJobId: JobAppliedByJobId[] = [];
   public jobAddByHr: JobAddByHr[] = [];
   public jobDetail!: Job;
+  public candidateId!: string;
+  public candidate!: Candidate;
   public gridView!: JobAppliedByJobId[];
   public jobId!: string;
   public hrid!: string;
@@ -36,6 +39,8 @@ export class JobAppliedCandidatesComponent implements OnInit {
 
     this.hrid = localStorage.getItem('id') as string;
     this.jobId = this.route.url.split('/').pop()!;
+    this.candidateId = this.route.url.split('/').pop()!;
+
     this.humanresourceService.getJobAppliedByJobId(this.jobId).subscribe({
       next: (data) => {
         this.isLoadingJobApplied = false;
@@ -60,6 +65,15 @@ export class JobAppliedCandidatesComponent implements OnInit {
         console.error(error);
       }
     })
+
+    // this.candidateService.getCandidateById(this.candidateId).subscribe({
+    //   next: (data) => {
+    //     this.candidate = data['data' as keyof object] as unknown as Candidate;
+    //   },
+    //   error: (error) => {
+    //     console.error(error);
+    //   }
+    // })
 
     this.items = [
       // { label: 'Candidate', icon: 'pi pi-sign-out', routerLink: "/humanresource/jobappliedcandidates/:id"},
@@ -94,6 +108,11 @@ export class JobAppliedCandidatesComponent implements OnInit {
         ],
       },
     }).data;
+  }
+  viewHandler(candidateId : string) {
+    console.log(candidateId);
+    
+    this.route.navigate([`humanresource/candidateprofile/${candidateId}`]);
   }
 
 }
