@@ -14,35 +14,41 @@ import { CandidateService } from 'src/app/shared/candidate.service';
 export class CandidateProfileComponent implements OnInit {
 
   public hrid!: string;
-  public candidate! : Candidate;
-  public candidateId! : string;
+  public candidate!: Candidate;
+  public candidateId!: string;
+  isLoadingSkills: boolean = true;
+  isLoadingQualification: boolean = true;
+  isLoadingCandidate: boolean = true;
   items: MenuItem[] = [];
   photoLink!: string;
   candidatePhoto: any;
   candidateQualification: Qualification[] = [];
   candidateSkills: Skill[] = [];
+  percentage!: number;
 
 
-  constructor(private route: Router,private candidateService: CandidateService) { }
+
+  constructor(private route: Router, private candidateService: CandidateService) { }
 
   ngOnInit(): void {
 
     this.hrid = localStorage.getItem('id') as string;
 
-    this.candidateId  = this.route.url.split('/').pop()!;
+    this.candidateId = this.route.url.split('/').pop()!;
 
     this.getQualificationByCandidateId();
 
     this.getSkillsByCandidateId();
-    
+
     this.items = [
-      {label: 'My Job',icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard"},
+      { label: 'My Job', icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/logout" }
     ];
 
     this.candidateService.getCandidateById(this.candidateId).subscribe({
-      next: (data) =>{
+      next: (data) => {
+        this.isLoadingCandidate = false;
         this.candidate = data['data' as keyof object] as unknown as Candidate;
         console.log(this.candidate);
         this.candidatePhoto = this.candidate.candidatePhotoUrl;
@@ -53,6 +59,7 @@ export class CandidateProfileComponent implements OnInit {
         }
       },
       error: (error) => {
+        this.isLoadingCandidate = false;
         console.error(error);
       }
     })
@@ -61,10 +68,12 @@ export class CandidateProfileComponent implements OnInit {
   getQualificationByCandidateId() {
     this.candidateService.getQualificationByCandidateId(this.candidateId).subscribe({
       next: (data) => {
+        this.isLoadingQualification = false;
         this.candidateQualification = data['data' as keyof Object] as unknown as Qualification[];
         console.log(this.candidateQualification)
       },
       error: (error) => {
+        this.isLoadingQualification = false;
         console.error(error);
       }
     });
@@ -73,11 +82,13 @@ export class CandidateProfileComponent implements OnInit {
   getSkillsByCandidateId() {
     this.candidateService.getSkillsByCandidateId(this.candidateId).subscribe({
       next: (data) => {
+        this.isLoadingSkills = false;
         this.candidateSkills = data['data' as keyof Object] as unknown as Skill[];
         console.log(this.candidateSkills[0].skillSet.skillSetName);
 
       },
       error: (error) => {
+        this.isLoadingSkills = false;
         console.error(error);
       }
     });

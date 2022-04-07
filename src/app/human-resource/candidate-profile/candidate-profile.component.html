@@ -1,101 +1,129 @@
 <app-navbar [items]="items"></app-navbar>
-<section class="section about-section" id="about">
-    <div class="container">
-        <div class="row align-items-center flex-row-reverse">
-            <div class="col-lg-9">
-                <div class="counter">
-                    <h3 class="dark-color">{{candidate?.candidateName}}</h3>
-                    <p style="text-align: justify;">{{candidate?.candidateDescription}}</p>
-                    <div class="row about-list">
-                        <div class="col-md-6">
-                            <div class="media">
-                                <label>Phone</label>
-                                <p>{{candidate?.candidatePhoneNumber}}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="media">
-                                <label>E-mail</label>
-                                <p>{{candidate?.candidateEmail}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="about-avatar row">
-                    <div class="col-2"></div>
-                    <div class="col-8">
-                        <img [src]="photoLink" width="200px" height="200px" style="border-radius: 50%;">
-                    </div>
-                    <div class="col-2"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row align-items-center flex-row-reverse">
-            <div class="col-lg-9">
-                <div class="counter" style="height: 30vh;">
-                    <div class="row qualification-list">
-                        <h4 class="dark-color">Qualification</h4>
-                        <div class="count-data ">
-                            <div class="row">
-                                <div class="media col-lg-6">
-                                    <label>Degree</label>
-                                    <p>{{ candidateQualification[0]?.degreeName}}</p>
-                                </div>
-                                <div class="media col-lg-6 mt-2">
-                                    <label>Year Of Graduation</label>
-                                    <p>{{ candidateQualification[0]?.yearOfGraduation}}</p>
-                                </div>
-                                <div class="media col-lg-6 mt-2">
-                                    <label>Percentage</label>
-                                    <p>{{ candidateQualification[0]?.qualificationPercentage}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="counter" style="height: 30vh;">
-                    <div class="row qualification-list">
-                        <h3 class="dark-color">Skills</h3>
-                        <p-scrollPanel [style]="{width: '100%', height: '18vh'}">
-                            <div class="count-data" *ngFor="let item of candidateSkills">
+<div *ngIf="(!isLoadingCandidate && !isLoadingSkills && !isLoadingQualification) ;else componentloader">
+
+    <section class="section about-section" id="about">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-lg-9">
+                    <div class="counter">
+                        <h3 class="dark-color">{{candidate?.candidateName}}</h3>
+                        <p style="text-align: justify;">{{candidate?.candidateDescription}}</p>
+                        <div class="row about-list">
+                            <div class="col-md-6">
                                 <div class="media">
-                                    <p-chip styleClass="mr-2 custom-chip">
-                                        {{item.skillSet.skillSetName}}
-                                    </p-chip>
+                                    <label>Phone</label>
+                                    <p>{{candidate?.candidatePhoneNumber}}</p>
                                 </div>
                             </div>
-                        </p-scrollPanel>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <label>E-mail</label>
+                                    <p>{{candidate?.candidateEmail}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="about-avatar row">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            <img [src]="photoLink" width="200px" height="200px" style="border-radius: 50%;">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-lg-9">
+                    <div class="counter" style="height: 30vh;">
+                        <div class="row qualification-list">
+                            <h4 class="dark-color">Qualification</h4>
+                            <div class="count-data ml-6">
+                                <div class="row">
+                                    <div class="media col-lg-4">
+                                        <label>Degree</label>
+                                        <p>{{ candidateQualification[0]?.degreeName}}</p>
+                                    </div>
+
+                                    <div class="media col-lg-4">
+                                        <label>Year Of Graduation</label>
+                                        <p>{{ candidateQualification[0]?.yearOfGraduation}}</p>
+                                    </div>
+                                    <div class="media col-lg-4">
+                                        <label>Percentage</label>
+                                        <p-knob [(ngModel)]="percentage"
+                                            valueTemplate="{{candidateQualification[0]?.qualificationPercentage}}%"
+                                            valueColor="#1D2564" [readonly]="true"></p-knob>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="counter" style="height: 30vh;">
+                        <div class="row qualification-list">
+                            <h3 class="dark-color">Skills</h3>
+                            <p-scrollPanel [style]="{width: '100%', height: '18vh'}">
+                                <div class="count-data" *ngFor="let item of candidateSkills">
+                                    <div class="media">
+                                        <p-chip styleClass="mr-2 custom-chip">
+                                            {{item.skillSet.skillSetName}}
+                                        </p-chip>
+                                    </div>
+                                </div>
+                            </p-scrollPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="counter">
+                <div class="row">
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2">{{candidate?.candidateCity}}</h6>
+                            <p class="m-0px font-w-600">Location</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2">{{candidate?.candidateTotalExp}} Years</h6>
+                            <p class="m-0px font-w-600">Total Experience</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color"
+                                    icon="pi pi-download" iconPos="right" (click)="downloadMyFile()">
+                                </button></h6>
+                            <p class="m-0px font-w-600">Download Resume</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color">
+                                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{candidate?.candidateEmail}}&su=SUBJECT&body=BODY&tf=1"
+                                        target="_blank"><i class="pi pi-envelope input color"></i></a></button></h6>
+                            <p class="m-0px font-w-600">Send E-mail</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="counter">
-            <div class="row">
-                <div class="col-6 col-lg-4">
-                    <div class="count-data text-center">
-                        <h6 class="count h2">{{candidate?.candidateCity}}</h6>
-                        <p class="m-0px font-w-600">Location</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-4">
-                    <div class="count-data text-center">
-                        <h6 class="count h2">{{candidate?.candidateTotalExp}} Years</h6>
-                        <p class="m-0px font-w-600">Total Experience</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-4">
-                    <div class="count-data text-center">
-                        <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color"
-                                icon="pi pi-download" iconPos="right" (click)="downloadMyFile()">
-                            </button></h6>
-                        <p class="m-0px font-w-600">Download Resume</p>
-                    </div>
-                </div>
+    </section>
+</div>
+<ng-template #componentloader>
+    <div class="container" style="margin-top: 30vh;">
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <h2 style="text-align: center; color: #1D2564;">HIRE360</h2>
+                <p-progressBar mode="indeterminate" [style]="{'height': '16px'}"></p-progressBar>
+            </div>
+            <div class="col-4">
             </div>
         </div>
     </div>
-</section>
+</ng-template>

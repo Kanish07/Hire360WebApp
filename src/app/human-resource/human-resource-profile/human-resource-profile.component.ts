@@ -15,6 +15,8 @@ export class HumanResourceProfileComponent implements OnInit {
   public humanResource!: HumanResource;
   hrid!: string;
   items: MenuItem[] = [];
+  isLoadingJob: boolean = true;
+  isLoadingHR: boolean = true;
   public jobAddByHr: JobAddByHr[] = [];
 
   constructor(private router: Router, private humanresourceService: HumanResourceService) { }
@@ -24,18 +26,20 @@ export class HumanResourceProfileComponent implements OnInit {
     this.getHumanResourceById();
 
     this.items = [
-      {label: 'My Job',icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard"},
+      { label: 'My Job', icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/logout" }
     ];
 
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
       next: (data) => {
+        this.isLoadingJob = false;
         console.log(data['data' as keyof Object] as unknown as JobAddByHr);
         this.jobAddByHr = data['data' as keyof Object] as unknown as JobAddByHr[];
-        console.log(this.jobAddByHr);    
+        console.log(this.jobAddByHr);
       },
       error: (err) => {
+        this.isLoadingJob = false;
         console.log(err);
       }
     })
@@ -44,10 +48,12 @@ export class HumanResourceProfileComponent implements OnInit {
   getHumanResourceById() {
     this.humanresourceService.getHumanResourceById(this.hrid).subscribe({
       next: (data) => {
+        this.isLoadingHR = false;
         console.log(data);
         this.humanResource = data['data' as keyof Object] as unknown as HumanResource;
       },
       error: (err) => {
+        this.isLoadingHR = false;
         console.log(err);
       }
     })

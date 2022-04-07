@@ -21,8 +21,10 @@ export class JobAppliedCandidatesComponent implements OnInit {
   public gridView!: JobAppliedByJobId[];
   public jobId!: string;
   public hrid!: string;
-  
+  isLoadingJobApplied: boolean = true;
+  isLoadingJobDetails: boolean = true;
   items: MenuItem[] = [];
+
   public labelContent(e: any): string {
     return e.category;
   }
@@ -31,29 +33,30 @@ export class JobAppliedCandidatesComponent implements OnInit {
   public mySelection: string[] = [];
 
   ngOnInit(): void {
-    
+
     this.hrid = localStorage.getItem('id') as string;
-    this.jobId  = this.route.url.split('/').pop()!;
+    this.jobId = this.route.url.split('/').pop()!;
     this.humanresourceService.getJobAppliedByJobId(this.jobId).subscribe({
       next: (data) => {
-        if(data['data' as keyof Object].length != 0){
+        this.isLoadingJobApplied = false;
+        if (data['data' as keyof Object].length != 0) {
           this.jobAppliedByJobId = data['data' as keyof Object] as unknown as JobAppliedByJobId[]
         }
         this.gridView = this.jobAppliedByJobId;
-        console.log(this.gridView[0].candidate.candidateName);
       },
       error: (err) => {
+        this.isLoadingJobApplied = false;
         console.log(err);
       }
     })
 
     this.candidateService.getJobDetailByJobId(this.jobId).subscribe({
       next: (data) => {
+        this.isLoadingJobDetails = false;
         this.jobDetail = data['data' as keyof Object] as unknown as Job;
-        console.log(this.jobDetail);
-        
       },
       error: (error) => {
+        this.isLoadingJobDetails = false;
         console.error(error);
       }
     })
@@ -61,8 +64,8 @@ export class JobAppliedCandidatesComponent implements OnInit {
     this.items = [
       // { label: 'Candidate', icon: 'pi pi-sign-out', routerLink: "/humanresource/jobappliedcandidates/:id"},
       { label: 'My Job', icon: 'pi pi-fw pi-home', routerLink: "/humanresource/dashboard" },
-      { label: 'Profile', icon: 'pi pi-user', routerLink:"/humanresource/profile"},
-      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login"}
+      { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
+      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
   }
