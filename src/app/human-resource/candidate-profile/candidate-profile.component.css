@@ -138,3 +138,7 @@ img{
   margin: 0;
   font-size: 15px;
 }
+:host ::ng-deep .p-chip.custom-chip {
+  background: var(--blue-900);
+  color: var(--primary-color-text);
+}

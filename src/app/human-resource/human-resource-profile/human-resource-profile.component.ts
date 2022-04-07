@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { HumanResource } from 'src/app/model/humanresource';
+import { JobAddByHr } from 'src/app/model/jobaddbyhr';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
-
+// 
 @Component({
   selector: 'app-human-resource-profile',
   templateUrl: './human-resource-profile.component.html',
@@ -14,6 +15,8 @@ export class HumanResourceProfileComponent implements OnInit {
   public humanResource!: HumanResource;
   hrid!: string;
   items: MenuItem[] = [];
+  public jobAddByHr: JobAddByHr[] = [];
+
   constructor(private router: Router, private humanresourceService: HumanResourceService) { }
 
   ngOnInit(): void {
@@ -25,6 +28,17 @@ export class HumanResourceProfileComponent implements OnInit {
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/logout" }
     ];
+
+    this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
+      next: (data) => {
+        console.log(data['data' as keyof Object] as unknown as JobAddByHr);
+        this.jobAddByHr = data['data' as keyof Object] as unknown as JobAddByHr[];
+        console.log(this.jobAddByHr);    
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   getHumanResourceById() {

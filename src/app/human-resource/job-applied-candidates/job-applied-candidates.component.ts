@@ -59,13 +59,14 @@ export class JobAppliedCandidatesComponent implements OnInit {
     })
 
     this.items = [
-      { label: 'Candidate', icon: 'pi pi-sign-out', routerLink: "/humanresource/jobappliedcandidates/:id"},
+      // { label: 'Candidate', icon: 'pi pi-sign-out', routerLink: "/humanresource/jobappliedcandidates/:id"},
       { label: 'My Job', icon: 'pi pi-fw pi-home', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink:"/humanresource/profile"},
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login"}
     ];
+
   }
-// 
+
   public onFilter(e: Event): void {
     var inputValue = e.target as HTMLInputElement
     this.gridView = process(this.jobAppliedByJobId, {

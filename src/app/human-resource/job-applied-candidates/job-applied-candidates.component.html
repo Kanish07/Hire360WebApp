@@ -42,11 +42,11 @@
                 [pageSize]="6" [pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true"
                 [resizable]="true" [height]="650" [columnMenu]="{ filter: true }">
                 <ng-template kendoGridToolbarTemplate>
-                    <input [style.width.px]="165" placeholder="Search in all columns..." kendoTextBox
-                        (input)="onFilter($event)" />
+                    <!-- <input [style.width.px]="165" placeholder="Search in all columns..." kendoTextBox
+                        (input)="onFilter($event)" /> -->
+                        <button kendoGridExcelCommand type="button" icon="file-excel">
+                            Export to Excel</button>
                     <kendo-grid-spacer></kendo-grid-spacer>
-                    <button kendoGridExcelCommand type="button" icon="file-excel">
-                        Export to Excel</button>
                     <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
                 </ng-template>
                 <kendo-grid-column-group title="Job Applied Details" [columnMenu]="false">
