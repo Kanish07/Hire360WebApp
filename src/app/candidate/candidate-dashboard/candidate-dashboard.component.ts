@@ -130,6 +130,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
       next: (data) => {
         this.isLoadingProfile = false;
         this.candidateDetails = data['data' as keyof Object] as unknown as Candidate;
+        this.candidateDescription = this.candidateDetails.candidateDescription
         this.candidateResume = this.candidateDetails.candidateResume;
         this.candidatePhoto = this.candidateDetails.candidatePhotoUrl;
         if (this.candidateDetails.candidatePhotoUrl == null) {
@@ -218,7 +219,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
             console.log(error);
           }
         });
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Skill deleted' });
+        this.messageService.add({ severity: 'Skill deleted', summary: ''});
       }
     });
   }
@@ -228,7 +229,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     this.candidateService.AddNewSkill(skill).subscribe({
       next: (data) => {
         this.getSkillsByCandidateId();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Skill Added' });
+        this.messageService.add({ severity: 'success', summary: 'Skill Added', detail: '' });
         this.isLoading = false
         this.onReset()
         this.displayResponsive = false
@@ -245,7 +246,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     this.candidateService.AddNewQualification(qualification).subscribe({
       next: (qualificationData) => {
         this.getQualificationByCandidateId();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Qualification Added' });
+        this.messageService.add({ severity: 'success', summary: 'Qualification Added', detail: '' });
         this.isLoading = false
         this.onReset()
         this.displayResponsiveQualification = false

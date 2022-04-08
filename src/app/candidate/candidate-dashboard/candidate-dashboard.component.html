@@ -68,8 +68,8 @@
                                                     label=""></button>
                                             </div>
                                             <p class="m-b-10 f-w-600">Description</p>
-                                            <h6 class="text-green f-w-400" style="text-align: justify;">{{
-                                                candidateDetails?.candidateDescription }}
+                                            <h6 class="text-green f-w-400" style="text-align: justify;">
+                                                {{ candidateDetails?.candidateDescription }}
                                             </h6>
                                         </div>
                                     </div>
@@ -332,7 +332,7 @@
 </p-dialog>
 
 <p-dialog header="Edit Description" [modal]="true" [(visible)]="displayResponsiveDescription"
-    [breakpoints]="{'960px': '75vw'}" [style]="{width: '20vw'}" [draggable]="false" [resizable]="false">
+    [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
     <form>
         <div class="row mb-4">
             <div class="col-lg-12 col-md-12 col-sm-12">
