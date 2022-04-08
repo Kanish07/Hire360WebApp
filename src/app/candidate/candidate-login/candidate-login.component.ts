@@ -48,7 +48,7 @@ export class CandidateLoginComponent implements OnInit {
   get h() {
     return this.logInForm.controls;
   }
-
+  
   onSubmit(candidate: Candidate) {
     this.isLoading = true;
     this.candidateService.candidateLogin(candidate).subscribe({
