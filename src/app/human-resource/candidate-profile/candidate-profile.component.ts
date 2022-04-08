@@ -43,7 +43,7 @@ export class CandidateProfileComponent implements OnInit {
     this.items = [
       { label: 'My Job', icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
-      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/logout" }
+      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
     this.candidateService.getCandidateById(this.candidateId).subscribe({
@@ -69,6 +69,7 @@ export class CandidateProfileComponent implements OnInit {
       next: (data) => {
         this.isLoadingQualification = false;
         this.candidateQualification = data['data' as keyof Object] as unknown as Qualification[];
+        this.percentage = this.candidateQualification[0].qualificationPercentage;
       },
       error: (error) => {
         this.isLoadingQualification = false;
