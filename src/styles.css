@@ -24,3 +24,8 @@ p-dropdown, .p-dropdown{
 p-progressbar .p-progressbar .p-progressbar-indeterminate-container .p-progressbar-value:after {
    background-color: #00C293;
 }
+
+.p-inputtextarea, .p-inputtextarea:focus {
+   width: 100%;
+   border-color: #00C293;
+}

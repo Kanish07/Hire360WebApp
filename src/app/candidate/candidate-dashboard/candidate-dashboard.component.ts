@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { Candidate } from 'src/app/model/candidate';
 import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
@@ -54,7 +55,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   gaugeAppendText = "%";
 
 
-  constructor(private candidateService: CandidateService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService) {
+  constructor(private candidateService: CandidateService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
     this.level = ["Beginner", "Intermediate", "Pro"];
     this.graduationYear = ["Before 2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
     this.degree = ["B.E CSE", "B.E ECE", "B.E EEE", "M.E CSE", "MCA", "OTHER DEGREE"];
@@ -129,6 +130,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
       next: (data) => {
         this.isLoadingProfile = false;
         this.candidateDetails = data['data' as keyof Object] as unknown as Candidate;
+        this.candidateDescription = this.candidateDetails.candidateDescription
         this.candidateResume = this.candidateDetails.candidateResume;
         this.candidatePhoto = this.candidateDetails.candidatePhotoUrl;
         if (this.candidateDetails.candidatePhotoUrl == null) {
@@ -217,7 +219,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
             console.log(error);
           }
         });
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Skill deleted' });
+        this.messageService.add({ severity: 'Skill deleted', summary: ''});
       }
     });
   }
@@ -227,7 +229,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     this.candidateService.AddNewSkill(skill).subscribe({
       next: (data) => {
         this.getSkillsByCandidateId();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Skill Added' });
+        this.messageService.add({ severity: 'success', summary: 'Skill Added', detail: '' });
         this.isLoading = false
         this.onReset()
         this.displayResponsive = false
@@ -244,7 +246,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     this.candidateService.AddNewQualification(qualification).subscribe({
       next: (qualificationData) => {
         this.getQualificationByCandidateId();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Qualification Added' });
+        this.messageService.add({ severity: 'success', summary: 'Qualification Added', detail: '' });
         this.isLoading = false
         this.onReset()
         this.displayResponsiveQualification = false
@@ -345,6 +347,10 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.messageService.add({ severity: 'error', summary: 'Description update failed', detail: '' })
       }
     })
+  }
+
+  openJobPage(jobId: string){
+    this.router.navigate([`candidate/job-detail/${jobId}`]);
   }
 
   get h() {
