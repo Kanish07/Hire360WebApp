@@ -28,7 +28,7 @@ export class HumanResourceProfileComponent implements OnInit {
     this.items = [
       { label: 'My Job', icon: 'pi pi-briefcase', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
-      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/logout" }
+      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({

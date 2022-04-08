@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { ExcelModule, GridModule, PDFModule } from '@progress/kendo-angular-grid';
+import { NgFooterModule } from 'ng-footer';
 
 
 
@@ -35,7 +36,8 @@ let appRoutes:Routes = [
     NgbModule,
     GridModule,
     ExcelModule,
-    PDFModule
+    PDFModule,
+    NgFooterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

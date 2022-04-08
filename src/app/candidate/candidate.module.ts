@@ -10,6 +10,8 @@ import { CandidateJobViewComponent } from './candidate-job-view/candidate-job-vi
 import { NgxGaugeModule } from 'ngx-gauge';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgFooterModule } from 'ng-footer';
+
 
 let candidateRoute: Routes = [
   {path: "login", component: CandidateLoginComponent},
@@ -34,6 +36,7 @@ let candidateRoute: Routes = [
     FormsModule,
     NgxGaugeModule,
     Ng2SearchPipeModule,
+    NgFooterModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ]
 })
