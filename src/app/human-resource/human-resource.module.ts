@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExcelModule, GridDataResult, PDFModule } from "@progress/kendo-angular-grid";
 import { GridModule } from "@progress/kendo-angular-grid";
 import { HumanResourcePostJobComponent } from './human-resource-post-job/human-resource-post-job.component';
+import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 
 
 let humanResourceRoute: Routes = [
@@ -21,7 +22,8 @@ let humanResourceRoute: Routes = [
   { path: "profile", component: HumanResourceProfileComponent },
   { path: "login", component: HumanResourceLoginComponent },
   { path: "register", component: HumanResourceRegisterComponent },
-  { path: "postjob", component: HumanResourcePostJobComponent }
+  { path: "postjob", component: HumanResourcePostJobComponent },
+  { path: "candidateprofile/:id", component : CandidateProfileComponent}
 ]
 
 @NgModule({
@@ -31,7 +33,8 @@ let humanResourceRoute: Routes = [
     HumanResourceProfileComponent,
     HumanResourceLoginComponent,
     HumanResourceRegisterComponent,
-    HumanResourcePostJobComponent
+    HumanResourcePostJobComponent,
+    CandidateProfileComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 <app-navbar [items]="items"></app-navbar>
-<!--  -->
+<div *ngIf="(!isLoadingHr) ;else componentloader">
+
 <div class="container-xl">
     <div class="row mt-3">
         <!-- <div class="row d-flex justify-content-between align-items-center "> -->
@@ -45,10 +46,11 @@
             </div>
         </div>
         <div class="col-lg-8">
-            <button label="New Job" pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-raised p-button-text color p-button-plain">
+            <button label="New Job" pButton pRipple (click)="showDialog()" icon="pi pi-plus"
+                class="p-button-raised p-button-text color p-button-plain">
             </button>
             <p-dialog header="New Job Post Registration" [(visible)]="display" [breakpoints]="{'960px': '75vw'}"
-                [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" class="New Job Post">
+                [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" [modal]="true" class="New Job Post">
                 <form [formGroup]="registerForm">
                     <div class="row mb-4">
                         <div class="col-lg-6 col-md-12 col-sm-12">
@@ -65,8 +67,7 @@
                             <label for="package" class="block text-900 font-medium mb-2">Package </label>
                             <input type="text" formControlName="package"
                                 [ngClass]="{ 'is-invalid': submitted && h['package'].errors }"
-                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control"
-                                pattern="^[0-9]{1,6}$">
+                                placeholder="Enter Your Package" pInputText class="w-full mb-3 input form-control">
                             <div *ngIf="h['package'].touched && h['package'].errors" class="text-danger">
                                 <div *ngIf="h['package'].errors['required']">Package is required</div>
                             </div>
@@ -95,8 +96,10 @@
                         <div class="col col-md-12 col-sm-12">
                             <label for="jobDescription" class="block text-900 font-medium mb-2">Job Description</label>
                             <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="jobDescription"
-                                placeholder="Enter Your Job Description" [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                placeholder="Enter Your Job Description"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
                                 class="form-control w-full mb-3 input"></textarea>
+
 
                             <!-- <input formControlName="jobDescription" type="textarea" pInputTextarea
                                 placeholder="Enter Your Job Description"
@@ -110,7 +113,7 @@
                     </div>
                     <button pButton pRipple label="Post" [disabled]="!registerForm.valid"
                         (click)="onSubmit(registerForm.value)"
-                        class="p-button-raised p-button-text w-full color p-button-plain">
+                        class="p-button-raised p-button-text w-full color p-button-plain newpost">
                         <div *ngIf="!isLoading;else loader">
                         </div>
                         <ng-template #loader>
@@ -139,7 +142,23 @@
             </p-scrollPanel>
         </div>
     </div>
+    </div>
 </div>
 <ng-template #nojob>
     <h3 style="color: #120e43;">No Job in your city at this moment we are working on it.</h3>
+</ng-template>
+
+<ng-template #componentloader>
+    <div class="container" style="margin-top: 30vh;">
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <h2 style="text-align: center; color: #1D2564;">HIRE360</h2>
+                <p-progressBar mode="indeterminate" [style]="{'height': '16px'}"></p-progressBar>
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+    </div>
 </ng-template>

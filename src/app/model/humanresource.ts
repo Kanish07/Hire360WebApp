@@ -8,6 +8,7 @@ export class HumanResource {
     public city!: string;
     public hrdescription!: string;
     public userRole!: string;
+    public createdAt!: string;
 
     constructor() {
     }
