@@ -47,7 +47,7 @@
         </div>
         <div class="col-lg-8">
             <button label="New Job" pButton pRipple (click)="showDialog()" icon="pi pi-plus"
-                class="p-button-raised p-button-text color p-button-plain">
+                class="p-button-raised p-button-text color p-button-plain" type="button" pTooltip="New Job Post">
             </button>
             <p-dialog header="New Job Post Registration" [(visible)]="display" [breakpoints]="{'960px': '75vw'}"
                 [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" [modal]="true" class="New Job Post">
@@ -99,19 +99,13 @@
                                 placeholder="Enter Your Job Description"
                                 [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
                                 class="form-control w-full mb-3 input"></textarea>
-
-
-                            <!-- <input formControlName="jobDescription" type="textarea" pInputTextarea
-                                placeholder="Enter Your Job Description"
-                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
-                                class="form-control w-full mb-3 input"> -->
                             <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
                                 <div *ngIf="h['jobDescription'].errors['required']">Job Description is required</div>
                             </div>
                         </div>
 
                     </div>
-                    <button pButton pRipple label="Post" [disabled]="!registerForm.valid"
+                    <button pButton pRipple label="Post" [disabled]="!registerForm.valid" 
                         (click)="onSubmit(registerForm.value)"
                         class="p-button-raised p-button-text w-full color p-button-plain newpost">
                         <div *ngIf="!isLoading;else loader">

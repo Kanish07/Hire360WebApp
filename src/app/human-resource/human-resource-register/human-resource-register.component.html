@@ -66,11 +66,22 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <label for="companyName" class="block text-900 font-medium mb-2">Company Name</label>
-                            <input formControlName="companyName" type="text" pInputText placeholder="Enter Your Company Name"
+                            <input formControlName="companyName" type="text" pInputText
+                                placeholder="Enter Your Company Name"
                                 [ngClass]="{ 'is-invalid': submitted && h['companyName'].errors}"
                                 class="form-control w-full mb-3 input">
                             <div *ngIf="h['companyName'].touched && h['companyName'].errors" class="text-danger">
                                 <div *ngIf="h['companyName'].errors['required']">Company Name is required</div>
+                            </div>
+                        </div>
+                        <div class="col col-md-12 col-sm-12">
+                            <label for="jobDescription" class="block text-900 font-medium mb-2">Job Description</label>
+                            <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="jobDescription"
+                                placeholder="Enter Your Job Description"
+                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                class="form-control w-full mb-3 input"></textarea>
+                            <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
+                                <div *ngIf="h['jobDescription'].errors['required']">Job Description is required</div>
                             </div>
                         </div>
                     </div>
