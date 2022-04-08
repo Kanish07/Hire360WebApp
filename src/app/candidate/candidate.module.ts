@@ -11,14 +11,15 @@ import { NgxGaugeModule } from 'ngx-gauge';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgFooterModule } from 'ng-footer';
+import { AuthGuard } from '../shared/auth.guard';
 
 
 let candidateRoute: Routes = [
   {path: "login", component: CandidateLoginComponent},
   {path: "register", component: CandidateRegisterComponent},
-  {path: "profile", component: CandidateDashboardComponent},
-  {path: "job-search", component: CandidateJobViewComponent},
-  {path: "job-detail/:id", component: JobDetailsComponent}
+  {path: "profile", component: CandidateDashboardComponent, canActivate: [AuthGuard]},
+  {path: "job-search", component: CandidateJobViewComponent, canActivate: [AuthGuard]},
+  {path: "job-detail/:id", component: JobDetailsComponent, canActivate: [AuthGuard]}
 ]
 
 @NgModule({

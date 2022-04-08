@@ -14,16 +14,17 @@ import { ExcelModule, GridDataResult, PDFModule } from "@progress/kendo-angular-
 import { GridModule } from "@progress/kendo-angular-grid";
 import { HumanResourcePostJobComponent } from './human-resource-post-job/human-resource-post-job.component';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
+import { AuthGuard } from '../shared/auth.guard';
 
 
 let humanResourceRoute: Routes = [
-  { path: "dashboard", component: HumanResourceDashboardComponent },
-  { path: "jobappliedcandidates/:id", component: JobAppliedCandidatesComponent },
-  { path: "profile", component: HumanResourceProfileComponent },
+  { path: "dashboard", component: HumanResourceDashboardComponent, canActivate: [AuthGuard] },
+  { path: "jobappliedcandidates/:id", component: JobAppliedCandidatesComponent, canActivate: [AuthGuard] },
+  { path: "profile", component: HumanResourceProfileComponent, canActivate: [AuthGuard] },
   { path: "login", component: HumanResourceLoginComponent },
   { path: "register", component: HumanResourceRegisterComponent },
-  { path: "postjob", component: HumanResourcePostJobComponent },
-  { path: "candidateprofile/:id", component : CandidateProfileComponent}
+  { path: "postjob", component: HumanResourcePostJobComponent, canActivate: [AuthGuard] },
+  { path: "candidateprofile/:id", component : CandidateProfileComponent, canActivate: [AuthGuard]}
 ]
 
 @NgModule({
