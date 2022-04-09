@@ -18,7 +18,8 @@ import { NgFooterModule } from 'ng-footer';
 let appRoutes:Routes = [
   {path: "", loadChildren: () => import("./home/home.module").then((h) => h.HomeModule)},
   {path: "humanresource", loadChildren: () => import("./human-resource/human-resource.module").then((h) => h.HumanResourceModule)},
-  {path: "candidate", loadChildren: () => import("./candidate/candidate.module").then((c) => c.CandidateModule)}
+  {path: "candidate", loadChildren: () => import("./candidate/candidate.module").then((c) => c.CandidateModule)},
+  {path: "**", redirectTo:"", pathMatch: 'full' }
 ]
 
 @NgModule({

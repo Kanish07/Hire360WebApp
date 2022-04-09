@@ -43,7 +43,7 @@ export class HumanResourceService {
 
   getJobAppliedByJobId(jobId: string): Observable<JobAppliedByJobId> {
     let jobAppliedByJobIdUrl = this.baseUrl + 'GetJobAppliedByJobId/' + `${jobId}`;
-    return this.httpClient.get<JobAppliedByJobId>(jobAppliedByJobIdUrl, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000));
+    return this.httpClient.get<JobAppliedByJobId>(jobAppliedByJobIdUrl, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   getHumanResourceById(hrid: string):Observable<HumanResource>{

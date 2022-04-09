@@ -36,7 +36,7 @@ export class CandidateService {
 
   getQualificationByCandidateId(candidateId: string): Observable<Qualification>{
     let qualificationByCandidateId = this.baseUrl + 'GetQualificationByCandidateId/' + `${candidateId}`;
-    return this.httpClient.get<Qualification>(qualificationByCandidateId, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000));;
+    return this.httpClient.get<Qualification>(qualificationByCandidateId, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   getSkillsByCandidateId(candidateId: string): Observable<Skill>{
@@ -51,7 +51,7 @@ export class CandidateService {
 
   getAllSkillSets(): Observable<SkillSet>{
     let getAllSkillSets = this.baseUrl + 'GetAllSkillSets';
-    return this.httpClient.get<SkillSet>(getAllSkillSets, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000));;
+    return this.httpClient.get<SkillSet>(getAllSkillSets, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   AddNewSkill(skill: Skill): Observable<Skill>{
@@ -76,12 +76,12 @@ export class CandidateService {
 
   getAllJob(): Observable<Job>{
     let getAllJob = this.baseUrl + 'GetAllJobs';
-    return this.httpClient.get<Job>(getAllJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000));
+    return this.httpClient.get<Job>(getAllJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   GetJobByIdCheckIfAlreadyApplied(jobId: string, candidateId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobByIdCheckIfAlreadyApplied/' + `${jobId}` + '/' + `${candidateId}`;
-    return this.httpClient.get<Job>(getSpecificJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000))
+    return this.httpClient.get<Job>(getSpecificJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   applyJob(jobId: string, candidateId: string){
@@ -92,12 +92,12 @@ export class CandidateService {
 
   getFilteredJob(candidateId: string, page: number, lowsal: number, highsal: number, city: string, role: string): Observable<Job>{
     let filterJob = this.baseUrl + `GetAllJobsBasedOnFilter/${candidateId}/${page}` + `?salarylow=${lowsal}&salaryhigh=${highsal}&city=${city}&role=${role}`
-    return this.httpClient.get<Job>(filterJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(2000));
+    return this.httpClient.get<Job>(filterJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(1000));
   }
 
   getJobDetailByJobId(jobId: string): Observable<Job>{
     let getSpecificJob = this.baseUrl + 'GetJobById/' + `${jobId}`;
-    return this.httpClient.get<Job>(getSpecificJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(2000))
+    return this.httpClient.get<Job>(getSpecificJob, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 
   getAppliedJobsByCandidateId(candidateId: string): Observable<Job>{
@@ -107,6 +107,6 @@ export class CandidateService {
 
   updateCandidateDescriptionByCandidateId(candidateId: string, description: string) {
     let updateDescription = this.baseUrl + 'UpdateCandidateDescriptionById/' + `${candidateId}?description=` + `${description}`;
-    return this.httpClient.get(updateDescription, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}}).pipe(delay(2000));
+    return this.httpClient.get(updateDescription, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
 }

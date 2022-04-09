@@ -219,7 +219,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
             console.log(error);
           }
         });
-        this.messageService.add({ severity: 'Skill deleted', summary: ''});
+        this.messageService.add({ severity: 'success', summary:'Skill deleted', detail: ''});
       }
     });
   }
