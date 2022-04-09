@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { Candidate } from 'src/app/model/candidate';
 import { JobAppliedByJobId } from 'src/app/model/jobappliedbyjobid';
 import { Qualification } from 'src/app/model/qualification';
@@ -14,19 +15,14 @@ import { CandidateService } from 'src/app/shared/candidate.service';
   templateUrl: './candidate-dashboard.component.html',
   styleUrls: ['./candidate-dashboard.component.css']
 })
-export class CandidateDashboardComponent implements OnInit, DoCheck {
-
-  items: MenuItem[] = [];
+export class CandidateDashboardComponent implements OnInit, DoCheck, OnDestroy {
+  
   candidateId!: string;
   candidateDetails!: Candidate;
-  candidateQualification: Qualification[] = [];
-  candidateSkills: Skill[] = [];
   photoLink!: string;
   displayResponsive!: boolean;
   addSkillForm!: FormGroup;
-  level!: string[];
   selectedLevel!: string;
-  skillSets: SkillSet[] = [];
   isLoading: boolean = true;
   submitted: boolean = false;
   percentage!: number;
@@ -34,19 +30,26 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   incompleteProfilePercentage!: number;
   skillExsist: number = 0;
   addQualificationForm!: FormGroup;
-  graduationYear!: string[];
-  degree!: string[];
   displayResponsiveQualification!: boolean;
   displayResponsiveDescription!: boolean;
   candidateResume!: string;
   candidatePhoto!: string;
-  uploadedFiles: any[] = [];
   fileName!: string;
   isLoadingSkills: boolean = true;
   isLoadingProfile: boolean = true;
   isLoadingQualfication: boolean = true;
-  jobAppliedByCandidate: JobAppliedByJobId[] = []
   candidateDescription!: string;
+
+  items: MenuItem[] = [];
+  candidateQualification: Qualification[] = [];
+  candidateSkills: Skill[] = [];
+  level!: string[];
+  skillSets: SkillSet[] = [];
+  graduationYear!: string[];
+  degree!: string[];
+  uploadedFiles: any[] = [];
+  jobAppliedByCandidate: JobAppliedByJobId[] = []
+  subscriptions: Subscription[] = [];
 
   //Chart
   gaugeType:string = "full";
@@ -125,8 +128,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
   }
 
   getCandidateById() {
-    //TODO: Handle Error
-    this.candidateService.getCandidateById(this.candidateId).subscribe({
+    var subscription = this.candidateService.getCandidateById(this.candidateId).subscribe({
       next: (data) => {
         this.isLoadingProfile = false;
         this.candidateDetails = data['data' as keyof Object] as unknown as Candidate;
@@ -153,11 +155,11 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         console.error(error);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   getAppliedJobsByCandidateId(){
-    //TODO: Hanlde Error
-    this.candidateService.getAppliedJobsByCandidateId(this.candidateId).subscribe({
+    var subscription = this.candidateService.getAppliedJobsByCandidateId(this.candidateId).subscribe({
       next: (data) => {
         this.isLoading = false;
         this.jobAppliedByCandidate = data['data' as keyof Object] as unknown as JobAppliedByJobId[]
@@ -167,11 +169,11 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         console.error(error);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   getQualificationByCandidateId() {
-    //TODO: Hanlde Error
-    this.candidateService.getQualificationByCandidateId(this.candidateId).subscribe({
+    var subscription = this.candidateService.getQualificationByCandidateId(this.candidateId).subscribe({
       next: (data) => {
         this.isLoadingQualfication = false;
         this.candidateQualification = data['data' as keyof Object] as unknown as Qualification[];
@@ -185,11 +187,11 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         console.error(error);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   getSkillsByCandidateId() {
-    //TODO: Hanlde Error
-    this.candidateService.getSkillsByCandidateId(this.candidateId).subscribe({
+    var subscription = this.candidateService.getSkillsByCandidateId(this.candidateId).subscribe({
       next: (data) => {
         this.isLoadingSkills = false;
         this.candidateSkills = data['data' as keyof Object] as unknown as Skill[];
@@ -202,9 +204,9 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         console.error(error);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
-  //TODO: Hanlde Error
   onSkillDelete(skillId: string) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this skill?',
@@ -224,9 +226,8 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     });
   }
 
-  //TODO: Handle Error
   onAddNewSkill(skill: Skill) {
-    this.candidateService.AddNewSkill(skill).subscribe({
+    var subscription = this.candidateService.AddNewSkill(skill).subscribe({
       next: (data) => {
         this.getSkillsByCandidateId();
         this.messageService.add({ severity: 'success', summary: 'Skill Added', detail: '' });
@@ -239,11 +240,11 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.isLoading = false
       }
     });
+    this.subscriptions.push(subscription);
   }
 
-  //TODO: HANLDE ERROR
   onAddNewQualification(qualification: Qualification) {
-    this.candidateService.AddNewQualification(qualification).subscribe({
+    var subscription = this.candidateService.AddNewQualification(qualification).subscribe({
       next: (qualificationData) => {
         this.getQualificationByCandidateId();
         this.messageService.add({ severity: 'success', summary: 'Qualification Added', detail: '' });
@@ -257,6 +258,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.onReset()
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   onAdd(skill: Skill) {
@@ -296,7 +298,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     const formData = new FormData();
     formData.append('file', fileToUpload, fileName + '.' + fileExtension);
     console.log(formData);
-    this.candidateService.uploadFile(formData, this.candidateId).subscribe({
+    var subscription = this.candidateService.uploadFile(formData, this.candidateId).subscribe({
       next: (data) => {
         this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: 'Resume Uploaded', detail: '' })
@@ -307,6 +309,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.messageService.add({ severity: 'error', summary: 'Resume upload failed', detail: '' })
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   uploadProfilePicture = (files: any) => {
@@ -317,7 +320,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
     const formData = new FormData();
     formData.append('file', fileToUpload, fileName + '.' + fileExtension);
     console.log(formData);
-    this.candidateService.uploadProfilePicture(formData, this.candidateId).subscribe({
+    var subscription = this.candidateService.uploadProfilePicture(formData, this.candidateId).subscribe({
       next: (data) => {
         this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: 'Profile picture uploaded', detail: '' })
@@ -328,11 +331,12 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.messageService.add({ severity: 'error', summary: 'Profile picture upload failed', detail: '' })
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   onAddDescription(){
     this.isLoading = true
-    this.candidateService.updateCandidateDescriptionByCandidateId(this.candidateId, this.candidateDescription).subscribe({
+    var subscription = this.candidateService.updateCandidateDescriptionByCandidateId(this.candidateId, this.candidateDescription).subscribe({
       next: (data) => {
         this.isLoading = false;
         this.messageService.add({ severity: 'success', summary: 'Description updated', detail: '' })
@@ -347,6 +351,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
         this.messageService.add({ severity: 'error', summary: 'Description update failed', detail: '' })
       }
     })
+    this.subscriptions.push(subscription);
   }
 
   openJobPage(jobId: string){
@@ -359,5 +364,13 @@ export class CandidateDashboardComponent implements OnInit, DoCheck {
 
   get q() {
     return this.addQualificationForm.controls;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.map((subscription) => {
+      if (!subscription.closed) {
+        subscription.unsubscribe();
+      }
+    })
   }
 }

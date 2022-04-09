@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { Job } from 'src/app/model/job';
 import { CandidateService } from 'src/app/shared/candidate.service';
 
@@ -9,23 +10,24 @@ import { CandidateService } from 'src/app/shared/candidate.service';
   templateUrl: './candidate-job-view.component.html',
   styleUrls: ['./candidate-job-view.component.css']
 })
-export class CandidateJobViewComponent implements OnInit {
+export class CandidateJobViewComponent implements OnInit, OnDestroy {
 
   isLoading!: boolean;
-  items: MenuItem[] = [];
-  job: Job [] = [];
   searchedKeyword!: string;
-
   lowSalRange: number = 0;
   highSalRange: number = 999999999;
   city: string = "";
   title: string = "";
   page: number = 1;
   count!: number;
+  candidateId!: string;
+
+  items: MenuItem[] = [];
+  job: Job [] = [];
   roleTypeDuplicate: string[] = [];
   roleType: string[] = [];
   allJob: Job[] = [];
-  candidateId!: string;
+  subscriptions: Subscription[] = [];
 
   constructor(private candidateService: CandidateService, private router: Router) { }
 
@@ -44,7 +46,7 @@ export class CandidateJobViewComponent implements OnInit {
   }
 
   getAllJob(){
-    this.candidateService.getAllJob().subscribe({
+    var subscription = this.candidateService.getAllJob().subscribe({
       next: (jobs) => {
         this.allJob = jobs['data' as keyof Object] as unknown as Job[];
         this.allJob.forEach((j) => {
@@ -56,12 +58,12 @@ export class CandidateJobViewComponent implements OnInit {
         console.error(err);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
-  //TODO: Handle Error
   getFilteredJob(){
     this.isLoading = true;
-    this.candidateService.getFilteredJob(this.candidateId ,this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
+    var subscription = this.candidateService.getFilteredJob(this.candidateId ,this.page ,this.lowSalRange, this.highSalRange, this.city, this.title).subscribe({
       next: (jobs) => {
         this.isLoading = false;
         this.job = jobs['data' as keyof Object] as unknown as Job[];
@@ -72,6 +74,7 @@ export class CandidateJobViewComponent implements OnInit {
         console.error(err);
       }
     });
+    this.subscriptions.push(subscription);
   }
 
   openJobPage(jobId: string){
@@ -121,5 +124,13 @@ export class CandidateJobViewComponent implements OnInit {
     this.page = event.page + 1
     this.job = []
     this.getFilteredJob();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.map((subscription) => {
+      if (!subscription.closed) {
+        subscription.unsubscribe();
+      }
+    })
   }
 }
