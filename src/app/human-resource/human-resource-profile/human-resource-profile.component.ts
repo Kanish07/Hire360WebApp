@@ -22,7 +22,9 @@ export class HumanResourceProfileComponent implements OnInit {
   constructor(private router: Router, private humanresourceService: HumanResourceService) { }
 
   ngOnInit(): void {
+    
     this.hrid = localStorage.getItem('id') as string;
+
     this.getHumanResourceById();
 
     this.items = [
@@ -36,7 +38,6 @@ export class HumanResourceProfileComponent implements OnInit {
         this.isLoadingJob = false;
         console.log(data['data' as keyof Object] as unknown as JobAddByHr);
         this.jobAddByHr = data['data' as keyof Object] as unknown as JobAddByHr[];
-        console.log(this.jobAddByHr);
       },
       error: (err) => {
         this.isLoadingJob = false;
@@ -49,7 +50,6 @@ export class HumanResourceProfileComponent implements OnInit {
     this.humanresourceService.getHumanResourceById(this.hrid).subscribe({
       next: (data) => {
         this.isLoadingHR = false;
-        console.log(data);
         this.humanResource = data['data' as keyof Object] as unknown as HumanResource;
       },
       error: (err) => {

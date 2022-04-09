@@ -13,6 +13,7 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
   styleUrls: ['./human-resource-dashboard.component.css']
 })
 export class HumanResourceDashboardComponent implements OnInit {
+  
   public jobAddByHr: JobAddByHr[] = [];
   registerForm!: FormGroup;
   submitted: boolean = false;
@@ -61,10 +62,10 @@ export class HumanResourceDashboardComponent implements OnInit {
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
+
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
       next: (data) => {
         this.isLoadingHr = false;
-        console.log(data['data' as keyof Object] as unknown as JobAddByHr);
         this.jobAddByHr = data['data' as keyof Object] as unknown as JobAddByHr[];
         this.jobAddByHr.forEach((s) => {
           this.kendodata.push({ "kind": s.jobTitle, "share": s.noOfVacancy })
@@ -75,6 +76,7 @@ export class HumanResourceDashboardComponent implements OnInit {
         console.log(err);
       }
     })
+
   }
   get h() {
     return this.registerForm.controls;

@@ -1,5 +1,9 @@
+<!-- Candidate Profile  -->
+<!-- Nav Bar -->
 <app-navbar [items]="items"></app-navbar>
+<!-- Page Loader -->
 <div *ngIf="(!isLoadingCandidate && !isLoadingSkills && !isLoadingQualification) ;else componentloader">
+    <!-- Candidate Profile Content -->
     <section class="section about-section mt-5" id="about">
         <div class="container">
             <div class="row align-items-center flex-row-reverse">
@@ -94,7 +98,8 @@
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
                             <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color"
-                                    icon="pi pi-download" iconPos="right" (click)="downloadMyFile()">
+                                    icon="pi pi-download" iconPos="right" (click)="downloadMyFile()" type="button"
+                                    pTooltip="Click to Download Resume">
                                 </button></h6>
                             <p class="m-0px font-w-600">Download Resume</p>
                         </div>
@@ -102,8 +107,8 @@
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
                             <h6 class="count h2"> <button pButton type="button" label="" class="mr-2 input color">
-                                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{candidate?.candidateEmail}}&su=SUBJECT&body=BODY&tf=1"
-                                        target="_blank"><i class="pi pi-envelope input color"></i></a></button></h6>
+                                    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{candidate?.candidateEmail}}&su=Interview Call {{humanResource?.companyName}}&body=Hi {{candidate?.candidateName}}, We are glad to inform you that you have been shortlisted for the role of {{jobAddByHr[0]?.jobTitle}} &tf=1" target="_blank" type="button" pTooltip="Click to Send E-mail"><i
+                                            class="pi pi-envelope input color"></i></a></button></h6>
                             <p class="m-0px font-w-600">Send E-mail</p>
                         </div>
                     </div>
@@ -111,7 +116,10 @@
             </div>
         </div>
     </section>
+    <!-- Footer -->
+    <ng-footer class="bg-dark" logoUrl="https://hire360.blob.core.windows.net/resume/ks-logo.png"></ng-footer>
 </div>
+<!-- Page Loader Component -->
 <ng-template #componentloader>
     <div class="container" style="margin-top: 30vh;">
         <div class="row">

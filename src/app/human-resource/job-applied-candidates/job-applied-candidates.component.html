@@ -1,13 +1,13 @@
+<!-- Job Applied Candidate -->
+<!-- Nav Bar -->
 <app-navbar [items]="items"></app-navbar>
+<!-- Loader -->
 <div *ngIf="(!isLoadingJobApplied && !isLoadingJobDetails) ;else componentloader">
-
+<!-- Job Applied Candidate Content -->
     <div class="container-xl">
         <div class="row mt-3">
-            <!-- <div class="row d-flex justify-content-between align-items-center "> -->
             <div class="col-lg-4">
                 <div class="card shadow">
-                    <!-- style="width: 25vw;height: 20vh; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;"> -->
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="count card-body">
                         <p class="card-title" style="font-weight: bolder;text-align: center;">No of Candidates Applied
                         </p>
@@ -16,8 +16,6 @@
                     </div>
                 </div>
                 <div class="card mt-3 shadow">
-                    <!-- style="width: 25vw;height: auto; box-shadow:  rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;"> -->
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                     <div class="detail card-body">
                         <h5 class="card-title" style="font-weight: bolder;text-align: center;">Job Detail
                         </h5>
@@ -43,7 +41,7 @@
                 style=" box-shadow:rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;">
                 <kendo-grid [kendoGridBinding]="gridView" kendoGridSelectBy="id" [(selectedKeys)]="mySelection"
                     [pageSize]="6" [pageable]="true" [sortable]="true" [groupable]="true" [reorderable]="true"
-                    [resizable]="true" [height]="650" [columnMenu]="{ filter: true }" >
+                    [resizable]="true" [height]="650" [columnMenu]="{ filter: true }">
                     <ng-template kendoGridToolbarTemplate>
                         <button kendoGridExcelCommand type="button" icon="file-excel">
                             Export to Excel</button>
@@ -51,20 +49,13 @@
                         <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
                     </ng-template>
                     <kendo-grid-column-group title="Job Applied Details" [columnMenu]="false">
-
-                        <kendo-grid-column field="candidate.candidateName" title="Candidate Name" [width]="100" >
-
+                        <kendo-grid-column field="candidate.candidateName" title="Candidate Name" [width]="100">
                         </kendo-grid-column>
-
                         <kendo-grid-column field="candidate.candidateEmail" title="Candidate Email" [width]="100">
-
                         </kendo-grid-column>
-
                         <kendo-grid-column field="candidate.candidatePhoneNumber" title="Candidate Phone Number"
                             [width]="100" filter="numeric">
-
                         </kendo-grid-column>
-
                         <kendo-grid-column title="Actions" [width]="100">
                             <ng-template kendoGridCellTemplate let-dataItem>
                                 <div kendoRippleContainer>
@@ -72,7 +63,6 @@
                                 </div>
                             </ng-template>
                         </kendo-grid-column>
-
                     </kendo-grid-column-group>
                     <kendo-grid-pdf fileName="Candidate.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
                     <kendo-grid-excel fileName="Candidate.xlsx"></kendo-grid-excel>
@@ -80,7 +70,11 @@
             </div>
         </div>
     </div>
+     <!-- Footer -->
+     <br>
+     <ng-footer class="bg-dark" logoUrl="https://hire360.blob.core.windows.net/resume/ks-logo.png"></ng-footer>
 </div>
+<!-- Loader Component -->
 <ng-template #componentloader>
     <div class="container" style="margin-top: 30vh;">
         <div class="row">
