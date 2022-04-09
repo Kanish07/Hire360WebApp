@@ -18,22 +18,21 @@ export class JobAppliedCandidatesComponent implements OnInit {
 
   public jobAppliedByJobId: JobAppliedByJobId[] = [];
   public jobAddByHr: JobAddByHr[] = [];
-  public jobDetail!: Job;
-  public candidateId!: string;
-  public candidate!: Candidate;
+  public mySelection: string[] = [];
+  public items: MenuItem[] = [];
   public gridView!: JobAppliedByJobId[];
+  public jobDetail!: Job;
+  public candidate!: Candidate;
+  public candidateId!: string;
   public jobId!: string;
   public hrid!: string;
-  isLoadingJobApplied: boolean = true;
-  isLoadingJobDetails: boolean = true;
-  items: MenuItem[] = [];
+  public isLoadingJobApplied: boolean = true;
+  public isLoadingJobDetails: boolean = true;
 
   public labelContent(e: any): string {
     return e.category;
   }
   constructor(private humanresourceService: HumanResourceService, private route: Router, private candidateService: CandidateService) { }
-
-  public mySelection: string[] = [];
 
   ngOnInit(): void {
 
@@ -41,6 +40,7 @@ export class JobAppliedCandidatesComponent implements OnInit {
     this.jobId = this.route.url.split('/').pop()!;
     this.candidateId = this.route.url.split('/').pop()!;
 
+    // Get job applied by using job id
     this.humanresourceService.getJobAppliedByJobId(this.jobId).subscribe({
       next: (data) => {
         this.isLoadingJobApplied = false;
@@ -55,6 +55,7 @@ export class JobAppliedCandidatesComponent implements OnInit {
       }
     })
 
+    // Get job detail by uding job id
     this.candidateService.getJobDetailByJobId(this.jobId).subscribe({
       next: (data) => {
         this.isLoadingJobDetails = false;
@@ -74,6 +75,7 @@ export class JobAppliedCandidatesComponent implements OnInit {
 
   }
 
+  // Kendo data Grid using onFilter function
   public onFilter(e: Event): void {
     var inputValue = e.target as HTMLInputElement
     this.gridView = process(this.jobAppliedByJobId, {

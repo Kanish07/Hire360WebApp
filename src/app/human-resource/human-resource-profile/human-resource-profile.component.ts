@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { HumanResource } from 'src/app/model/humanresource';
 import { JobAddByHr } from 'src/app/model/jobaddbyhr';
 import { HumanResourceService } from 'src/app/shared/human-resource.service';
-// 
+
 @Component({
   selector: 'app-human-resource-profile',
   templateUrl: './human-resource-profile.component.html',
@@ -13,16 +13,16 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
 export class HumanResourceProfileComponent implements OnInit {
 
   public humanResource!: HumanResource;
-  hrid!: string;
-  items: MenuItem[] = [];
-  isLoadingJob: boolean = true;
-  isLoadingHR: boolean = true;
+  public hrid!: string;
+  public isLoadingJob: boolean = true;
+  public isLoadingHR: boolean = true;
+  public items: MenuItem[] = [];
   public jobAddByHr: JobAddByHr[] = [];
 
   constructor(private router: Router, private humanresourceService: HumanResourceService) { }
 
   ngOnInit(): void {
-    
+
     this.hrid = localStorage.getItem('id') as string;
 
     this.getHumanResourceById();
@@ -33,10 +33,10 @@ export class HumanResourceProfileComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
+    // Get job added by using Human Resource id
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
       next: (data) => {
         this.isLoadingJob = false;
-        console.log(data['data' as keyof Object] as unknown as JobAddByHr);
         this.jobAddByHr = data['data' as keyof Object] as unknown as JobAddByHr[];
       },
       error: (err) => {
@@ -46,6 +46,7 @@ export class HumanResourceProfileComponent implements OnInit {
     })
   }
 
+  // Get Human resource by using human resource id
   getHumanResourceById() {
     this.humanresourceService.getHumanResourceById(this.hrid).subscribe({
       next: (data) => {

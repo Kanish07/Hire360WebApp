@@ -20,17 +20,17 @@ export class CandidateProfileComponent implements OnInit {
   public candidate!: Candidate;
   public candidateId!: string;
   public humanResource!: HumanResource;
+  public isLoadingSkills: boolean = true;
+  public isLoadingQualification: boolean = true;
+  public isLoadingCandidate: boolean = true;
+  public isLoadingHR: boolean = true;
   public jobAddByHr: JobAddByHr[] = [];
-  isLoadingSkills: boolean = true;
-  isLoadingQualification: boolean = true;
-  isLoadingCandidate: boolean = true;
-  items: MenuItem[] = [];
-  photoLink!: string;
-  candidatePhoto: any;
-  candidateQualification: Qualification[] = [];
-  candidateSkills: Skill[] = [];
-  percentage!: number;
-  isLoadingHR: boolean = true;
+  public candidateQualification: Qualification[] = [];
+  public candidateSkills: Skill[] = [];
+  public items: MenuItem[] = [];
+  public photoLink!: string;
+  public candidatePhoto: any;
+  public percentage!: number;
 
   constructor(private route: Router, private candidateService: CandidateService, private humanresourceService: HumanResourceService) { }
 
@@ -54,6 +54,7 @@ export class CandidateProfileComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
+    // Get candidate using candidate id
     this.candidateService.getCandidateById(this.candidateId).subscribe({
       next: (data) => {
         this.isLoadingCandidate = false;
@@ -72,6 +73,7 @@ export class CandidateProfileComponent implements OnInit {
     })
   }
 
+  // Get qualification using candidate id
   getQualificationByCandidateId() {
     this.candidateService.getQualificationByCandidateId(this.candidateId).subscribe({
       next: (data) => {
@@ -86,6 +88,7 @@ export class CandidateProfileComponent implements OnInit {
     });
   }
 
+  // Get skills using candidate id
   getSkillsByCandidateId() {
     this.candidateService.getSkillsByCandidateId(this.candidateId).subscribe({
       next: (data) => {
@@ -99,6 +102,7 @@ export class CandidateProfileComponent implements OnInit {
     });
   }
 
+  // Download resume using download my file function
   downloadMyFile() {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
@@ -109,6 +113,7 @@ export class CandidateProfileComponent implements OnInit {
     link.remove();
   }
 
+  // Get human resoucre using human resource id
   getHumanResourceById() {
     this.humanresourceService.getHumanResourceById(this.hrid).subscribe({
       next: (data) => {
@@ -122,6 +127,7 @@ export class CandidateProfileComponent implements OnInit {
     })
   }
 
+  // Get job added using human resource id
   getJobAddedByHrId() {
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
       next: (data) => {
