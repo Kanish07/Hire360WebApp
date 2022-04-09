@@ -66,17 +66,7 @@ export class JobAppliedCandidatesComponent implements OnInit {
       }
     })
 
-    // this.candidateService.getCandidateById(this.candidateId).subscribe({
-    //   next: (data) => {
-    //     this.candidate = data['data' as keyof object] as unknown as Candidate;
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // })
-
     this.items = [
-      // { label: 'Candidate', icon: 'pi pi-sign-out', routerLink: "/humanresource/jobappliedcandidates/:id"},
       { label: 'My Job', icon: 'pi pi-fw pi-home', routerLink: "/humanresource/dashboard" },
       { label: 'Profile', icon: 'pi pi-user', routerLink: "/humanresource/profile" },
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
@@ -109,9 +99,9 @@ export class JobAppliedCandidatesComponent implements OnInit {
       },
     }).data;
   }
-  viewHandler(candidateId : string) {
+  viewHandler(candidateId: string) {
     console.log(candidateId);
-    
+
     this.route.navigate([`humanresource/candidateprofile/${candidateId}`]);
   }
 

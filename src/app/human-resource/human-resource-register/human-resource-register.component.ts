@@ -54,7 +54,6 @@ export class HumanResourceRegisterComponent implements OnInit {
       city: [this.selectedCity, [Validators.required]],
       jobDescription: ["",[Validators.required]]
     })
-
     localStorage.clear()
   }
 

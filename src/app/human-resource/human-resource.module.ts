@@ -15,6 +15,7 @@ import { GridModule } from "@progress/kendo-angular-grid";
 import { HumanResourcePostJobComponent } from './human-resource-post-job/human-resource-post-job.component';
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 import { AuthGuard } from '../shared/auth.guard';
+import { NgFooterModule } from 'ng-footer';
 
 
 let humanResourceRoute: Routes = [
@@ -47,7 +48,8 @@ let humanResourceRoute: Routes = [
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     GridModule,
     ExcelModule,
-    PDFModule
+    PDFModule,
+    NgFooterModule
   ]
 })
 export class HumanResourceModule { }
