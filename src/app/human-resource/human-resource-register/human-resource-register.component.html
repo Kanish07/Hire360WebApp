@@ -78,13 +78,13 @@
                             </div>
                         </div>
                         <div class="col col-md-12 col-sm-12">
-                            <label for="jobDescription" class="block text-900 font-medium mb-2">Job Description</label>
+                            <label for="jobDescription" class="block text-900 font-medium mb-2">About me</label>
                             <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="jobDescription"
-                                placeholder="Enter Your Job Description"
+                                placeholder="A description about yourself"
                                 [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
                                 class="form-control w-full mb-3 input"></textarea>
                             <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
-                                <div *ngIf="h['jobDescription'].errors['required']">Job Description is required</div>
+                                <div *ngIf="h['jobDescription'].errors['required']">description is required</div>
                             </div>
                         </div>
                     </div>
@@ -103,4 +103,6 @@
         </div>
     </div>
 </div>
+<br>
+<br>
 <p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>

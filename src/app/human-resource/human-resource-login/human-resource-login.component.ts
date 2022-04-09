@@ -30,6 +30,7 @@ export class HumanResourceLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
+      { label: 'Home', icon: 'pi pi-home', routerLink: "/home" },
       { label: 'Register', icon: 'pi pi-user-plus', routerLink: "/humanresource/register" },
       { label: 'Login', icon: 'pi pi-sign-in', routerLink: "/humanresource/login" }
     ];

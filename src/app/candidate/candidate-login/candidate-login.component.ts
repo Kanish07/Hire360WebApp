@@ -31,6 +31,7 @@ export class CandidateLoginComponent implements OnInit {
   ngOnInit(): void {
 
     this.items = [
+      { label: 'Home', icon: 'pi pi-home', routerLink: "/home" },
       { label: 'Register', icon: 'pi pi-user-plus', routerLink: "/candidate/register" },
       { label: 'Login', icon: 'pi pi-sign-in', routerLink: "/candidate/login" }
     ];
