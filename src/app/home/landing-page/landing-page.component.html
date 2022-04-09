@@ -1,1 +1,52 @@
-<p>landing-page works!</p>
+<div id="multi">
+    <div class="d-flex flex-column h-100">
+        <div class="container">
+            <br>
+            <h1 style="color: #00c293;">HIRE360</h1>
+            <br>
+            <br>
+            <h1 style="color: #120E43;">Matching aspirant with<br></h1>
+            <h1 style="color: #120E43;">recruiters.</h1>
+        </div> 
+        <br><br><br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-4">
+                            <h2 style="color: #120E43;">For Recruiters</h2>
+                            <h5 style="color: #120E43;">
+                                Identify and hire candidates wherever they are.
+                            </h5>
+                            <h5 style="color: #120E43;"><button (click)="hrSignup()" pButton class="p-button-raised p-button-text color p-button-plain p-button">Start Hiring</button></h5>
+                        </div>
+                        <div class="col-4">
+                            <h2 style="color: #120E43;">For Aspirants</h2>
+                            <h5 style="color: #120E43;">
+                                Apply for Jobs, Prepare for Interviews and get hired.
+                            </h5>
+                            <h5 style="color: #120E43;"><button (click)="candidateSignup()" pButton class="p-button-raised p-button-text color p-button-plain p-button">Sign Up & Apply</button></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-footer class="fixed-bottom" logoUrl="https://hire360.blob.core.windows.net/resume/ks-logo.png"></ng-footer>
+<style>
+    h1,
+    h5,
+    h2,
+    img {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+</style>

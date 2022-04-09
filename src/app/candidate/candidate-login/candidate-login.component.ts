@@ -63,7 +63,7 @@ export class CandidateLoginComponent implements OnInit {
         localStorage.setItem("token", candidateData.token)
         localStorage.setItem("name", candidateData.username)
         localStorage.setItem("role", candidateData.role.toString())
-        this.router.navigate(['candidate/profile'], {replaceUrl: true})
+        this.router.navigate(['candidate/job-search'], {replaceUrl: true})
       },
       error: (errorData) => {
         console.log(errorData);

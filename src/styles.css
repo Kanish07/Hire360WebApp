@@ -34,7 +34,17 @@ p-paginator .p-paginator{
    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
-.d-md-flex{
+/* .d-md-flex{
    background-color: #00C293 !important;
    color: white;
+} */
+
+#multi{
+   background-image: url('assets/Hire30 Bg.png');
+   background-size: cover;
+   background-color: #FFFFFF;
+   background-position: center;
+   background-repeat: repeat;
+   background-attachment: fixed;
+   height: calc(100vh - 60px);
 }
