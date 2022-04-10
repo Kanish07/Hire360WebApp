@@ -102,8 +102,6 @@ export class JobAppliedCandidatesComponent implements OnInit {
     }).data;
   }
   viewHandler(candidateId: string) {
-    console.log(candidateId);
-
     this.route.navigate([`humanresource/candidateprofile/${candidateId}`]);
   }
 

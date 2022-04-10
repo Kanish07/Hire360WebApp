@@ -14,11 +14,11 @@ export class LandingPageComponent implements OnInit {
   }
 
   hrSignup(){
-    this.router.navigateByUrl("/humanresource/register");
+    this.router.navigateByUrl("/humanresource/login");
   }
 
   candidateSignup(){
-    this.router.navigateByUrl("/candidate/register");
+    this.router.navigateByUrl("/candidate/login");
   }
 
 }

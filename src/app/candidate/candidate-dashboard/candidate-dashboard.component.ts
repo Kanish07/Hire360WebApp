@@ -297,7 +297,6 @@ export class CandidateDashboardComponent implements OnInit, DoCheck, OnDestroy {
     let fileExtension:string = fileToUpload.name.split('?')[0].split('.').pop() || '';
     const formData = new FormData();
     formData.append('file', fileToUpload, fileName + '.' + fileExtension);
-    console.log(formData);
     var subscription = this.candidateService.uploadFile(formData, this.candidateId).subscribe({
       next: (data) => {
         this.isLoading = false;
@@ -319,7 +318,6 @@ export class CandidateDashboardComponent implements OnInit, DoCheck, OnDestroy {
     let fileExtension:string = fileToUpload.name.split('?')[0].split('.').pop() || '';
     const formData = new FormData();
     formData.append('file', fileToUpload, fileName + '.' + fileExtension);
-    console.log(formData);
     var subscription = this.candidateService.uploadProfilePicture(formData, this.candidateId).subscribe({
       next: (data) => {
         this.isLoading = false;

@@ -54,7 +54,7 @@ export class HumanResourceRegisterComponent implements OnInit {
       hrphoneNumber: ["", [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       companyName: ["", [Validators.required]],
       city: [this.selectedCity, [Validators.required]],
-      jobDescription: ["", [Validators.required]]
+      jobdescription: ["", [Validators.required]]
     })
     localStorage.clear()
   }

@@ -76,8 +76,6 @@ export class JobDetailsComponent implements OnInit {
         this.isLoadingComp = false
         this.jobDetail = data['data' as keyof Object]['job' as keyof Object] as unknown as Job;
         this.jobAlreadyApplied = data['data' as keyof Object]['isApplied' as keyof Object] as unknown as string;
-        console.log(this.jobDetail);
-        console.log(this.jobAlreadyApplied);
       },
       error: (error) => {
         this.isLoadingComp = false
@@ -91,7 +89,6 @@ export class JobDetailsComponent implements OnInit {
       next: (data) => {
         this.isLoading = false
         this.totalApplications = data['data' as keyof Object].length;
-        console.log(this.totalApplications);
       },
       error: (error) => {
         this.isLoading = false
@@ -102,32 +99,24 @@ export class JobDetailsComponent implements OnInit {
 
   ApplyJob() {
     this.isLoadingJobApply = true;
-    if (this.count >= 5) {
-      this.notyf.error({
-        message: 'Job limit reached please Upgrade you plan!',
-        duration: 5000
-      })
-    } else {
-      this.candidateService.applyJob(this.jobId, this.candidateId).subscribe({
-        next: (data) => {
-          this.isLoadingJobApply = false
-          this.notyf.success({
-            message: 'Job Applied',
-            duration: 5000,
-            background: "#00c293"
-          })
-          this.getJobDetail()
-        },
-        error: (error) => {
-          this.isLoadingJobApply = false
-          console.error(error);
-          this.notyf.error({
-            message: 'Job Apply Failed',
-            duration: 5000
-          })
-        }
-      });
-    }
+    this.candidateService.applyJob(this.jobId, this.candidateId).subscribe({
+      next: (data) => {
+        this.isLoadingJobApply = false
+        this.notyf.success({
+          message: 'Job Applied',
+          duration: 5000,
+          background: "#00c293"
+        })
+        this.getJobDetail()
+      },
+      error: (error) => {
+        this.isLoadingJobApply = false
+        console.error(error);
+        this.notyf.error({
+          message: 'Job Apply Failed',
+          duration: 5000
+        })
+      }
+    });
   }
-
 }

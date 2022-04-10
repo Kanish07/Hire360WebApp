@@ -12,14 +12,9 @@ import { Token } from '../model/token';
 })
 export class HumanResourceService {
   baseUrl = environment.baseUrl;
-  httpHeader!: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
-    var token = localStorage.getItem('token');
-    this.httpHeader = new HttpHeaders({
-      "Authorization": `Bearer ${token}`
-    })
-   }
+  }
 
   //  Human Resource Login
   hrLogin(humanresource: HumanResource): Observable<Token> {
