@@ -13,17 +13,17 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
 })
 export class HumanResourceRegisterComponent implements OnInit {
 
-  registerForm!: FormGroup;
-  submitted: boolean = false;
-  isLoading: boolean = false;
-  cities!: string[];
-  experience!: string[];
-  selectedCity!: string;
-  selectedExperience!: string;
-  items: MenuItem[] = [];
-  logo!: string;
-  notyf = new Notyf({
-    duration:5000,
+  public submitted: boolean = false;
+  public isLoading: boolean = false;
+  public items: MenuItem[] = [];
+  public cities!: string[];
+  public experience!: string[];
+  public registerForm!: FormGroup;
+  public logo!: string;
+  public selectedCity!: string;
+  public selectedExperience!: string;
+  public notyf = new Notyf({
+    duration: 5000,
     position: {
       x: 'right',
       y: 'top',
@@ -46,14 +46,15 @@ export class HumanResourceRegisterComponent implements OnInit {
     ];
 
     this.primengConfig.ripple = true;
+
     this.registerForm = this.formBuilder.group({
       hrname: ["", [Validators.required]],
       hremail: ["", [Validators.required]],
       hrpassword: ["", [Validators.required]],
       hrphoneNumber: ["", [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      companyName: ["",[Validators.required]],
+      companyName: ["", [Validators.required]],
       city: [this.selectedCity, [Validators.required]],
-      jobDescription: ["",[Validators.required]]
+      jobDescription: ["", [Validators.required]]
     })
     localStorage.clear()
   }
@@ -62,8 +63,10 @@ export class HumanResourceRegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  // Register new Human Resource using onSubmit function
   onSubmit(humanresource: HumanResource) {
     this.isLoading = true;
+    // Human resource registration 
     this.humanresourceService.hrRegistration(humanresource).subscribe({
       next: () => {
         this.isLoading = false;

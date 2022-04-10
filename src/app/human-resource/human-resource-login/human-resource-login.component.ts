@@ -12,20 +12,20 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
   styleUrls: ['./human-resource-login.component.css']
 })
 export class HumanResourceLoginComponent implements OnInit {
-  
-  hrlogInForm!: FormGroup;
-  submitted: boolean = false;
-  isLoading: boolean = false;
-  items: MenuItem[] = [];
-  notyf = new Notyf({
-    duration:3000,
+
+  public hrlogInForm!: FormGroup;
+  public submitted: boolean = false;
+  public isLoading: boolean = false;
+  public items: MenuItem[] = [];
+  public notyf = new Notyf({
+    duration: 3000,
     position: {
       x: 'right',
       y: 'top',
     },
     dismissible: true
   });
-  
+
   constructor(private formBuilder: FormBuilder, private primengConfig: PrimeNGConfig, private messageService: MessageService, private router: Router, private humanresourceService: HumanResourceService) { }
 
   ngOnInit(): void {
@@ -41,15 +41,16 @@ export class HumanResourceLoginComponent implements OnInit {
       email: ["", [Validators.required]],
       password: ["", [Validators.required, Validators.minLength(6)]]
     })
-
     localStorage.clear()
   }
   get h() {
     return this.hrlogInForm.controls;
   }
 
+  // Login human resource using onsubmit function
   onSubmit(humanresource: HumanResource) {
     this.isLoading = true;
+    // Human resource Login
     this.humanresourceService.hrLogin(humanresource).subscribe({
       next: (humanresourceData) => {
         this.notyf.success({

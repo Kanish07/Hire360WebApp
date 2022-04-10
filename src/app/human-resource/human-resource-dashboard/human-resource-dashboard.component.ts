@@ -13,20 +13,21 @@ import { HumanResourceService } from 'src/app/shared/human-resource.service';
   styleUrls: ['./human-resource-dashboard.component.css']
 })
 export class HumanResourceDashboardComponent implements OnInit {
-  
+
   public jobAddByHr: JobAddByHr[] = [];
-  registerForm!: FormGroup;
-  submitted: boolean = false;
-  isLoading: boolean = false;
-  isLoadingHr: boolean = true;
-  cities!: string[];
-  selectedCity!: string;
-  display: boolean = false;
-  items: MenuItem[] = [];
-  hrid!: string;
+  public items: MenuItem[] = [];
+  public cities!: string[];
+  public kendodata: any[] = [];
+  public registerForm!: FormGroup;
+  public selectedCity!: string;
+  public hrid!: string;
   public autofit = true;
-  notyf = new Notyf({
-    duration:5000,
+  public submitted: boolean = false;
+  public isLoading: boolean = false;
+  public isLoadingHr: boolean = true;
+  public display: boolean = false;
+  public notyf = new Notyf({
+    duration: 5000,
     position: {
       x: 'right',
       y: 'top',
@@ -43,7 +44,6 @@ export class HumanResourceDashboardComponent implements OnInit {
     this.cities = ["Coimbatore", "Bengaluru", "Chennai"];
   }
 
-  public kendodata: any[] = [];
   ngOnInit(): void {
     this.hrid = localStorage.getItem('id') as string;
     this.hrid = localStorage.getItem('id') as string;
@@ -63,6 +63,7 @@ export class HumanResourceDashboardComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', routerLink: "/humanresource/login" }
     ];
 
+    // Get job added using Human resource id
     this.humanresourceService.getJobAddedByHrId(this.hrid).subscribe({
       next: (data) => {
         this.isLoadingHr = false;
@@ -82,8 +83,10 @@ export class HumanResourceDashboardComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  // Post new job onsubmit function
   onSubmit(jobposted: JobPosted) {
     this.isLoading = true;
+    //Add new job 
     this.humanresourceService.postAddnewjob(jobposted).subscribe({
       next: () => {
         this.isLoading = false;
