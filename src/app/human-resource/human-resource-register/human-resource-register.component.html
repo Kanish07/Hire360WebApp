@@ -78,13 +78,13 @@
                             </div>
                         </div>
                         <div class="col col-md-12 col-sm-12">
-                            <label for="jobDescription" class="block text-900 font-medium mb-2">About me</label>
-                            <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="jobDescription"
+                            <label for="hrdescription" class="block text-900 font-medium mb-2">About me</label>
+                            <textarea [rows]="5" [cols]="30" pInputTextarea formControlName="hrdescription"
                                 placeholder="A description about yourself"
-                                [ngClass]="{ 'is-invalid': submitted && h['jobDescription'].errors}"
+                                [ngClass]="{ 'is-invalid': submitted && h['hrdescription'].errors}"
                                 class="form-control w-full mb-3 input"></textarea>
-                            <div *ngIf="h['jobDescription'].touched && h['jobDescription'].errors" class="text-danger">
-                                <div *ngIf="h['jobDescription'].errors['required']">description is required</div>
+                            <div *ngIf="h['hrdescription'].touched && h['hrdescription'].errors" class="text-danger">
+                                <div *ngIf="h['hrdescription'].errors['required']">description is required</div>
                             </div>
                         </div>
                     </div>

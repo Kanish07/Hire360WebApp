@@ -98,8 +98,8 @@
             </div>
             <div *ngIf="!isLoading;else skeleton">
             </div>
-            <ng-template #noJobFound>
-                <div class="card-body">
+            <ng-template  #noJobFound>
+                <div *ngIf="!isLoading" class="card-body">
                     No Jobs Found
                 </div>
             </ng-template>
@@ -145,7 +145,7 @@
             </div>
         </div>
 
-            <p-paginator class="shadow" [rows]="10" [totalRecords]="count" (onPageChange)="paginate($event)">
+            <p-paginator class="shadow" [rows]="5" [totalRecords]="count" (onPageChange)="paginate($event)">
             </p-paginator>
             <br>
             <br>

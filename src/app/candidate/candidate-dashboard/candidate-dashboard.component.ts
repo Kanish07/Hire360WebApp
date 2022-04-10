@@ -60,7 +60,7 @@ export class CandidateDashboardComponent implements OnInit, DoCheck, OnDestroy {
 
   constructor(private candidateService: CandidateService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
     this.level = ["Beginner", "Intermediate", "Pro"];
-    this.graduationYear = ["Before 2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+    this.graduationYear = ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
     this.degree = ["B.E CSE", "B.E ECE", "B.E EEE", "M.E CSE", "MCA", "OTHER DEGREE"];
   }
 

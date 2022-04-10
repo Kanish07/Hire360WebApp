@@ -9,15 +9,14 @@
             <div class="col-lg-4">
                 <div class="card shadow">
                     <div class="job card-body">
-                        <p class="card-text" style="font-weight: bolder;text-align: center;">No of Job Posted</p>
+                        <p class="card-text" style="font-weight: bolder;text-align: center;">Jobs Posted</p>
                         <h1 class="card-text" style="font-weight: bolder; font-size: 50px; text-align: center;">
                             {{jobAddByHr?.length}}</h1>
                     </div>
                 </div>
                 <div class="card mt-3 shadow">
                     <div class="vacancies card-body">
-                        <p class="card-text" style="font-weight: bolder;text-align: center;">No of vacancies in Job
-                            Posted
+                        <p class="card-text" style="font-weight: bolder;text-align: center;">Vacancies in Job Posted
                         </p>
                         <div class="card-text">
                             <kendo-chart>
@@ -130,6 +129,7 @@
                             *ngFor="let c of jobAddByHr">
                             <div class="card-body">
                                 <h5 class="card-title">{{c.jobTitle}}</h5>
+                                <h6>Posted on {{c.createdAt | date}}</h6>
                                 <hr>
                                 <p class="card-text line-clamp">{{c.jobDescription}}</p>
                                 <button type="button" class=" btn btn" (click)="viewJob(c.jobId)">View</button>

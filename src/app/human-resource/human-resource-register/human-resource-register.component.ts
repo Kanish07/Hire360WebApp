@@ -54,7 +54,7 @@ export class HumanResourceRegisterComponent implements OnInit {
       hrphoneNumber: ["", [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       companyName: ["", [Validators.required]],
       city: [this.selectedCity, [Validators.required]],
-      jobdescription: ["", [Validators.required]]
+      hrdescription: ["", [Validators.required]]
     })
     localStorage.clear()
   }
@@ -75,7 +75,7 @@ export class HumanResourceRegisterComponent implements OnInit {
           duration: 5000,
           background: "#00c293"
         })
-        this.messageService.add({ severity: 'success', summary: 'Registered Successfully', detail: "" });
+        this.route.navigateByUrl("/humanresource/login");
         this.onReset()
       },
       error: (error) => {
