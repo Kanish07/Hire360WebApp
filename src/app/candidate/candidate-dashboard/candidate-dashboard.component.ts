@@ -113,7 +113,6 @@ export class CandidateDashboardComponent implements OnInit, DoCheck, OnDestroy {
     this.displayResponsiveDescription = true;
   }
 
-  //TODO: Hanlde Error
   getAllSkillSets() {
     this.candidateService.getAllSkillSets().subscribe({
       next: (data) => {
