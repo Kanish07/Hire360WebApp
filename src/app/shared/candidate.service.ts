@@ -109,4 +109,14 @@ export class CandidateService {
     let updateDescription = this.baseUrl + 'UpdateCandidateDescriptionById/' + `${candidateId}?description=` + `${description}`;
     return this.httpClient.get(updateDescription, {headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}});
   }
+
+  sendOtp(candidate: Candidate){
+    let opt = this.baseUrl + 'sendotp';
+    return this.httpClient.post(opt, candidate);
+  }
+
+  changePassword(candidateData: any){
+    let changePassword = this.baseUrl + 'resetpassword';
+    return this.httpClient.post(changePassword, candidateData);
+  }
 }

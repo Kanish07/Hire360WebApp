@@ -16,6 +16,7 @@ import { HumanResourcePostJobComponent } from './human-resource-post-job/human-r
 import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
 import { AuthGuard } from '../shared/auth.guard';
 import { NgFooterModule } from 'ng-footer';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 let humanResourceRoute: Routes = [
@@ -24,6 +25,7 @@ let humanResourceRoute: Routes = [
   { path: "profile", component: HumanResourceProfileComponent, canActivate: [AuthGuard] },
   { path: "login", component: HumanResourceLoginComponent },
   { path: "register", component: HumanResourceRegisterComponent },
+  { path: "forgotpassword", component: ForgotPasswordComponent},
   { path: "postjob", component: HumanResourcePostJobComponent, canActivate: [AuthGuard] },
   { path: "candidateprofile/:id", component : CandidateProfileComponent, canActivate: [AuthGuard]}
 ]
@@ -36,7 +38,8 @@ let humanResourceRoute: Routes = [
     HumanResourceLoginComponent,
     HumanResourceRegisterComponent,
     HumanResourcePostJobComponent,
-    CandidateProfileComponent
+    CandidateProfileComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

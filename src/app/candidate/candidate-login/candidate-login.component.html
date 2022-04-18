@@ -40,6 +40,8 @@
                             Password must be at least 6 characters
                         </div>
                     </div>
+                    <a class="font-medium no-underline ml-2 cursor-pointer text-color" routerLink="/candidate/forgot-password">Forgot Password</a>
+                    <br>
                     <br>
                 <button label="Login" pButton pRipple [disabled]="!logInForm.valid"
                 (click)="onSubmit(logInForm.value)" class="p-button-raised p-button-text w-full color p-button-plain">

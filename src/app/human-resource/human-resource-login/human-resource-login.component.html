@@ -34,10 +34,13 @@
                             Password must be at least 6 characters
                         </div>
                     </div>
-                    <br>
+                    <div class="text-center mb-5">
+                        <a class="font-medium no-underline ml-2 cursor-pointer text-color"
+                            routerLink="/humanresource/forgotpassword">Forgot Password </a>
+                    </div>
                     <button label="Login" pButton pRipple [disabled]="!hrlogInForm.valid"
                         (click)="onSubmit(hrlogInForm.value)"
-                        class="p-button-raised p-button-text w-full color p-button-plain">
+                        class="p-button-raised p-button-text w-full color p-button-plain ">
                         <div *ngIf="!isLoading;else loader">
                         </div>
                         <ng-template #loader>
